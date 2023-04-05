@@ -91,7 +91,9 @@ def reactNativeArchitectures() {
 android {
     ndkVersion rootProject.ext.ndkVersion
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    //compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion 33
+    buildToolsVersion "33.0.2"
 
     namespace "com.app"
     defaultConfig {
