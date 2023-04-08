@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import type {PropsWithChildren,} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -25,94 +25,90 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+import color from './src/constants/color';
+import Sentence from './src/components/sentence';
+import Title from './src/components/title';
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+export default function App() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <Title text={'Lịch sử nói'}></Title>
+      <View style={styles.searchBarContainer}>
+        <View style={styles.searchBar}>
+          <View style={styles.searchIconContainer}></View>
+          <View style={styles.searchTextContainer}>
+            <Text>Tìm kiếm</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.contentContainer}>
+        <ScrollView>
+          <Sentence text={'xin chào'}></Sentence>
+          <Sentence text={'Bạn khỏe k'}></Sentence>
+          <Sentence text={'abcdègh'}></Sentence>
+        </ScrollView>
+      </View>
+        
     </View>
   );
 }
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container : {
+    flex: 1,
+    backgroundColor: color.background,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  titleContainer : {
+    flex: 1,
+    backgroundColor: color.title,
+    flexDirection: 'row',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  searchBarContainer: {
+    flex: 1,
+    backgroundColor: color.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: '10%',
+    paddingVertical: '1%',
   },
-  highlight: {
-    fontWeight: '700',
+  contentContainer: {
+    flex: 8,
+    backgroundColor: color.background,
   },
-});
-
-export default App;
+  backButtonContainer: {
+    flex: 1,
+    backgroundColor: color.lightText,
+  },
+  settingButtonContainer: {
+    flex: 1,
+    backgroundColor: color.lightText,
+  },
+  titleTextContainer: {
+    flex: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleText: {
+    color: color.text,
+    fontSize: 32,
+    fontWeight: 'bold',
+  },
+  searchIconContainer: {
+    flex: 1,
+    backgroundColor: color.lightText,
+    borderRadius: 20,
+  },
+  searchTextContainer: {
+    flex: 9,
+    justifyContent: 'center',
+    paddingLeft: 5,
+  },
+  searchBar: {
+    width: '100%',
+    height: '45%',
+    borderColor: color.text,
+    borderRadius: 20,
+    borderWidth: 1,
+    flexDirection: 'row',
+  }
+})
