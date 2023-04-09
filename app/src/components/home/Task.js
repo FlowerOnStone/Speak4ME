@@ -17,8 +17,7 @@ export class Task extends Component {
                         <Text>
                             <Icon name="edit" color="#000000" type = "solid" size={20} />
                             <Text style = {styles.textBody}>
-                                {'\t\t'}
-                                Soạn thảo văn bản
+                                {'  Soạn thảo văn bản'}
                             </Text>
                         </Text>
                     </View>
@@ -28,8 +27,7 @@ export class Task extends Component {
                         <Text>
                             <Icon name="history" color="#000000" type = "solid" size={20} />
                             <Text style = {styles.textBody}>
-                                {'\t\t'}
-                                Lịch sử soạn thảo văn bản
+                                {'  Lịch sử soạn thảo văn bản'}
                             </Text>
                         </Text>
                     </View>
@@ -39,8 +37,7 @@ export class Task extends Component {
                         <Text>
                             <Icon name="comments" color="#000000" type = "solid" size={20} />
                             <Text style = {styles.textBody}>
-                                {'\t\t'}
-                                Các câu giao tiếp thông dụng
+                                {'  Các câu giao tiếp thông dụng'}
                             </Text>
                         </Text>
                     </View>
@@ -50,8 +47,7 @@ export class Task extends Component {
                         <Text>
                             <Icon name="comment-alt" color="#000000" type = "solid" size={20} />
                             <Text style = {styles.textBody}>
-                                {'\t\t'}
-                                Chuẩn bị trước văn bản
+                                {'  Chuẩn bị trước văn bản'}
                             </Text>
                         </Text>
                     </View>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-import Main from './src/components/home/Main'
+import Main from './src/components/history/Main'
 
 export default function App() {
     return (
