@@ -22,19 +22,18 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 10,
         paddingHorizontal: '3%',
         paddingVertical: '2%',
-        borderTopWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
+        borderStyle: "solid",
+        borderWidth: 1,
         borderColor: color.text,
     },
     addBox: {
         width: '100%',
         height: '25%',
-        backgroundColor: color.frame,
         flexDirection: 'row',
     },
     itemBox: {
         flex: 4,
+        top: -2, 
         backgroundColor: color.frame,
         borderBottomWidth: 1,
         borderRightWidth: 1,
@@ -43,18 +42,36 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 10,
         flexDirection: 'row',
         paddingHorizontal: '2%',
+        zIndex: 2
     },
     blankBox: {
         flex: 6,
-        backgroundColor: color.background,
-        borderTopWidth: 1,
-        borderColor: color.text,
         borderTopLeftRadius: 10,
-      //  borderTopRightRadius: 10,
+        borderTopRightRadius: 10,
+        zIndex: 1
+    },
+    backgroundBox: {
+        padding: 0,
+        width: 12,
+        height: 12,
+        borderStyle: "solid", 
+        zIndex: 2, 
+        right: 18,
+        backgroundColor: color.frame, 
+    }, 
+    cycleBox: {
+        padding: 0,
+        borderTopWidth: 1,
+        borderRightWidth: 1, 
+        width: 12,
+        height: 12, 
+        borderTopRightRadius: 12,
+        zIndex: 3,
+        backgroundColor: color.background,
+        borderStyle: "solid",
     },
     iconBox: {
         flex: 1,
-        backgroundColor: color.background,
     }
 })
 
