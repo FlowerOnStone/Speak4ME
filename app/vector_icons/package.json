@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "vector_icons",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,9 +11,7 @@
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-native": "0.71.6",
-    "react-native-svg": "^13.9.0",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native": "0.71.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
