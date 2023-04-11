@@ -1,7 +1,9 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 
 import styles from './style'
+import { Icon } from '../icons/icon-tag'
+import historyIcon from '../icons/history-icon'
 
 const Paragraph = (props) => {
   return (
@@ -14,11 +16,11 @@ const Paragraph = (props) => {
             </View>
             <View style={styles.itemBox}>
                 <View style={styles.backgroundBox}>
-                    <View style={styles.cycleBox}>
-                          
-                    </View>
+                    <View style={styles.cycleBox} />
                 </View>
-                <View style={styles.iconBox}></View>
+                <TouchableOpacity style={styles.iconBox}>
+                    <Icon icon={historyIcon}/>
+                </TouchableOpacity>
                 <View style={styles.iconBox}></View>
                 <View style={styles.iconBox}></View>
             </View>

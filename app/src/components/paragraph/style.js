@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         height: 375,
         paddingHorizontal: '10%',
         paddingTop: '3%',
-        paddingBottom: '7%',
+        paddingBottom: '10%',
         alignItems: 'center',
     },
     text: {
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     addBox: {
         width: '100%',
-        height: '8%',
+        height: '10%',
         flexDirection: 'row',
     },
     itemBox: {
