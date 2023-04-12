@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -23,40 +23,40 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationEvents } from 'react-navigation';
+import { useRoute } from '@react-navigation/native';
 
 import color from '../constants/color';
 import Sentence from '../components/sentence';
 
-export default function History() {
+
+export default function History({ route, navigation }) {
+
+  const { sentences } = route.params;
+
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchBarContainer}>
-        <View style={styles.searchBar}>
-          <View style={styles.searchIconContainer}></View>
-          <View style={styles.searchTextContainer}>
-            <Text>Tìm kiếm</Text>
-          </View>
-        </View>
-      </View>
       <View style={styles.contentContainer}>
         <ScrollView>
-          <Sentence text={'xin chào'}></Sentence>
-          <Sentence text={'Bạn khỏe k'}></Sentence>
-          <Sentence text={'abcdègh'}></Sentence>
+          {
+            sentences.map((sentence, index) => (
+            <Sentence key={index} text={sentence} />
+          ))}
         </ScrollView>
       </View>
-        
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container : {
+  container: {
     flex: 1,
     backgroundColor: color.background,
   },
-  titleContainer : {
+  titleContainer: {
     flex: 1,
     backgroundColor: color.title,
     flexDirection: 'row',
