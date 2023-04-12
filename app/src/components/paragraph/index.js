@@ -6,6 +6,7 @@ import { Icon } from '../icons/icon-tag'
 import historyIcon from '../icons/history-icon'
 
 const Paragraph = (props) => {
+    const { onPress } = props;
   return (
     <View style={styles.container}>
         <View style={styles.textBox}>  
@@ -18,7 +19,7 @@ const Paragraph = (props) => {
                 <View style={styles.backgroundBox}>
                     <View style={styles.cycleBox} />
                 </View>
-                <TouchableOpacity style={styles.iconBox}>
+                <TouchableOpacity style={styles.iconBox} onPress={onPress}>
                     <Icon icon={historyIcon}/>
                 </TouchableOpacity>
                 <View style={styles.iconBox}></View>

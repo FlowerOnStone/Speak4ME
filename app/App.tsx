@@ -15,6 +15,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import History from './src/views/history';
 import Editor from './src/views/editor';
+import screens from './screens';
 import color from './src/constants/color';
 
 function HistoryScreen() {
@@ -48,11 +49,14 @@ function App() {
           headerTitleAlign: 'center'
         }}
       >
-        <Stack.Screen
-          name="Editor"
-          component={EditorScreen}
-          options={{ title: 'Soạn thảo' }}
-        />
+        {screens.map((screen) => (
+          <Stack.Screen
+            key={screen.name}
+            name={screen.name}
+            component={screen.component}
+            options={screen.options}
+          />
+        ))}
       </Stack.Navigator>
     </NavigationContainer>
   );

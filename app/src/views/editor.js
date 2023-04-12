@@ -28,11 +28,19 @@ import color from '../constants/color';
 import Paragraph from '../components/paragraph';
 import SuggestionBox from '../components/suggestionbox';
 
+import { useNavigation } from '@react-navigation/native';
+import screens from '../../screens';
+
 export default function Editor() {
+
+  const navigation = useNavigation();
+  const handleIconPress = () => {
+    navigation.navigate('HistoryScreen');
+  }
 
   return (
     <View style={styles.container}>
-        <Paragraph />
+        <Paragraph onPress={handleIconPress} />
         <SuggestionBox />        
     </View>
   );
