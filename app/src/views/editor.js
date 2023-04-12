@@ -47,11 +47,16 @@ export default function Editor(props) {
     navigation.navigate('HistoryScreen', { sentences });
   };
 
+  const handleViewCommon = () => {
+    navigation.navigate('CommonScreen');
+  };
+
   return (
     <View style={styles.container}>
         <Paragraph 
           onSpeakButtonClick={handleSave} 
           onViewHistoryClick={handleViewHistory}
+          onViewCommonClick={handleViewCommon}
         />
         <SuggestionBox />        
     </View>

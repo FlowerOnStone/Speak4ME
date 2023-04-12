@@ -5,11 +5,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: color.background,
         width: '100%',
-        height: 375,
+        height: 240,
         paddingHorizontal: '10%',
-        paddingTop: '3%',
-        paddingBottom: '10%',
-        alignItems: 'center',
+        paddingVertical: '5%',
     },
     text: {
         color: color.text,
@@ -17,7 +15,7 @@ const styles = StyleSheet.create({
     },
     textBox: {
         width: '100%',
-        height: '100%',
+        height: '82%',
         backgroundColor: color.frame,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
@@ -30,11 +28,11 @@ const styles = StyleSheet.create({
     },
     addBox: {
         width: '100%',
-        height: '10%',
+        height: '18%',
         flexDirection: 'row',
     },
     itemBox: {
-        flex: 5,
+        flex: 4,
         top: -2, 
         backgroundColor: color.frame,
         borderBottomWidth: 1,
@@ -44,11 +42,10 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 10,
         flexDirection: 'row',
         paddingHorizontal: '2%',
-        zIndex: 2,
-        justifyContent: 'space-between',
+        zIndex: 2
     },
     blankBox: {
-        flex: 5,
+        flex: 6,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         zIndex: 1
@@ -75,6 +72,33 @@ const styles = StyleSheet.create({
     },
     iconBox: {
         flex: 1,
+        paddingLeft: 15,
+        justifyContent: 'flex-end'
+    },
+    topicContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        flexDirection: 'row',
+    },
+    topicText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: color.text,
+    },
+    sentenceContainer: {
+        flex: 1,
+        borderTopColor: color.lightText,
+        borderTopWidth: 1,
+        justifyContent: 'center',
+        flexDirection: 'row',
+    },
+    sentence: {
+        flex: 8,
+        justifyContent: 'flex-end',
+    },
+    sentenceText: {
+        fontSize: 18,
+        color: color.text,
     }
 })
 

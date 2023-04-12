@@ -13,7 +13,10 @@ import speakIcon from '../icons/speak-icon'
 const Paragraph = (props) => {
     const handleViewHistoryClick = () => {
         props.onViewHistoryClick();
-      };
+    };
+    const handleViewCommonClick = () => {
+        props.onViewCommonClick();
+    };
 
     const [text, setText] = useState('');
     const handleSpeakButtonClick = () => {
@@ -49,7 +52,9 @@ const Paragraph = (props) => {
                     <TouchableOpacity style={styles.iconBox} onPress={handleViewHistoryClick}>
                         <Icon icon={historyIcon} />
                     </TouchableOpacity>
-                    <View style={styles.iconBox}></View>
+                    <TouchableOpacity style={styles.iconBox} onPress={handleViewCommonClick}>
+                        <Icon icon={popularSentenceIcon} />
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.iconBox} onPress={handleSpeakButtonClick}>
                         <Icon icon={speakIcon} />
                     </TouchableOpacity>
