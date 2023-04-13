@@ -1,4 +1,6 @@
 import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { Clipboard, Alert } from 'react-native';
+
 import React, { useState, useEffect } from 'react'
 
 import styles from './style';
@@ -24,6 +26,11 @@ const Topic = (props) => {
 
   const handleSpeakButtonClick = (text) => {
     TTS.Tts.speak(text);
+  };
+
+  const handleCopyClick = () => {
+    Clipboard.setString(props.text);
+    Alert.alert('Copy thành công vào clipboard');
   };
 
   const handleEdit = () => {
@@ -72,8 +79,8 @@ const Topic = (props) => {
             <TouchableOpacity style={styles.iconBox} onPress={() => handleSpeakButtonClick(sentence)}>
               <Icon icon={speakIcon} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconBox}>
-              <Icon icon={copyIcon} />
+            <TouchableOpacity style={styles.iconBox} onPress={handleCopyClick}>
+                <Icon icon={copyIcon} />
             </TouchableOpacity>
           </View>
         ))}

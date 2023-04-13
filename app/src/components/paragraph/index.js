@@ -27,6 +27,7 @@ const Paragraph = (props) => {
     const handleSpeakButtonClick = () => {
         if(text.length === 0) { 
             alert("Bạn vui lòng nhập câu nói để phát âm thanh"); 
+            Keyboard.dismiss();
             return false;
         }
         TTS.Tts.speak(text);

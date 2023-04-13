@@ -1,4 +1,6 @@
 import { View, Text, TouchableOpacity } from 'react-native'
+import { Clipboard, Alert } from 'react-native';
+
 import React, { useEffect } from 'react'
 
 import styles from './style'
@@ -17,6 +19,8 @@ const Sentence = (props) => {
     }, []);
 
     const handleCopyClick = () => {
+        Clipboard.setString(props.text);
+        Alert.alert('Copy thành công vào clipboard');
     };
     const handleSpeakButtonClick = () => {
         TTS.Tts.speak(props.text);
