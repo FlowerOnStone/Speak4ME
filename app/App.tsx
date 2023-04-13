@@ -1,34 +1,60 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {Component} from 'react';
-import { Alert, Text, View } from 'react-native';
-import { Icon } from './src/components/icons/icon-tag';
-import binIcon from './src/components/icons/save-icon';
-import SearchBar from './src/components/common/search-bar';
+// In App.js in a new project
 
+import * as React from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function () {
-    // return (<SearchBar
-    //           placeholder="Type Here..."
-    //         />);
-    return (<SearchBar/>);
-    // return <Icon icon={binIcon}/>;
+import History from './src/views/history';
+import Editor from './src/views/editor';
+import color from './src/constants/color';
+
+function HistoryScreen() {
+  return (
+    <History />
+  );
 }
 
-// export {default} from './.storybook';
+function EditorScreen() {
+  return (
+    <Editor />
+  );
+}
 
-// import React, { useState } from 'react';
-// import { SearchBar } from '@rneui/themed';
-// import { View, Text, StyleSheet } from 'react-native';
 
-// // type SearchBarComponentProps = {};
+const Stack = createNativeStackNavigator();
 
-// export default function() {
-
-// return (
-//     <SearchBar
-//       placeholder="Type Here..."
-//     />
-// );
-// };
-
-// export default SwitchComponent;
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: color.title,
+          },
+          headerTintColor: color.text,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
+          headerTitleAlign: 'center'
+        }}
+      >
+        <Stack.Screen
+          name="Editor"
+          component={EditorScreen}
+          options={{ title: 'Soạn thảo' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+export default App;
