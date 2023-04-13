@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: color.background,
         width: '100%',
-        height: 100,
+        height: 120,
         paddingHorizontal: '10%',
         paddingVertical: '3%',
     },
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     },
     textBox: {
         width: '100%',
-        height: '75%',
+        height: '70%',
         backgroundColor: color.frame,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
     addBox: {
         width: '100%',
-        height: '25%',
+        height: '30%',
         flexDirection: 'row',
     },
     itemBox: {

@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -28,11 +28,36 @@ import color from '../constants/color';
 import Paragraph from '../components/paragraph';
 import SuggestionBox from '../components/suggestionbox';
 
-export default function Editor() {
+import { useNavigation } from '@react-navigation/native';
+import screens from '../../screens';
+
+export default function Editor(props) {
+
+  const navigation = useNavigation();
+  const [sentences, setSentences] = useState([]);
+
+  const handleSave = (sentence) => {
+    // Nếu câu hiện tại không rỗng, thêm câu hiện tại vào mảng sentences
+    if (sentence !== '') {
+      setSentences([sentence, ...sentences]);
+    }
+  };
+
+  const handleViewHistory = () => {
+    navigation.navigate('HistoryScreen', { sentences });
+  };
+
+  const handleViewCommon = () => {
+    navigation.navigate('CommonScreen');
+  };
 
   return (
     <View style={styles.container}>
-        <Paragraph />
+        <Paragraph 
+          onSpeakButtonClick={handleSave} 
+          onViewHistoryClick={handleViewHistory}
+          onViewCommonClick={handleViewCommon}
+        />
         <SuggestionBox />        
     </View>
   );
