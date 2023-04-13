@@ -10,7 +10,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import { Platform, Dimensions } from 'react-native';
-import color from 'color';
+import COLOR from 'color';
 import renderNode from './renderNode';
 import getIconType, { registerCustomIconType } from './getIconType';
 import normalizeText from './normalizeText';

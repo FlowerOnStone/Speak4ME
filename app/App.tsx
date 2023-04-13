@@ -16,7 +16,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import History from './src/views/history';
 import Editor from './src/views/editor';
 import screens from './screens';
-import color from './src/constants/color';
+import COLOR from './src/constants/color';
 
 
 
@@ -28,9 +28,9 @@ function App() {
       <Stack.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: color.title,
+            backgroundColor: COLOR.TITLE,
           },
-          headerTintColor: color.text,
+          headerTintColor: COLOR.TEXT,
           headerTitleStyle: {
             fontWeight: 'bold',
             fontSize: 25,

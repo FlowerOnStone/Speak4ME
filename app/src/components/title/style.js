@@ -1,15 +1,15 @@
 import { StyleSheet } from "react-native";
-import color from "../../constants/color";
+import COLOR from "../../constants/color";
 
 const styles = StyleSheet.create({
     titleContainer: {
         flex: 1,
-        backgroundColor: color.title,
+        backgroundColor: COLOR.TITLE,
         flexDirection: 'row',
     },
     backButtonContainer: {
         flex: 1,
-        backgroundColor: color.lightText,
+        backgroundColor: COLOR.LIGHT_TEXT,
     },
     titleTextContainer: {
         flex: 4,
@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
     },
     settingButtonContainer: {
         flex: 1,
-        backgroundColor: color.lightText,
+        backgroundColor: COLOR.LIGHT_TEXT,
       },
     titleText: {
-        color: color.text,
+        color: COLOR.TEXT,
         fontSize: 32,
         fontWeight: 'bold',
     },

@@ -21,7 +21,7 @@ import { SearchBar } from 'react-native-elements';
 import { Icon } from '../components/icons/icon-tag';
 import plusIcon from '../components/icons/plus-icon';
 
-export default function Common(props) {
+export default function PopularSentences(props) {
 
     const [searchText, setSearchText] = useState('');
     const handleSearch = (text) => {

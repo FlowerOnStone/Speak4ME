@@ -7,29 +7,16 @@
 
 import React, { useState } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-import color from '../constants/color';
-import Paragraph from '../components/paragraph';
-import SuggestionBox from '../components/suggestionbox';
+import COLOR from '../constants/color';
+import BaseFrame from '../components/common/base-frame';
+import SuggestionBox from '../components/editor-screen/suggestionbox';
 
 import { useNavigation } from '@react-navigation/native';
-import screens from '../../screens';
 
 export default function Editor(props) {
 
@@ -47,32 +34,32 @@ export default function Editor(props) {
     navigation.navigate('HistoryScreen', { sentences });
   };
 
-  const handleViewCommon = () => {
-    navigation.navigate('CommonScreen');
+  const handleViewPopularSentences = () => {
+    navigation.navigate('PopularSentencesScreen');
   };
 
   return (
     <View style={styles.container}>
-        <Paragraph 
-          onSpeakButtonClick={handleSave} 
-          onViewHistoryClick={handleViewHistory}
-          onViewCommonClick={handleViewCommon}
-        />
-        <SuggestionBox />        
+      <BaseFrame
+        onSpeakButtonClick={handleSave}
+        onViewHistoryClick={handleViewHistory}
+        onViewPopularSentencesClick={handleViewPopularSentences}
+      />
+      <SuggestionBox />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container : {
+  container: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: COLOR.BACKGROUND,
     alignItems: 'center',
   },
-  paragraph : {
+  paragraph: {
     flex: 10,
   },
-  suggestionbox : {
+  suggestionbox: {
     flex: 1,
-  }
-})
+  },
+});
