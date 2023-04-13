@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity, Keyboard } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -9,6 +9,7 @@ import historyIcon from '../icons/history-icon'
 import popularSentenceIcon from '../icons/popular-sentences-icon'
 import speakIcon from '../icons/speak-icon'
 
+import TTS from '../../utils/TTS';
 
 const Paragraph = (props) => {
     const handleViewHistoryClick = () => {
@@ -18,12 +19,17 @@ const Paragraph = (props) => {
         props.onViewCommonClick();
     };
 
+    useEffect(() => {
+        TTS.initTTS();
+    }, []);
+
     const [text, setText] = useState('');
     const handleSpeakButtonClick = () => {
         if(text.length === 0) { 
             alert("Bạn vui lòng nhập câu nói để phát âm thanh"); 
             return false;
         }
+        TTS.Tts.speak(text);
         props.onSpeakButtonClick(text);
         setText('');
         Keyboard.dismiss();
