@@ -18,17 +18,6 @@ import Editor from './src/views/editor';
 import screens from './screens';
 import color from './src/constants/color';
 
-function HistoryScreen() {
-  return (
-    <History />
-  );
-}
-
-function EditorScreen() {
-  return (
-    <Editor />
-  );
-}
 
 
 const Stack = createNativeStackNavigator();

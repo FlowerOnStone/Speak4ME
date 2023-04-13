@@ -26,6 +26,8 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { NavigationEvents } from 'react-navigation';
 import { useRoute } from '@react-navigation/native';
+import { SearchBar } from 'react-native-elements';
+
 
 import color from '../constants/color';
 import Sentence from '../components/sentence';
@@ -35,9 +37,24 @@ export default function History({ route, navigation }) {
 
   const { sentences } = route.params;
 
+  const [searchText, setSearchText] = useState('');
+  const handleSearch = (text) => {
+      setSearchText(text); // Lưu trữ giá trị của thanh tìm kiếm khi người dùng nhập vào
+      // Thực hiện hoạt động tìm kiếm dựa trên searchText ở đây
+  };
+
+
 
   return (
     <View style={styles.container}>
+      <SearchBar
+                containerStyle={styles.searchBar}
+                inputContainerStyle={styles.searchBarInput}
+                inputStyle={styles.searchBarTextInput}
+                placeholder="Tìm kiếm..."
+                value={searchText}
+                onChangeText={handleSearch}
+        />
       <View style={styles.contentContainer}>
         <ScrollView>
           {
@@ -51,62 +68,23 @@ export default function History({ route, navigation }) {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: color.background,
-  },
-  titleContainer: {
-    flex: 1,
-    backgroundColor: color.title,
-    flexDirection: 'row',
-  },
-  searchBarContainer: {
-    flex: 1,
-    backgroundColor: color.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: '10%',
-    paddingVertical: '1%',
+      flex: 1,
+      color: color.background,
   },
   contentContainer: {
-    flex: 8,
-    backgroundColor: color.background,
-  },
-  backButtonContainer: {
-    flex: 1,
-    backgroundColor: color.lightText,
-  },
-  settingButtonContainer: {
-    flex: 1,
-    backgroundColor: color.lightText,
-  },
-  titleTextContainer: {
-    flex: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  titleText: {
-    color: color.text,
-    fontSize: 32,
-    fontWeight: 'bold',
-  },
-  searchIconContainer: {
-    flex: 1,
-    backgroundColor: color.lightText,
-    borderRadius: 20,
-  },
-  searchTextContainer: {
-    flex: 9,
-    justifyContent: 'center',
-    paddingLeft: 5,
+      color: color.background,
+      height: '100%',
   },
   searchBar: {
-    width: '100%',
-    height: '45%',
-    borderColor: color.text,
-    borderRadius: 20,
-    borderWidth: 1,
-    flexDirection: 'row',
-  }
-})
+      backgroundColor: '#fff', // Màu nền của thanh tìm kiếm
+  },
+  searchBarInput: {
+      backgroundColor: '#f2f2f2', // Màu nền của input trong thanh tìm kiếm
+  },
+  searchBarTextInput: {
+      fontSize: 16, // Kích thước chữ trong input của thanh tìm kiếm
+  },
+});
