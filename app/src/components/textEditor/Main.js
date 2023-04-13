@@ -5,7 +5,7 @@ import styles from './style'
 import Task from './Task'
 import Header from './Header'
 
-export class Main extends Component {
+export class TextEditor extends Component {
   render() {
     return (
         <View style={styles.container}>
@@ -20,4 +20,4 @@ export class Main extends Component {
   }
 }
 
-export default Main;
+export default TextEditor;

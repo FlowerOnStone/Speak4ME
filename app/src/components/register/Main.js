@@ -2,22 +2,26 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 
 import styles from './style'
-import Task from './Task'
 import Header from './Header'
+import UserInput from './UserInput'
+import RegisterButton from './RegisterButton'
 
-export class History extends Component {
+export class Home extends Component {
   render() {
     return (
         <View style={styles.container}>
             <Header>
 
             </Header>
-            <Task>
-
-            </Task>
+            <UserInput>
+              
+            </UserInput>
+            <RegisterButton>
+              
+            </RegisterButton>
         </View>
     )
   }
 }
 
-export default History;
+export default Home;
