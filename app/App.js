@@ -1,15 +1,9 @@
 import React from 'react';
 import { TouchableOpacity,StyleSheet } from 'react-native'
-import { Icon } from './src/components/icons/icon-tag';
-import moreOptionIcon from './src/components/icons/more-options-icon';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import color from './src/constants/color';
 import screens from './screens';
-import LoginScreen from './src/views/LoginScreen';
-import RegisterScreen from './src/views/RegisterScreen';
-import HomeScreen from './src/views/HomeScreen';
-import Header from './src/components/register/Header'
 
 const Stack = createStackNavigator();
 

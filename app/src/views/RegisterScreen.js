@@ -1,7 +1,6 @@
 import React, { Component, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 
-import Header from '../components/register/Header'
 import color from '../constants/color'
 
 export default function RegisterScreen({ navigation }) {

@@ -1,9 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
-import RegisterButton from '../components/registerButton/index'
-import LoginButton from '../components/loginButton/index'
 
 export default function StartScreen({ route, navigation }) {
 //   const { username } = route.params;
