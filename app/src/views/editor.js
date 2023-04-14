@@ -5,49 +5,61 @@
  * @format
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-import color from '../constants/color';
-import Paragraph from '../components/paragraph';
-import SuggestionBox from '../components/suggestionbox';
+import COLOR from '../constants/color';
+import BaseFrame from '../components/common/base-frame';
+import SuggestionBox from '../components/editor-screen/suggestionbox';
 
-export default function Editor() {
+import { useNavigation } from '@react-navigation/native';
+
+export default function Editor(props) {
+
+  const navigation = useNavigation();
+  const [sentences, setSentences] = useState([]);
+
+  const handleSave = (sentence) => {
+    // Nếu câu hiện tại không rỗng, thêm câu hiện tại vào mảng sentences
+    if (sentence !== '') {
+      setSentences([sentence, ...sentences]);
+    }
+  };
+
+  const handleViewHistory = () => {
+    navigation.navigate('HistoryScreen', { sentences });
+  };
+
+  const handleViewPopularSentences = () => {
+    navigation.navigate('PopularSentencesScreen');
+  };
 
   return (
     <View style={styles.container}>
-        <Paragraph />
-        <SuggestionBox />
+      <BaseFrame
+        onSpeakButtonClick={handleSave}
+        onViewHistoryClick={handleViewHistory}
+        onViewPopularSentencesClick={handleViewPopularSentences}
+      />
+      <SuggestionBox />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container : {
+  container: {
     flex: 1,
-    backgroundColor: COLOR.background,
+    backgroundColor: COLOR.BACKGROUND,
     alignItems: 'center',
   },
-  paragraph : {
+  paragraph: {
     flex: 10,
   },
-  suggestionbox : {
+  suggestionbox: {
     flex: 1,
-  }
-})
+  },
+});
