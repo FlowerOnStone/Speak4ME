@@ -3,7 +3,7 @@ import color from "../../constants/color";
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: color.background,
+        backgroundColor: COLOR.background,
         width: '100%',
         height: 50,
         paddingHorizontal: '10%',
@@ -12,14 +12,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     textbox: {
-        backgroundColor: color.lightText,
+        backgroundColor: COLOR.lightText,
         width: 80,
         height: 30,
         paddingHorizontal: 10,
         paddingVertical: 3,
     },
     text: {
-        color: color.text,
+        color: COLOR.text,
         fontSize: 15,
     },
 

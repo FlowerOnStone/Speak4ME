@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import color from "../../constants/color";
+import { StyleSheet } from 'react-native';
+import COLOR from '../../constants/color';
 
 const styles = StyleSheet.create({
     titleContainer: {
@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
     },
     settingButtonContainer: {
         flex: 1,
-        backgroundColor: color.lightText,
-      },
+        backgroundColor: COLOR.LIGHT_TEXT,
+    },
     titleText: {
         color: color.text,
         fontSize: 32,
         fontWeight: 'bold',
     },
-})
+});
 
 export default styles;

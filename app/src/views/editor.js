@@ -33,7 +33,7 @@ export default function Editor() {
   return (
     <View style={styles.container}>
         <Paragraph />
-        <SuggestionBox />        
+        <SuggestionBox />
     </View>
   );
 }
@@ -41,7 +41,7 @@ export default function Editor() {
 const styles = StyleSheet.create({
   container : {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: COLOR.background,
     alignItems: 'center',
   },
   paragraph : {

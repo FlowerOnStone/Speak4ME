@@ -40,25 +40,33 @@ export const Tile = (_a) => {
         };
         return React.createElement(FeaturedTile, Object.assign({}, featuredProps));
     }
-    return (React.createElement(Pressable, Object.assign({}, Object.assign({ onPress, android_ripple: androidRipple(Color((_b = theme === null || theme === void 0 ? void 0 : theme.colors) === null || _b === void 0 ? void 0 : _b.primary).alpha(activeOpacity).rgb().toString()) }, attributes), { style: StyleSheet.flatten([
+    return (React.createElement(Pressable, Object.assign({}, Object.assign({ onPress, android_ripple: androidRipple(Color((_b = theme === null || theme === void 0 ? void 0 : theme.colors) === null || _b === void 0 ? void 0 : _b.primary).alpha(activeOpacity).rgb().toString()) }, attributes), {
+        style: StyleSheet.flatten([
             {
                 width,
                 height,
             },
             containerStyle && containerStyle,
-        ]) }),
-        React.createElement(ImageComponent, Object.assign({ resizeMode: "cover", source: imageSrc, containerStyle: StyleSheet.flatten([
+        ])
+    }),
+        React.createElement(ImageComponent, Object.assign({
+            resizeMode: "cover", source: imageSrc, containerStyle: StyleSheet.flatten([
                 styles.imageContainer,
                 imageContainerStyle && imageContainerStyle,
-            ]), style: Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { alignItems: 'center', justifyContent: 'center' }) }, imageProps),
-            React.createElement(View, { style: StyleSheet.flatten([
+            ]), style: Object.assign(Object.assign({}, StyleSheet.absoluteFillObject), { alignItems: 'center', justifyContent: 'center' })
+        }, imageProps),
+            React.createElement(View, {
+                style: StyleSheet.flatten([
                     styles.iconContainer,
                     iconContainerStyle && iconContainerStyle,
-                ]) }, icon && React.createElement(Icon, Object.assign({}, icon)))),
-        React.createElement(View, { style: StyleSheet.flatten([
+                ])
+            }, icon && React.createElement(Icon, Object.assign({}, icon)))),
+        React.createElement(View, {
+            style: StyleSheet.flatten([
                 styles.contentContainer,
                 contentContainerStyle && contentContainerStyle,
-            ]) },
+            ])
+        },
             React.createElement(Text, { testID: "tileTitle", h4: !titleStyle || !('fontSize' in titleStyle), style: StyleSheet.flatten([styles.text, titleStyle && titleStyle]), numberOfLines: titleNumberOfLines }, title),
             children)));
 };

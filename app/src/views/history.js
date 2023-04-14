@@ -46,7 +46,7 @@ export default function History() {
           <Sentence text={'abcdègh'}></Sentence>
         </ScrollView>
       </View>
-        
+
     </View>
   );
 }
@@ -54,16 +54,16 @@ export default function History() {
 const styles = StyleSheet.create({
   container : {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: COLOR.background,
   },
   titleContainer : {
     flex: 1,
-    backgroundColor: color.title,
+    backgroundColor: COLOR.title,
     flexDirection: 'row',
   },
   searchBarContainer: {
     flex: 1,
-    backgroundColor: color.background,
+    backgroundColor: COLOR.background,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: '10%',
@@ -71,15 +71,15 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 8,
-    backgroundColor: color.background,
+    backgroundColor: COLOR.background,
   },
   backButtonContainer: {
     flex: 1,
-    backgroundColor: color.lightText,
+    backgroundColor: COLOR.lightText,
   },
   settingButtonContainer: {
     flex: 1,
-    backgroundColor: color.lightText,
+    backgroundColor: COLOR.lightText,
   },
   titleTextContainer: {
     flex: 4,
@@ -87,13 +87,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titleText: {
-    color: color.text,
+    color: COLOR.text,
     fontSize: 32,
     fontWeight: 'bold',
   },
   searchIconContainer: {
     flex: 1,
-    backgroundColor: color.lightText,
+    backgroundColor: COLOR.lightText,
     borderRadius: 20,
   },
   searchTextContainer: {
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   searchBar: {
     width: '100%',
     height: '45%',
-    borderColor: color.text,
+    borderColor: COLOR.text,
     borderRadius: 20,
     borderWidth: 1,
     flexDirection: 'row',

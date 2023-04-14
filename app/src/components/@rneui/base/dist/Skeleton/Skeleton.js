@@ -32,7 +32,8 @@ export const Skeleton = (_a) => {
         animationRef.current.setValue(0);
         Animated.loop(animationLoop.current).start();
     }, []);
-    return (React.createElement(View, Object.assign({ accessibilityRole: "none", accessibilityLabel: "loading...", accessible: false, testID: "RNE__Skeleton", onLayout: ({ nativeEvent }) => {
+    return (React.createElement(View, Object.assign({
+        accessibilityRole: "none", accessibilityLabel: "loading...", accessible: false, testID: "RNE__Skeleton", onLayout: ({ nativeEvent }) => {
             setLayoutWidth(nativeEvent.layout.width);
         }, style: [
             styles.container,
@@ -46,7 +47,9 @@ export const Skeleton = (_a) => {
                 height: height || width,
             },
             style,
-        ] }, rest), animation !== 'none' && (React.createElement(Animated.View, { style: [
+        ]
+    }, rest), animation !== 'none' && (React.createElement(Animated.View, {
+        style: [
             styles.skeleton,
             !LinearGradientComponent && {
                 backgroundColor: Color((_c = theme === null || theme === void 0 ? void 0 : theme.colors) === null || _c === void 0 ? void 0 : _c.grey4)
@@ -72,11 +75,14 @@ export const Skeleton = (_a) => {
                 ],
             },
             skeletonStyle,
-        ] }, LinearGradientComponent && (React.createElement(LinearGradientComponent, { style: styles.skeleton, colors: [
+        ]
+    }, LinearGradientComponent && (React.createElement(LinearGradientComponent, {
+        style: styles.skeleton, colors: [
             theme.colors.grey4,
             theme.colors.grey5,
             theme.colors.grey4,
-        ], start: { x: 0, y: 0 }, end: { x: 1, y: 0 } }))))));
+        ], start: { x: 0, y: 0 }, end: { x: 1, y: 0 }
+    }))))));
 };
 const styles = StyleSheet.create({
     container: {
