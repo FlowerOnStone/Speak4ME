@@ -1,16 +1,51 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { TouchableOpacity,StyleSheet } from 'react-native'
+import { Icon } from './src/components/icons/icon-tag';
+import moreOptionIcon from './src/components/icons/more-options-icon';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import color from './src/constants/color';
+import screens from './screens';
+import LoginScreen from './src/views/LoginScreen';
+import RegisterScreen from './src/views/RegisterScreen';
+import HomeScreen from './src/views/HomeScreen';
+import Header from './src/components/register/Header'
 
-// import MainStackNavigator from './Router';
-import StartPage from './src/views/startPage'
-import Home from './src/views/home'
-import Register from './src/views/register'
-import Login from './src/views/login'
+const Stack = createStackNavigator();
 
-export default function App() {
-    return (
-        <Login>
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: color.title,
+          },
+          headerTintColor: color.text,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
+          headerTitleAlign: 'center'
+        }}
+      >
+        {screens.map((screen) => (
+          <Stack.Screen
+            key={screen.name}
+            name={screen.name}
+            component={screen.component}
+            options={screen.options}
+          />
+        ))}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
-        </Login>
-    );
-};
+const styles = StyleSheet.create({
+    iconBox: {
+      marginRight: 10,
+    },
+});
+
+export default App;
