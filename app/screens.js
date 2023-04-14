@@ -34,7 +34,7 @@ const screens = [
         component: HomeScreen,
         options: {
             title: "Trang chủ",
-            // headerLeft: ()=> null,
+            headerLeft: ()=> null,
             headerRight: () => (
                 <TouchableOpacity style={styles.iconBox}>
                     <Icon name="bars" color="#000000" type = "solid" style = {styles.setting}/>
