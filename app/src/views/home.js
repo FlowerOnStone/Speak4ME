@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 
-import styles from './style'
-import Task from './Task'
-import Header from './Header'
+import styles from '../components/home/style'
+import Task from '../components/home/Task'
+import Header from '../components/home/Header'
 
-export class History extends Component {
-  render() {
+export default function Home() {
     return (
         <View style={styles.container}>
             <Header>
@@ -17,7 +16,4 @@ export class History extends Component {
             </Task>
         </View>
     )
-  }
 }
-
-export default History;
