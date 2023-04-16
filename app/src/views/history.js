@@ -22,6 +22,7 @@ export default function History({ route, navigation }) {
 
   const { sentences } = route.params;
 
+  console.log(sentences);
   const [searchText, setSearchText] = useState('');
   const handleSearch = (text) => {
     setSearchText(text); // Lưu trữ giá trị của thanh tìm kiếm khi người dùng nhập vào
@@ -42,7 +43,7 @@ export default function History({ route, navigation }) {
       />
       <View style={styles.contentContainer}>
         <ScrollView>
-          {
+          { 
             sentences.map((sentence, index) => (
               <Sentence key={index} text={sentence} />
             ))}

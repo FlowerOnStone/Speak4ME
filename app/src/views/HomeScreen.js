@@ -3,58 +3,65 @@ import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity } from '
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default function HomeScreen({ route, navigation }) {
-  const { username } = route.params;
+    const { username } = route.params;
 
-  const handleLogout = () => {
-    navigation.goBack();
-  }
+    const handleLogout = () => {
+        navigation.goBack();
+    }
+        
+    const handleEditor = () => {
+        navigation.navigate('EditorScreen');
+    }
+    const handleHistory = () => {
+        navigation.navigate('HistoryScreen', sentences = ["abc", "bcd" ]);
+    }
 
-  return (
-    <SafeAreaView>
-        <View style = {styles.body}>
-            <TouchableOpacity>
-                <View style={styles.button}>
-                    <Text>
-                        <Icon name="edit" color="#000000" type = "solid" size={20} />
-                        <Text style = {styles.textBody}>
-                            {'  Soạn thảo văn bản'}
+    return (
+        <SafeAreaView>
+            <View style = {styles.body}>
+                <TouchableOpacity onPress={handleEditor}>
+                    <View style={styles.button}>
+                        <Text>
+                            <Icon name="edit" color="#000000" type = "solid" size={20} />
+                            <Text style = {styles.textBody}>
+                                {'  Soạn thảo văn bản'}
+                            </Text>
                         </Text>
-                    </Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <View style = {styles.button}>
-                    <Text>
-                        <Icon name="history" color="#000000" type = "solid" size={20} />
-                        <Text style = {styles.textBody}>
-                            {'  Lịch sử soạn thảo văn bản'}
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleHistory}>
+                    <View style = {styles.button}>
+                        <Text>
+                            <Icon name="history" color="#000000" type = "solid" size={20} />
+                            <Text style = {styles.textBody}>
+                                {'  Lịch sử soạn thảo văn bản'}
+                            </Text>
                         </Text>
-                    </Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <View style = {styles.button}>
-                    <Text>
-                        <Icon name="comments" color="#000000" type = "solid" size={20} />
-                        <Text style = {styles.textBody}>
-                            {'  Các câu giao tiếp thông dụng'}
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <View style = {styles.button}>
+                        <Text>
+                            <Icon name="comments" color="#000000" type = "solid" size={20} />
+                            <Text style = {styles.textBody}>
+                                {'  Các câu giao tiếp thông dụng'}
+                            </Text>
                         </Text>
-                    </Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <View style = {styles.button}>
-                    <Text>
-                        <Icon name="comment-alt" color="#000000" type = "solid" size={20} />
-                        <Text style = {styles.textBody}>
-                            {'  Chuẩn bị trước văn bản'}
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <View style = {styles.button}>
+                        <Text>
+                            <Icon name="comment-alt" color="#000000" type = "solid" size={20} />
+                            <Text style = {styles.textBody}>
+                                {'  Chuẩn bị trước văn bản'}
+                            </Text>
                         </Text>
-                    </Text>
-                </View>
-            </TouchableOpacity>
-        </View>
-    </SafeAreaView>
-  );
+                    </View>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
