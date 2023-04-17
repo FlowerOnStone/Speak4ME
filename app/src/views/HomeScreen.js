@@ -7,13 +7,18 @@ export default function HomeScreen({ route, navigation }) {
 
     const handleLogout = () => {
         navigation.goBack();
-    }
-        
+    };
+
     const handleEditor = () => {
         navigation.navigate('EditorScreen');
-    }
+    };
+
     const handleHistory = () => {
-        navigation.navigate('HistoryScreen', sentences=["abc", "bcd" ]);
+        navigation.navigate('HistoryScreen', ["abc", "bcd" ]);
+    };
+
+    const handlePopularSentences = () => {
+        navigation.navigate('PopularSentencesScreen');
     }
 
     return (
@@ -39,7 +44,7 @@ export default function HomeScreen({ route, navigation }) {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handlePopularSentences}>
                     <View style = {styles.button}>
                         <Text>
                             <Icon name="comments" color="#000000" type = "solid" size={20} />

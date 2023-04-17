@@ -9,6 +9,8 @@ import Editor from './src/views/editor';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 // import { Icon } from './src/components/icons/icon-tag';
 import moreOptionIcon from './src/components/icons/more-options-icon';
+import Sentence from './src/components/common/sentence';
+import PopularSentences from './src/views/popular-sentences';
 
 const screens = [
     {
@@ -67,6 +69,18 @@ const screens = [
             <Icon icon={moreOptionIcon} />
             </TouchableOpacity>
         ),
+        },
+    },
+    {
+        name: "PopularSentencesScreen",
+        component: PopularSentences,
+        options: {
+            title: "Thông dụng",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                    <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
         },
     },
 ];
