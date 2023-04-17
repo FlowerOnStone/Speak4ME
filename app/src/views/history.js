@@ -20,7 +20,7 @@ import Sentence from '../components/common/sentence';
 
 export default function History({ route, navigation }) {
 
-  const { sentences } = route.params;
+  const { sentences = [] } = route.params ?? {};
 
   console.log(sentences);
   const [searchText, setSearchText] = useState('');
@@ -44,7 +44,7 @@ export default function History({ route, navigation }) {
       <View style={styles.contentContainer}>
         <ScrollView>
           { 
-            sentences.map((sentence, index) => (
+            sentences.length > 0 && sentences.map((sentence, index) => (
               <Sentence key={index} text={sentence} />
             ))}
         </ScrollView>

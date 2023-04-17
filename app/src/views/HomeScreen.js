@@ -13,7 +13,7 @@ export default function HomeScreen({ route, navigation }) {
         navigation.navigate('EditorScreen');
     }
     const handleHistory = () => {
-        navigation.navigate('HistoryScreen', sentences = ["abc", "bcd" ]);
+        navigation.navigate('HistoryScreen', sentences=["abc", "bcd" ]);
     }
 
     return (
