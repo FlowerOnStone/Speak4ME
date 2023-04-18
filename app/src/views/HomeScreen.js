@@ -14,7 +14,7 @@ export default function HomeScreen({ route, navigation }) {
     };
 
     const handleHistory = () => {
-        navigation.navigate('HistoryScreen', ["abc", "bcd" ]);
+        navigation.navigate('HistoryScreen', { sentences: ["abc", "bcd"] });
     };
 
     const handlePopularSentences = () => {

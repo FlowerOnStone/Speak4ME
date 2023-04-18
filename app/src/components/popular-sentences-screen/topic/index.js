@@ -11,8 +11,8 @@ import speakIcon from '../../icons/speak-icon';
 import binIcon from '../../icons/bin-icon';
 import plusIcon from '../../icons/plus-icon';
 import moreOptionsIcon from '../../icons/more-options-icon';
-
 import TTS from '../../../utils/TTS';
+import UpRightBorder from '../../common/up-right-border';
 
 
 const Topic = (props) => {
@@ -88,9 +88,7 @@ const Topic = (props) => {
       <View style={styles.addBox}>
         <View style={styles.blankBox}></View>
         <View style={styles.itemBox}>
-          <View style={styles.backgroundBox}>
-            <View style={styles.cycleBox}></View>
-          </View>
+          <UpRightBorder />
           <TouchableOpacity style={styles.iconBox} onPress={props.onDelete}>
             <Icon icon={binIcon} />
           </TouchableOpacity>

@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import moreOptionIcon from './src/components/icons/more-options-icon';
 import Sentence from './src/components/common/sentence';
 import PopularSentences from './src/views/popular-sentences';
+import COLOR from './src/constants/color';
 
 const screens = [
     {
@@ -24,6 +25,9 @@ const screens = [
         name: 'Login',
         component: LoginScreen,
         options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
             title: 'Đăng nhập',
         },
     },
@@ -31,6 +35,9 @@ const screens = [
         name: 'Register',
         component: RegisterScreen,
         options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
             title: 'Đăng ký',
         },
     },
@@ -38,6 +45,9 @@ const screens = [
         name: 'Home',
         component: HomeScreen,
         options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
             title: 'Trang chủ',
             headerLeft: ()=> null,
             headerRight: () => (
@@ -51,30 +61,39 @@ const screens = [
         name: 'EditorScreen',
         component: Editor,
         options: {
-        title: "Soạn thảo",
-        headerRight: () => (
-            <TouchableOpacity style={styles.iconBox}>
-            <Icon icon={moreOptionIcon} />
-            </TouchableOpacity>
-        ),
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
+            title: "Soạn thảo",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
         }
     },
     {
         name: "HistoryScreen",
         component: History,
         options: {
-        title: "Lịch sử nói",
-        headerRight: () => (
-            <TouchableOpacity style={styles.iconBox}>
-            <Icon icon={moreOptionIcon} />
-            </TouchableOpacity>
-        ),
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
+            title: "Lịch sử nói",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
         },
     },
     {
         name: "PopularSentencesScreen",
         component: PopularSentences,
         options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
             title: "Thông dụng",
             headerRight: () => (
                 <TouchableOpacity style={styles.iconBox}>

@@ -9,7 +9,7 @@ import popularSentenceIcon from '../../icons/popular-sentences-icon';
 import speakIcon from '../../icons/speak-icon';
 
 import TTS from '../../../utils/TTS';
-
+import UpRightBorder from '../up-right-border';
 const BaseFrame = (props) => {
     const handleViewHistoryClick = () => {
         props.onViewHistoryClick();
@@ -51,9 +51,7 @@ const BaseFrame = (props) => {
             <View style={styles.addBox}>
                 <View style={styles.blankBox} />
                 <View style={styles.itemBox}>
-                    <View style={styles.backgroundBox}>
-                        <View style={styles.cycleBox} />
-                    </View>
+                    <UpRightBorder />
                     <TouchableOpacity style={styles.iconBox} onPress={handleViewHistoryClick}>
                         <Icon icon={historyIcon} />
                     </TouchableOpacity>

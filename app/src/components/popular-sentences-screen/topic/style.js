@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import COLOR from '../../../constants/color';
+import CONSTANTS from '../../../constants/contants';
 
 const styles = StyleSheet.create({
     container: {
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: '3%',
         paddingVertical: '2%',
         borderStyle: 'solid',
-        borderWidth: 1,
+        borderWidth: CONSTANTS.BORDER_WIDTH,
         borderColor: COLOR.TEXT,
     },
     addBox: {
@@ -33,11 +34,11 @@ const styles = StyleSheet.create({
     },
     itemBox: {
         flex: 4,
-        top: -2,
+        top: -3,
         backgroundColor: COLOR.FRAME,
-        borderBottomWidth: 1,
-        borderRightWidth: 1,
-        borderLeftWidth: 1,
+        borderBottomWidth: CONSTANTS.BORDER_WIDTH,
+        borderRightWidth: CONSTANTS.BORDER_WIDTH,
+        borderLeftWidth: CONSTANTS.BORDER_WIDTH,
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
         flexDirection: 'row',
@@ -50,30 +51,10 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10,
         zIndex: 1,
     },
-    backgroundBox: {
-        padding: 0,
-        width: 12,
-        height: 12,
-        borderStyle: 'solid',
-        zIndex: 2,
-        right: 18,
-        backgroundColor: COLOR.FRAME,
-    },
-    cycleBox: {
-        padding: 0,
-        borderTopWidth: 1,
-        borderRightWidth: 1,
-        width: 12,
-        height: 12,
-        borderTopRightRadius: 12,
-        zIndex: 3,
-        backgroundColor: COLOR.BACKGROUND,
-        borderStyle: 'solid',
-    },
     iconBox: {
         flex: 1,
         paddingLeft: 15,
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
     },
     topicContainer: {
         flex: 1,
@@ -81,6 +62,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     topicText: {
+        flex: 9, 
         fontSize: 20,
         fontWeight: 'bold',
         color: COLOR.TEXT,
@@ -94,7 +76,7 @@ const styles = StyleSheet.create({
     },
     sentence: {
         flex: 8,
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
     },
     sentenceText: {
         fontSize: 18,

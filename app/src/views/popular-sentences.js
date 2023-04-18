@@ -83,7 +83,7 @@ export default function PopularSentences(props) {
             </ScrollView>
             <View style={styles.addBox}>
                 <TouchableOpacity style={styles.iconBox} onPress={handleAddTopic}>
-                    <Icon icon={plusIcon} />
+                    <Icon icon={plusIcon} iconStyle={{scale: 2, color: COLOR.TITLE}} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -101,9 +101,14 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         backgroundColor: '#fff', // Màu nền của thanh tìm kiếm
+        borderRadius: 50,
+        borderWidth: 3,
+        width: "90%",
+        left: "5%"
     },
     searchBarInput: {
         backgroundColor: '#f2f2f2', // Màu nền của input trong thanh tìm kiếm
+        borderRadius: 40,
     },
     searchBarTextInput: {
         fontSize: 16, // Kích thước chữ trong input của thanh tìm kiếm

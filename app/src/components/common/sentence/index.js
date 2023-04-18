@@ -1,15 +1,15 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native'
 import { Clipboard, Alert } from 'react-native';
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styles from './style';
-import { Icon } from '../../icons/icon-tag';
+import Icon from '../../icons/icon-tag';
 import copyIcon from '../../icons/copy-icon';
 import speakIcon from '../../icons/speak-icon';
 
-
 import TTS from '../../../utils/TTS';
+import UpRightBorder from '../up-right-border';
 
 
 const Sentence = (props) => {
@@ -34,15 +34,13 @@ const Sentence = (props) => {
             <View style={styles.addBox}>
                 <View style={styles.blankBox} />
                 <View style={styles.itemBox}>
-                    <View style={styles.backgroundBox}>
-                        <View style={styles.cycleBox} />
-                    </View>
+                    <UpRightBorder />
 
+                    <TouchableOpacity style={styles.iconBox} onPress={() => handleSpeakButtonClick()}>
+                        <Icon icon={speakIcon} />
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.iconBox} onPress={handleCopyClick}>
                         <Icon icon={copyIcon} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconBox} onPress={handleSpeakButtonClick}>
-                        <Icon icon={speakIcon} />
                     </TouchableOpacity>
                 </View>
             </View>
