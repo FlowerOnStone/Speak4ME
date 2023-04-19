@@ -1,4 +1,4 @@
 export const ICON_CONSTANTS = {
     COLOR: '#003333',
-    SCALE: 0.7,
+    SCALE: 1,
 };

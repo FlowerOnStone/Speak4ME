@@ -27,11 +27,15 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import {View, Text} from 'react-native';
 import screens from './screens';
 import COLOR from './src/constants/color';
-
-
+import BaseFrame from './src/components/common/base-frame';
+import Topic from './src/components/popular-sentences-screen/topic';
+import binIcon from './src/components/icons/bin-icon';
+import plusIcon from './src/components/icons/plus-icon';
+import moreOptionIcon from './src/components/icons/more-options-icon';
+import Icon from './src/components/icons/icon-tag';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,4 +69,10 @@ function App() {
 }
 // export default App;
 
-export {default} from './.storybook';
+const test = () => (
+  <BaseFrame itemList={[<Icon icon={binIcon}/>, <Icon icon={plusIcon}/>, <Icon icon={moreOptionIcon}/>, <Icon icon={moreOptionIcon} iconStyle={{scale: 8, color: 'aqua'}}/>]}>
+      <View style={{position:'relative', width: 300, height: 100, borderWidth: 10}}/>
+  </BaseFrame>
+);
+
+export default test;
