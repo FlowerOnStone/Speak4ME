@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import COLOR from '../../../constants/color';
-import { color } from 'react-native-reanimated';
 import CONSTANTS from '../../../constants/contants';
 
 const styles = StyleSheet.create({
@@ -10,9 +9,9 @@ const styles = StyleSheet.create({
         height: 12,
         borderStyle: 'solid',
         zIndex: 2,
-        left: -11, 
+        left: -11,
         backgroundColor: COLOR.FRAME,
-        position: "absolute"
+        position: 'absolute',
     },
     cycleBox: {
         padding: 0,
@@ -23,15 +22,15 @@ const styles = StyleSheet.create({
         zIndex: 3,
         backgroundColor: COLOR.BACKGROUND,
         borderStyle: 'solid',
-        top: 1,        
+        top: 1,
     },
     backgroundCycleBox: {
-        width: 10, 
-        height: 10, 
-        borderTopRightRadius: 10,        
+        width: 10,
+        height: 10,
+        borderTopRightRadius: 10,
         backgroundColor: COLOR.BACKGROUND,
         top: 2,
-        right: 2, 
+        right: 2,
     },
 });
 

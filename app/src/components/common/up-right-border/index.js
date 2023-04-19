@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { View } from 'react-native';
 
 import React from 'react';
 
@@ -8,7 +8,7 @@ const UpRightBorder = (props) => {
     return (
         <View style={styles.backgroundBox}>
             <View style={styles.cycleBox}>
-                <View style={styles.backgroundCycleBox}></View>
+                <View style={styles.backgroundCycleBox} />
             </View>
         </View>
     );

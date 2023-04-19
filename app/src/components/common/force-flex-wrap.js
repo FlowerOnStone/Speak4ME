@@ -4,7 +4,7 @@ import React from 'react';
 
 const ForceFlexWrap = () => {
   return (
-    <View style={{flex:1}}/>
+    <View style={{ flex: 1 }} />
   );
 };
 

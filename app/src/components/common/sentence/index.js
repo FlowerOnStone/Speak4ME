@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Clipboard, Alert } from 'react-native';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import styles from './style';
 import Icon from '../../icons/icon-tag';

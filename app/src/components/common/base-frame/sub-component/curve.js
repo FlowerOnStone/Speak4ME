@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import React from 'react';
 
 const Curve = (props) => (
-    <View style={{position: 'relative'}}>
+    <View style={{ position: 'relative' }}>
         <View style={{
             width: props.borderRadius + 2,
             height: props.borderRadius + 2,
@@ -28,7 +28,7 @@ const Curve = (props) => (
                 position: 'absolute',
                 // top: BORDER_WIDTH,
                 left: -props.borderWidth,
-            }}/>
+            }} />
             <View style={{
                 width: props.borderRadius + 1,
                 height: props.borderWidth + 1,
@@ -36,7 +36,7 @@ const Curve = (props) => (
                 position: 'absolute',
                 bottom: -props.borderWidth,
                 right: 0,
-            }}/>
+            }} />
         </View>
 
     </View>

@@ -75,4 +75,6 @@ const test = () => (
   </BaseFrame>
 );
 
-export default test;
+// export default test;
+
+export {default} from './.storybook';

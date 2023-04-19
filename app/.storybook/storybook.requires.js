@@ -48,7 +48,8 @@ try {
 const getStories = () => {
   return {
     "./.storybook/stories/Button/Button.stories.js": require("./stories/Button/Button.stories.js"),
-    "./.storybook/stories/icons/icons.stories.js": require("./stories/icons/icons.stories.js"),
+    "./.storybook/stories/Components/common/base-frame.stories.js": require("./stories/Components/common/base-frame.stories.js"),
+    "./.storybook/stories/Components/icons/icons.stories.js": require("./stories/Components/icons/icons.stories.js"),
   };
 };
 

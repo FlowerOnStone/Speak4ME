@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SearchBar as TempSearchBar} from '@rneui/themed';
+import { SearchBar as TempSearchBar } from '@rneui/themed';
 import SearchIcon from '../../icons/search-icon';
 import parseColor from 'parse-color';
 import styles from 'styles';

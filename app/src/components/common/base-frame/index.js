@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import BASE_FRAME from '../../../constants/base-frame';
 import TopBox from './sub-component/top-box';
@@ -60,8 +60,8 @@ const BaseFrame = (props) => {
         borderColor: frameStyle.borderColor,
     });
     const curveStyle = StyleSheet.flatten([styles.defaultCurveStyle, baseBoxStyle,
-                                          {backgroundColor: containerStyle.backgroundColor},
-                                          props.curveStyle]);
+    { backgroundColor: containerStyle.backgroundColor },
+    props.curveStyle]);
     const bottomBoxStyle = StyleSheet.flatten([styles.defaultBottomBoxStyle, baseBoxStyle, props.bottomBoxStyle]);
     const topBoxStyle = StyleSheet.flatten([styles.defaultTopBoxStyle, baseBoxStyle, props.topBoxStyle]);
 
@@ -74,34 +74,34 @@ const BaseFrame = (props) => {
     };
 
     return (
-        <View style={{...containerStyle, display:'flex', flexDirection:'row', flexWrap:'wrap', justifyContent:'flex-end'}}>
+        <View style={{ ...containerStyle, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
             <TopBox {...topBoxStyle}
-                    bottomBoxWidth={bottomBoxWidth}
-                    position="relative"
-                    zIndex={10}
-                    paddingBottom={bottomBoxHeight / 2}
+                bottomBoxWidth={bottomBoxWidth}
+                position="relative"
+                zIndex={10}
+                paddingBottom={bottomBoxHeight / 2}
             >
                 {props.children}
             </TopBox>
-            <View style={{position: 'relative', zIndex: 100}}>
-                <Curve {...curveStyle}/>
+            <View style={{ position: 'relative', zIndex: 100 }}>
+                <Curve {...curveStyle} />
             </View>
-            <View onLayout={updateBottomBoxLayout} style={{position: 'relative', zIndex:50}}>
-                <BottomBox {...bottomBoxStyle} itemList={props.itemList}/>
+            <View onLayout={updateBottomBoxLayout} style={{ position: 'relative', zIndex: 50 }}>
+                <BottomBox {...bottomBoxStyle} itemList={props.itemList} />
             </View>
             <View style={{
-                            position: 'absolute',
-                            zIndex:0,
-                            right:bottomBoxWidth - 7,
-                            bottom: bottomBoxHeight / 2 - frameStyle.borderRadius,
-                            borderWidth: 7,
-                            borderRightWidth: 9,
-                            borderTopWidth: 9,
-                            borderTopRightRadius: frameStyle.borderRadius,
-                            borderColor: frameStyle.backgroundColor,
-                            width: frameStyle.borderRadius + 7,
-                            height: frameStyle.borderRadius + 7,
-                        }}/>
+                position: 'absolute',
+                zIndex: 0,
+                right: bottomBoxWidth - 7,
+                bottom: bottomBoxHeight / 2 - frameStyle.borderRadius,
+                borderWidth: 7,
+                borderRightWidth: 9,
+                borderTopWidth: 9,
+                borderTopRightRadius: frameStyle.borderRadius,
+                borderColor: frameStyle.backgroundColor,
+                width: frameStyle.borderRadius + 7,
+                height: frameStyle.borderRadius + 7,
+            }} />
         </View>
     );
 };
