@@ -38,10 +38,10 @@ const BottomBox = (props) => {
                 {
                     typeof props.itemList === 'undefined' ?
                     null :
-                    props.itemList.map((item, idx) => {
+                    props.itemList.map((Item, idx) => {
                     return (
                         <View key={idx} style={{ marginRight: 10, marginLeft: 10 }}>
-                            {item}
+                            {typeof Item === 'function' ? <Item/> : Item}
                         </View>
                     );
                 })}

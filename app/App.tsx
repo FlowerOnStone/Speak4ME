@@ -69,12 +69,19 @@ function App() {
 }
 // export default App;
 
+class Hehe extends React.Component {
+  render() {
+    return <Icon icon={binIcon}/>
+    ;
+  }
+}
+
 const test = () => (
-  <BaseFrame itemList={[<Icon icon={binIcon}/>, <Icon icon={plusIcon}/>, <Icon icon={moreOptionIcon}/>, <Icon icon={moreOptionIcon} iconStyle={{scale: 8, color: 'aqua'}}/>]}>
+  <BaseFrame itemList={[<Hehe/>, Hehe]}>
       <View style={{position:'relative', width: 300, height: 100, borderWidth: 10}}/>
   </BaseFrame>
 );
 
-// export default test;
+export default test;
 
-export {default} from './.storybook';
+// export {default} from './.storybook';
