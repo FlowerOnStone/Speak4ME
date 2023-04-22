@@ -58,14 +58,18 @@ export default function History({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    color: COLOR.BACKGROUND,
+    backgroundColor: COLOR.BACKGROUND,
+    alignItems: 'center',
   },
   contentContainer: {
     color: COLOR.BACKGROUND,
     height: '100%',
+    width: '100%',
+    justifyContent: 'center',
   },
   searchBar: {
     backgroundColor: '#fff', // Màu nền của thanh tìm kiếm
+    width: "90%",
   },
   searchBarInput: {
     backgroundColor: '#f2f2f2', // Màu nền của input trong thanh tìm kiếm

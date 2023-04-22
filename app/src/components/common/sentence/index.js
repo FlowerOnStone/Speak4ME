@@ -10,7 +10,7 @@ import speakIcon from '../../icons/speak-icon';
 
 import TTS from '../../../utils/TTS';
 import UpRightBorder from '../up-right-border';
-
+import BaseFrame from '../base-frame';
 
 const Sentence = (props) => {
 
@@ -27,24 +27,14 @@ const Sentence = (props) => {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.textBox}>
-                <Text style={styles.text}>{props.text}</Text>
-            </View>
-            <View style={styles.addBox}>
-                <View style={styles.blankBox} />
-                <View style={styles.itemBox}>
-                    <UpRightBorder />
-
-                    <TouchableOpacity style={styles.iconBox} onPress={() => handleSpeakButtonClick()}>
-                        <Icon icon={speakIcon} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconBox} onPress={handleCopyClick}>
-                        <Icon icon={copyIcon} />
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>
+        <BaseFrame itemList={[
+            <TouchableOpacity style={styles.iconBox} onPress={handleCopyClick}>
+                <Icon icon={copyIcon} />
+            </TouchableOpacity>,
+            <TouchableOpacity style={styles.iconBox} onPress={() => handleSpeakButtonClick()}>
+                <Icon icon={speakIcon} />
+            </TouchableOpacity>
+        ]}><Text style={styles.text}>{props.text}</Text></BaseFrame>
     );
 };
 
