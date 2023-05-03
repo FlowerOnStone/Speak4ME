@@ -28,7 +28,7 @@ export default function Editor(props) {
     if (sentence !== '') {
       setSentences([sentence, ...sentences]);
     }
-    console.log(sentences);
+    // console.log(sentences);
   };
 
   const handleViewHistory = () => {
