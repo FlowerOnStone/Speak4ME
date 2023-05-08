@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { equalUndefined } from 'utils';
+import {equalUndefined} from '../../../utils/equal-undefined';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 const ExpandCollapseAnim = ({ collapseIcon, expandIcon, expanded }) => {

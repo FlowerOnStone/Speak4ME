@@ -3,32 +3,16 @@ import { StyleSheet, View, Text, TouchableWithoutFeedback, Scroll, ScrollView } 
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import Header from './header';
 import OptionsHeader from '../options-header';
-import { Overlay, ButtonGroup } from '@rneui/themed';
 import CheckBoxList from '../checkbox-list';
 import { log } from '../../../utils/logger';
 import THEME from '../../../constants/theme';
-import { colorOpacity, equalUndefined } from 'utils';
+import colorOpacity from '../../../utils/color-opacity';
 import * as Animatable from 'react-native-animatable';
-import { useEvent } from 'react-native-reanimated';
 import { SCREEN } from '../../../constants/screen';
+import ButtonGroup from '../button-group';
 
 const expandTextSize = THEME.FONT_SIZE_SMALL - 8;
 const SELECTED_BUTTON_COLOR = colorOpacity(THEME.TITLE_COLOR, 0.8);
-/**
- * structure of optionHeaderList: [{
- *                              any id: id for each option header,
- *                              optionHeaderProps: corresponding props of OptionsHeader
- *                              checkboxListProps: corresponding props of CheckboxList
- */
-/**
- *
- * @param
- *      Object headerProps: like props of Header
- *      Object[] optionHeaderList: The structure is described above
- *      defaultFocusedId: first focused item's id
- *      Style containerStyle: style for container
- * @returns
- */
 
 const beginAnim = {
     animation: {
@@ -41,7 +25,7 @@ const beginAnim = {
     },
     iterationCount: 1,
     easing: 'ease-in-out-back',
-    duration: 1500,
+    duration: 1000,
 };
 const endAnim = {
     animation: {
@@ -57,6 +41,21 @@ const endAnim = {
     duration: 1000,
 };
 
+/**
+ * structure of optionHeaderList: [{
+ *                              any id: id for each option header,
+ *                              optionHeaderProps: corresponding props of OptionsHeader
+ *                              checkboxListProps: corresponding props of CheckboxList
+ */
+/**
+ *
+ * @param
+ *      Object headerProps: like props of Header
+ *      Object[] optionHeaderList: The structure is described above
+ *      defaultFocusedId: first focused item's id
+ *      Style containerStyle: style for container
+ * @returns
+ */
 const SettingsOverlay = ({
     isVisible = false,
     distanceToTop = 0,
@@ -71,7 +70,7 @@ const SettingsOverlay = ({
 }) => {
     const [focusedId, setFocusedId] = useState(defaultFocusedId);
     const [expandAll, setExpandAll] = useState(true);
-    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [selectedId, setSelectedId] = useState(0);
     const [endAnimation, setEndAnimation] = useState(!isVisible);
 
     const handleFocus = (optionHeaderId) => {
@@ -100,22 +99,25 @@ const SettingsOverlay = ({
                     {hasHeader && <Header {...headerProps} />}
                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                         <ButtonGroup
-                            Component={TouchableWithoutFeedback}
-                            buttons={[<Text style={{ fontSize: expandTextSize }}>
-                                Mở rộng
-                            </Text>,
-                            <Text style={{ fontSize: expandTextSize }}>
-                                Thu gọn
-                            </Text>]}
-                            selectedIndex={selectedIndex}
-                            onPress={(value) => {
-                                setExpandAll(value === 0);
-                                setSelectedIndex(value);
+                            buttonList={[{
+                                id: 'expand',
+                                content:<Text style={{ fontSize: expandTextSize }}>
+                                             Mở rộng
+                                        </Text>,
+                            }, {
+                                id: 'collapse',
+                                content:<Text style={{ fontSize: expandTextSize }}>
+                                            Thu gọn
+                                        </Text>,
+                            }]}
+                            selectedId={selectedId}
+                            onPress={(id) => {
+                                setExpandAll(id === 'expand');
+                                setSelectedId(id);
                             }}
-                            containerStyle={{ marginVertical: 10, borderRadius: 20, width: 140, height: 32 }}
-                            buttonContainerStyle={{ backgroundColor: THEME.DISABLE_COLOR, borderRightWidth: 0, paddingVertical: 2 }}
-                            selectedButtonStyle={{ backgroundColor: SELECTED_BUTTON_COLOR, borderRadius: 20, marginHorizontal: 3 }}
-                        // buttonStyle={{paddingTop: 0}}
+                            containerStyle={{ marginVertical: 10, borderRadius: 20, width: 136, height: 32 }}
+                            selectedStyle={{borderRadius: 20}}
+                            buttonStyle={{paddingVertical: 3, marginHorizontal: 3}}
                         />
                     </View>
                     <ScrollView>

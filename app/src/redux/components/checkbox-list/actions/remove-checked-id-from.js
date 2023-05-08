@@ -1,5 +1,5 @@
-import { equalUndefined } from '../../../../utils/equal-undefined';
-import { log } from 'utils';
+import {equalUndefined} from '../../../../utils/equal-undefined';
+import log from '../../../../utils/logger';
 import equal from 'fast-deep-equal';
 /**
  * remove checked item id from one CheckboxList

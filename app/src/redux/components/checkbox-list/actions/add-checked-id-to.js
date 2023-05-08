@@ -1,4 +1,4 @@
-import { equalUndefined } from '../../../../utils/equal-undefined';
+import {equalUndefined} from '../../../../utils/equal-undefined';
 import { log } from '../../../../utils/logger';
 import equal from 'fast-deep-equal';
 

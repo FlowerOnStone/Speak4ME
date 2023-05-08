@@ -6,7 +6,6 @@ import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import THEME from '../../../constants/theme';
 import toJSX from '../../../utils/convert-to-jsx';
 import {LightenDarkenColor} from 'lighten-darken-color';
-import { equalUndefined } from 'utils';
 import ExpandCollapseAnim from './expand-collapse-anim';
 
 const defaultCollapseIcon = <RNVIcon name="angle-down"

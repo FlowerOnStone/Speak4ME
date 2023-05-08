@@ -24,15 +24,17 @@
 
 // In App.js in a new project
 
-import React, {useCallback} from 'react';
+import React, { useCallback, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import screens from './screens';
 import COLOR from './src/constants/color';
 import SettingsOverlay from './src/components/common/settings-overlay';
-import { log } from 'utils';
+import log from 'utils/logger';
 import { Button } from 'react-native';
+import ButtonGroup from './src/components/common/button-group';
+import { IdType } from './src/components/common/button-group/types';
 
 const Stack = createNativeStackNavigator();
 
@@ -72,7 +74,7 @@ const optionsHeader1 = {
   },
   checkboxListProps: {
     type: 'checkbox',
-    defaultCheckedItems:[5],
+    defaultCheckedItems: [5],
     itemList: [
       {
         id: 5,
@@ -91,7 +93,7 @@ const optionsHeader2 = {
   },
   checkboxListProps: {
     type: 'radio',
-    defaultCheckedItems:[5],
+    defaultCheckedItems: [5],
     itemList: [
       {
         id: 5,
@@ -104,17 +106,18 @@ const optionsHeader2 = {
   },
 };
 
-const dataList = [optionsHeader1, optionsHeader2, {...optionsHeader1, id: 3}];
+const dataList = [optionsHeader1, optionsHeader2, { ...optionsHeader1, id: 3 }];
 
 const Test = () => {
   const [visible, setVisible] = React.useState(false);
   const handleBackdropPress = useCallback(() => {
-      setVisible(false);
-  },[]);
+    setVisible(false);
+  }, []);
   return (
     <View>
-      <Button title="hehe" onPress={() => setVisible(true)} />
-      <Button title="hehe" onPress={() => setVisible(true)} />
+      <TouchableOpacity onPress={() => setVisible(true)} style={{ height: 50, backgroundColor: 'yellow' }}>
+        <Text>hehee</Text>
+      </TouchableOpacity>
       <SettingsOverlay
         isVisible={visible}
         distanceToTop={50}
@@ -128,4 +131,30 @@ const Test = () => {
 
 // export default Test;
 
-export {default} from './.storybook';
+const TestButton = () => {
+  const [selectedId, setSelectedId] = useState<IdType>(-1);
+  return (
+    <ButtonGroup
+      buttonList={[{
+        id: 'expand',
+        content: <Text>
+          Mở rộng
+        </Text>,
+      }, {
+        id: 'collapse',
+        content: <Text>
+          Thu gọn
+        </Text>,
+      }]}
+      selectedId={selectedId}
+      onPress={(id) => {
+        setSelectedId(id);
+      }}
+      containerStyle={{ marginVertical: 10, borderRadius: 10, width: 120, height: 100 }}
+      selectedStyle={{ borderRadius: 10 }}
+    />
+  )
+}
+
+export default Test;
+// export {default} from './.storybook';
