@@ -10,26 +10,37 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  TouchableOpacity,
 } from 'react-native';
 
 import { SearchBar } from 'react-native-elements';
-
-
+import Sentence from '../components/common/sentence';
 import COLOR from '../constants/color';
-import HistorySentence from '../components/common/historySentence';
+import plusIcon from '../components/icons/plus-icon';
+import Icon from '../components/icons/icon-tag';
 
-export default function History({ route, navigation }) {
+export default function ListTopicSentence({ route, navigation }) {
 
   const { sentences = [] } = route.params ?? {};
 
-  console.log(route.params );
+  console.log(sentences);
   const [searchText, setSearchText] = useState('');
   const handleSearch = (text) => {
     setSearchText(text); // Lưu trữ giá trị của thanh tìm kiếm khi người dùng nhập vào
     // Thực hiện hoạt động tìm kiếm dựa trên searchText ở đây
   };
 
+  navigation.setOptions({
+    title: route.params.name,
+  });
 
+  const handleAddSentence = () => {
+    navigation.navigate("AddSentenceScreen");
+  }
+
+  const handleEditSentence = () => {
+    navigation.navigate("EditSentenceScreen");
+  }
 
   return (
     <View style={styles.container}>
@@ -45,11 +56,15 @@ export default function History({ route, navigation }) {
         <ScrollView style={styles.scroll}>
           { 
             sentences.length > 0 && sentences.map((sentence, index) => (
-              <HistorySentence key={index} text={sentence} />
+              <Sentence  onEdit={handleEditSentence} text={sentence} />
             ))}
         </ScrollView>
       </View>
-
+      <View style={styles.addBox}>
+          <TouchableOpacity style={styles.iconBox} onPress={handleAddSentence}>
+              <Icon icon={plusIcon} iconStyle={{scale: 2, color: COLOR.TITLE}} />
+          </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -63,7 +78,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     color: COLOR.BACKGROUND,
-    height: '90%',
+    height: '85%',
     width: '100%',
     justifyContent: 'center',
     textAlign: 'center', 
@@ -88,5 +103,19 @@ const styles = StyleSheet.create({
   },
   searchBarTextInput: {
     fontSize: 16, // Kích thước chữ trong input của thanh tìm kiếm
+  },
+  addBox: {
+    height: '3%',
+    width: '100%',
+    paddingBottom: '5%',
+    borderColor: COLOR.TITLE,
+    alignItems: 'flex-end',
+    paddingRight: '10%',
+  },
+
+  iconBox: {
+    flex: 1,
+    paddingLeft: 15,
+    justifyContent: 'flex-end',
   },
 });

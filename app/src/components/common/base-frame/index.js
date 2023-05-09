@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
         width: BASE_FRAME.FRAME_WIDTH,
         height: BASE_FRAME.FRAME_HEIGHT,
         backgroundColor: BASE_FRAME.BACKGROUND_COLOR,
+        marginVertical: 10
     },
     defaultFrameStyle: {
         borderWidth: BASE_FRAME.BORDER_WIDTH,

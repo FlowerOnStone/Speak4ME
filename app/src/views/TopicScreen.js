@@ -14,14 +14,13 @@ import {
 
 
 import COLOR from '../constants/color';
-import PopularTopic from '../components/popular-sentences-screen/topic';
-
 import { SearchBar } from 'react-native-elements';
 
 import Icon from '../components/icons/icon-tag';
 import plusIcon from '../components/icons/plus-icon';
+import Topic from '../components/topic';
 
-export default function PopularSentences({ props, navigation }) {
+export default function TopicScreen({ props, navigation }) {
 
     const [searchText, setSearchText] = useState('');
     const handleSearch = (text) => {
@@ -32,6 +31,7 @@ export default function PopularSentences({ props, navigation }) {
         {
             id: 1,
             title: 'Chủ đề 1',
+            description: 'Đây là chủ đề 1',
             content: ['first sentence', 'second sentence', 'the third sentence'],
         },
     ]);
@@ -39,11 +39,14 @@ export default function PopularSentences({ props, navigation }) {
     const [isEditing, setIsEditing] = useState(false);
 
     const handleAddTopic = () => {
-        navigation.navigate('AddPopularTopicScreen');
+        navigation.navigate("AddTopicScreen");
     };
 
     const handleDeleteTopic = (id) => {
         setTopicList(topicList.filter(topic => topic.id !== id));
+    };
+    const handleEditTopic = (id) => {
+        navigation.navigate("EditTopicScreen");
     };
     const handleViewTopic = (id, title, content) => {
         console.log(content);
@@ -70,10 +73,11 @@ export default function PopularSentences({ props, navigation }) {
             <ScrollView style={styles.contentContainer}>
                 {topicList.map(topic => (
                     <TouchableOpacity key={topic.id} style={styles.topicContainer}>
-                        <PopularTopic
+                        <Topic
                             title={topic.title}
-                            sentences={topic.content}
+                            description={topic.description}
                             onDelete={() => handleDeleteTopic(topic.id)}
+                            onEdit={() => handleEditTopic(topic.id)}
                             onTitleBlur={(newTitle) => handleTitleBlur(topic.id, newTitle)}
                             onTouch={() => handleViewTopic(topic.id, topic.title, topic.content)}
                         />

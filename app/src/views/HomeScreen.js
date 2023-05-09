@@ -14,11 +14,15 @@ export default function HomeScreen({ route, navigation }) {
     };
 
     const handleHistory = () => {
-        navigation.navigate('HistoryScreen', { sentences: ["abc", "bcd"] });
+        navigation.navigate('HistoryScreen', { sentences: ["abc", "bcd","abc", "bcd","abc", "bcd","abc", "bcd","abc", "bcd",] });
     };
 
     const handlePopularSentences = () => {
         navigation.navigate('PopularSentencesScreen');
+    }
+    const handleTopics = () => {
+        console.log(1);
+        navigation.navigate('TopicScreen');
     }
 
     return (
@@ -54,7 +58,7 @@ export default function HomeScreen({ route, navigation }) {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleTopics}>
                     <View style = {styles.button}>
                         <Text>
                             <Icon name="comment-alt" color="#000000" type = "solid" size={20} />

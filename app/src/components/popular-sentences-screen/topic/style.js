@@ -14,19 +14,6 @@ const styles = StyleSheet.create({
         color: COLOR.TEXT,
         fontSize: 15,
     },
-    textBox: {
-        width: '100%',
-        height: '82%',
-        backgroundColor: COLOR.FRAME,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-        borderBottomLeftRadius: 10,
-        paddingHorizontal: '3%',
-        paddingVertical: '2%',
-        borderStyle: 'solid',
-        borderWidth: CONSTANTS.BORDER_WIDTH,
-        borderColor: COLOR.TEXT,
-    },
     addBox: {
         width: '100%',
         height: '18%',
@@ -73,6 +60,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         justifyContent: 'center',
         flexDirection: 'row',
+        paddingVertical: 5 
     },
     sentence: {
         flex: 8,

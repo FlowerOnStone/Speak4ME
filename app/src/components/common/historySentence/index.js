@@ -1,18 +1,18 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Clipboard, Alert } from 'react-native';
 
 import React, { useEffect } from 'react';
 
+import styles from './style';
 import Icon from '../../icons/icon-tag';
 import copyIcon from '../../icons/copy-icon';
 import speakIcon from '../../icons/speak-icon';
 
 import TTS from '../../../utils/TTS';
 import BaseFrame from '../base-frame';
-import editIcon from '../../icons/edit-icon';
-import COLOR from '../../../constants/color';
+import binIcon from '../../icons/bin-icon';
 
-const Sentence = (props) => {
+const HistorySentence = (props) => {
 
     useEffect(() => {
         TTS.initTTS();
@@ -29,10 +29,10 @@ const Sentence = (props) => {
     return (
         <BaseFrame itemList={[
             <TouchableOpacity style={styles.iconBox} onPress={handleCopyClick}>
-                <Icon icon={copyIcon} />
+                <Icon icon={binIcon} />
             </TouchableOpacity>,
-            <TouchableOpacity style={styles.iconBox} onPress={props.onEdit}>
-                <Icon icon={editIcon} />
+            <TouchableOpacity style={styles.iconBox} onPress={handleCopyClick}>
+                <Icon icon={copyIcon} />
             </TouchableOpacity>,
             <TouchableOpacity style={styles.iconBox} onPress={() => handleSpeakButtonClick()}>
                 <Icon icon={speakIcon} />
@@ -41,11 +41,4 @@ const Sentence = (props) => {
     );
 };
 
-const styles = StyleSheet.create({
-    text: {
-        color: COLOR.TEXT,
-        fontSize: 15,
-    },
-});
-
-export default Sentence;
+export default HistorySentence;

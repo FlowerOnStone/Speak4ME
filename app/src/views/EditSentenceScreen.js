@@ -21,11 +21,10 @@ import SuggestionBox from '../components/editor-screen/suggestionbox';
 import { useNavigation } from '@react-navigation/native';
 import Icon from '../components/icons/icon-tag';
 import speakIcon from '../components/icons/speak-icon';
-import historyIcon from '../components/icons/history-icon';
-import popularSentencesIcon from '../components/icons/popular-sentences-icon';
+import saveIcon from '../components/icons/save-icon';
+import binIcon from '../components/icons/bin-icon';
 
-
-export default function Editor(props) {
+export default function EditSentence(props) {
 
   const navigation = useNavigation();
   const [sentences, setSentences] = useState([]);
@@ -65,20 +64,23 @@ export default function Editor(props) {
 	return (
 		<View style={styles.container}>
 			<View style={styles.contentContainer}>
-				<BaseFrame itemList={[<TouchableOpacity onPress={handleViewPopularSentences}>
-				<Icon icon={popularSentencesIcon} />
-				</TouchableOpacity>, <TouchableOpacity onPress={handleViewHistory}>
-				<Icon icon={historyIcon}/>
-				</TouchableOpacity>,<TouchableOpacity onPress={handleSave}>
-				<Icon icon={speakIcon} />
-				</TouchableOpacity>]}>
+                <BaseFrame itemList={[
+                    <TouchableOpacity onPress={handleViewPopularSentences}>
+				        <Icon icon={binIcon} />
+                    </TouchableOpacity>,
+                    <TouchableOpacity onPress={handleViewHistory}>
+				        <Icon icon={saveIcon}/>
+                    </TouchableOpacity>,
+                    <TouchableOpacity onPress={handleSave}>
+				        <Icon icon={speakIcon} />
+				    </TouchableOpacity>]}>
 				<TextInput
 					onChangeText={handleChangeSentence}
 					value={sentence}
 					multiline={true} 
 					numberOfLines={10}
 					style={styles.textInput}
-					placeholder="Bạn muốn nói gì..."
+					placeholder="Bạn hãy nhập văn bản..."
 				/>
 				</BaseFrame>
 				<SuggestionBox />

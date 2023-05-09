@@ -13,9 +13,9 @@ import plusIcon from '../../icons/plus-icon';
 import moreOptionsIcon from '../../icons/more-options-icon';
 import TTS from '../../../utils/TTS';
 import UpRightBorder from '../../common/up-right-border';
+import BaseFrame from '../../common/base-frame';
 
-
-const Topic = (props) => {
+const PopularTopic = (props) => {
   const { title, sentences, onTitleBlur } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
@@ -51,8 +51,18 @@ const Topic = (props) => {
 
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.textBox}>
+    <BaseFrame itemList={[
+          <TouchableOpacity style={styles.iconBox} onPress={props.onDelete}>
+            <Icon icon={binIcon} />
+          </TouchableOpacity>,
+          <TouchableOpacity style={styles.iconBox}>
+            <Icon icon={plusIcon} />
+          </TouchableOpacity>,
+          <TouchableOpacity style={styles.iconBox}>
+            <Icon icon={moreOptionsIcon} />
+          </TouchableOpacity>
+      ]} >
+      <TouchableOpacity onPress={props.onTouch}>
         <View style={styles.topicContainer}>
           {isEditing ? (
             <TextInput
@@ -85,24 +95,9 @@ const Topic = (props) => {
           </View>
         ))}
       </TouchableOpacity>
-      <View style={styles.addBox}>
-        <View style={styles.blankBox}></View>
-        <View style={styles.itemBox}>
-          <UpRightBorder />
-          <TouchableOpacity style={styles.iconBox} onPress={props.onDelete}>
-            <Icon icon={binIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconBox}>
-            <Icon icon={plusIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconBox}>
-            <Icon icon={moreOptionsIcon} />
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+    </BaseFrame>    
   );
 }
 
 
-export default Topic;
+export default PopularTopic;

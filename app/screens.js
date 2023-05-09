@@ -9,9 +9,15 @@ import Editor from './src/views/editor';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 // import { Icon } from './src/components/icons/icon-tag';
 import moreOptionIcon from './src/components/icons/more-options-icon';
-import Sentence from './src/components/common/sentence';
+import HistorySentence from './src/components/common/historySentence';
 import PopularSentences from './src/views/popular-sentences';
 import COLOR from './src/constants/color';
+import ListTopicSentence from './src/views/ListTopicSentenceScreen';
+import TopicScreen from './src/views/TopicScreen';
+import AddPopularTopic from './src/views/AddPopularTopicScreen';
+import AddTopic from './src/views/AddTopicScreen';
+import EditTopic from './src/views/EditTopicScreen';
+import AddSentence from './src/views/AddSentenceScreen';
 
 const screens = [
     {
@@ -95,6 +101,111 @@ const screens = [
                 backgroundColor: COLOR.TITLE,
             },
             title: "Thông dụng",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                    <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
+        },
+    },
+    {
+        name: "TopicScreen",
+        component: TopicScreen,
+        options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
+            title: "Chuẩn bị trước văn bản",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                    <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
+        },
+    },
+    {
+        name: "ListTopicSentencesScreen",
+        component: ListTopicSentence,
+        options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
+            title: "Thông dụng",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                    <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
+        },
+    },
+    {
+        name: "AddPopularTopicScreen",
+        component: AddPopularTopic,
+        options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
+            title: "Thêm chủ đề thông dụng",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                    <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
+        },
+    },
+    {
+        name: "AddTopicScreen",
+        component: AddTopic,
+        options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
+            title: "Thêm chủ đề",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                    <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
+        },
+    },
+    {
+        name: "EditTopicScreen",
+        component: EditTopic,
+        options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
+            title: "Sửa chủ đề",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                    <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
+        },
+    },
+    {
+        name: "AddSentenceScreen",
+        component: AddSentence,
+        options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
+            title: "Thêm văn bản",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                    <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
+        },
+    },
+    {
+        name: "EditSentenceScreen",
+        component: AddSentence,
+        options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
+            title: "Sửa văn bản",
             headerRight: () => (
                 <TouchableOpacity style={styles.iconBox}>
                     <Icon icon={moreOptionIcon} />

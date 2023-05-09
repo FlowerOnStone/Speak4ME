@@ -3,7 +3,7 @@ import COLOR from './color';
 const BASE_FRAME = {
     BORDER_COLOR: 'black',
     BORDER_WIDTH: 2,
-    FRAME_WIDTH: '90%',
+    FRAME_WIDTH: '100%',
     FRAME_HEIGHT: 'auto',
     BORDER_RADIUS: 15,
     FRAME_COLOR: COLOR.FRAME,
