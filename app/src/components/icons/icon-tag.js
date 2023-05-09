@@ -16,6 +16,6 @@ export default class Icon extends Component {
 const styles = StyleSheet.create({
     defaultIconStyle: {
         scale: ICON_CONSTANTS.SCALE,
-        color: ICON_CONSTANTS.COLOR,
+        // color: ICON_CONSTANTS.COLOR,
     },
 });

@@ -1,16 +1,40 @@
 
-import * as React from 'react';
+// import React from 'react';
+// import { View } from 'react-native';
+// import Icon from './src/components/icons/icon-tag';
+// import binIcon from './src/components/icons/bin-icon';
+
+// export default function MyComponent() {
+//   return (
+//   <View>
+//     <View style={{flexDirection: 'row'}}>
+//         <Icon icon={binIcon} containerStyle={{backgroundColor:'blue'}} />
+//         <View style={{flexDirection: 'column'}}>
+//             <Icon icon={binIcon} containerStyle={{backgroundColor:'yellow'}} iconStyle={{scale: 0.5}}/>
+//             <Icon icon={binIcon} containerStyle={{backgroundColor:'yellow'}} iconStyle={{scale: 0.5}}/>
+//         </View>
+//     </View>
+//       <View style={{flexDirection: 'row'}}>
+//           <Icon icon={binIcon} containerStyle={{backgroundColor:'yellow'}} iconStyle={{scale: 1}}/>
+//           <Icon icon={binIcon} containerStyle={{backgroundColor:'yellow'}} iconStyle={{scale: 1}}/>
+//       </View>
+//   </View>
+//   );
+// }
+
+// In App.js in a new project
+
+import React, { useCallback, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {View, Text} from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import screens from './screens';
 import COLOR from './src/constants/color';
-import BaseFrame from './src/components/common/base-frame';
-import Topic from './src/components/popular-sentences-screen/topic';
-import binIcon from './src/components/icons/bin-icon';
-import plusIcon from './src/components/icons/plus-icon';
-import moreOptionIcon from './src/components/icons/more-options-icon';
-import Icon from './src/components/icons/icon-tag';
+import SettingsOverlay from './src/components/common/settings-overlay';
+import log from 'utils/logger';
+import { Button } from 'react-native';
+import ButtonGroup from './src/components/common/button-group';
+import { IdType } from './src/components/common/button-group/types';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,4 +66,95 @@ function App() {
     </NavigationContainer>
   );
 }
-export default App;
+
+const optionsHeader1 = {
+  id: 1,
+  optionsHeaderProps: {
+    title: 'Sắp xếp',
+  },
+  checkboxListProps: {
+    type: 'checkbox',
+    defaultCheckedItems: [5],
+    itemList: [
+      {
+        id: 5,
+        content: <Text style={{ fontSize: 20 }}>vl</Text>,
+      },
+      {
+        id: 6,
+        content: <Text style={{ fontSize: 20 }}>hehe</Text>,
+      }],
+  },
+};
+const optionsHeader2 = {
+  id: 2,
+  optionsHeaderProps: {
+    title: 'Hiển thị',
+  },
+  checkboxListProps: {
+    type: 'radio',
+    defaultCheckedItems: [5],
+    itemList: [
+      {
+        id: 5,
+        content: <Text style={{ fontSize: 20 }}>lmao</Text>,
+      },
+      {
+        id: 6,
+        content: <Text style={{ fontSize: 20 }}>kk</Text>,
+      }],
+  },
+};
+
+const dataList = [optionsHeader1, optionsHeader2, { ...optionsHeader1, id: 3 }];
+
+const Test = () => {
+  const [visible, setVisible] = React.useState(false);
+  const handleBackdropPress = useCallback(() => {
+    setVisible(false);
+  }, []);
+  return (
+    <View>
+      <TouchableOpacity onPress={() => setVisible(true)} style={{ height: 50, backgroundColor: 'yellow' }}>
+        <Text>hehee</Text>
+      </TouchableOpacity>
+      <SettingsOverlay
+        isVisible={visible}
+        distanceToTop={50}
+        onBackdropPress={handleBackdropPress}
+        defaultFocusedId={optionsHeader1.id}
+        optionsHeaderList={dataList}
+      />
+    </View>
+  );
+};
+
+// export default Test;
+
+const TestButton = () => {
+  const [selectedId, setSelectedId] = useState<IdType>(-1);
+  return (
+    <ButtonGroup
+      buttonList={[{
+        id: 'expand',
+        content: <Text>
+          Mở rộng
+        </Text>,
+      }, {
+        id: 'collapse',
+        content: <Text>
+          Thu gọn
+        </Text>,
+      }]}
+      selectedId={selectedId}
+      onPress={(id) => {
+        setSelectedId(id);
+      }}
+      containerStyle={{ marginVertical: 10, borderRadius: 10, width: 120, height: 100 }}
+      selectedStyle={{ borderRadius: 10 }}
+    />
+  )
+}
+
+export default Test;
+// export {default} from './.storybook';
