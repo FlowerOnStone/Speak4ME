@@ -130,7 +130,7 @@ const SlideInDown = ({
                             buttonStyle={{paddingVertical: 3, marginHorizontal: 3}}
                         />
                     </View>}
-                    <ScrollView>
+                    <ScrollView style={{marginTop: 15}}>
                     {
                         optionsHeaderList.map((optionsHeaderProps, idx) => {
                             const { id } = optionsHeaderProps;
