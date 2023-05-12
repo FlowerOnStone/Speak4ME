@@ -67,60 +67,28 @@ const screens = [
         name: 'EditorScreen',
         component: Editor,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Soạn thảo",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
-        }
+            headerShown: false,
+        },
     },
     {
         name: "HistoryScreen",
         component: History,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Lịch sử nói",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
+            headerShown: false,
         },
     },
     {
         name: "PopularSentencesScreen",
         component: PopularSentences,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Thông dụng",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
+            headerShown: false,
         },
     },
     {
         name: "TopicScreen",
         component: TopicScreen,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Chuẩn bị trước văn bản",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
+            headerShown: false,
         },
     },
     {

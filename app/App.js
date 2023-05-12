@@ -13,9 +13,9 @@ function App() {
       <Stack.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: color.title,
+            backgroundColor: color.TITLE,
           },
-          headerTintColor: color.text,
+          headerTintColor: color.TEXT,
           headerTitleStyle: {
             fontWeight: 'bold',
             fontSize: 25,
@@ -43,3 +43,5 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+// export {default} from './.storybook';
