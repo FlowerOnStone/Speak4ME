@@ -4,7 +4,7 @@ Sample React Native App
 https://github.com/facebook/react-native
 @format
 */
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
     ScrollView,
     StyleSheet,
@@ -16,9 +16,14 @@ import {
 import COLOR from '../constants/color';
 import { SearchBar } from 'react-native-elements';
 
-import Icon from '../components/icons/icon-tag';
 import plusIcon from '../components/icons/plus-icon';
 import Topic from '../components/topic';
+import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from '../components/icons/icon-tag';
+import { settingsIcon } from '../components/icons/settings-icon';
+import THEME from '../constants/theme';
+import SettingsOverlay from '../components/common/settings-overlay';
+import ScreenHeader from '../components/common/screen-header';
 
 export default function TopicScreen({ props, navigation }) {
 
@@ -37,6 +42,23 @@ export default function TopicScreen({ props, navigation }) {
     ]);
     const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');
     const [isEditing, setIsEditing] = useState(false);
+    /// Header
+    const [settingsButton] = useState(
+        <TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
+            <Icon icon={settingsIcon} iconStyle={{ scale: 0.8 }} />
+        </TouchableOpacity>
+    );
+    const [backButton] = useState(
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+            <RNVIcon name="angle-left" size={THEME.FONT_SIZE_LARGE} color='black' />
+        </TouchableOpacity>
+    );
+    /// Settings Overlay
+    const [settingsOverlayVisible, setSettingsOverlayVisible] = useState(false);
+    const [distanceToTop, setDistanceToTop] = useState(0);
+    const handleBackdropPress = useCallback(() => {
+        setSettingsOverlayVisible(false);
+    }, []);
 
     const handleAddTopic = () => {
         navigation.navigate("AddTopicScreen");
@@ -69,26 +91,45 @@ export default function TopicScreen({ props, navigation }) {
 
     return (
         <View style={styles.container}>
-            <SearchBar containerStyle={styles.searchBar} inputContainerStyle={styles.searchBarInput} inputStyle={styles.searchBarTextInput} placeholder="Tìm kiếm..." value={searchText} onChangeText={handleSearch} />
-            <ScrollView style={styles.contentContainer}>
-                {topicList.map(topic => (
-                    <TouchableOpacity key={topic.id} style={styles.topicContainer}>
-                        <Topic
-                            title={topic.title}
-                            description={topic.description}
-                            onDelete={() => handleDeleteTopic(topic.id)}
-                            onEdit={() => handleEditTopic(topic.id)}
-                            onTitleBlur={(newTitle) => handleTitleBlur(topic.id, newTitle)}
-                            onTouch={() => handleViewTopic(topic.id, topic.title, topic.content)}
-                        />
+            <View
+                style={{ width: '100%', height: '100%', alignItems: 'center' }}
+                onLayout={(event) => { setDistanceToTop(event.nativeEvent.layout.height); }}
+            >
+
+                <ScreenHeader
+                    leftItem={backButton}
+                    title={'Chuẩn bị trước'}
+                    rightItem={settingsButton}
+                />
+                <SearchBar containerStyle={styles.searchBar} inputContainerStyle={styles.searchBarInput} inputStyle={styles.searchBarTextInput} placeholder="Tìm kiếm..." value={searchText} onChangeText={handleSearch} />
+                <ScrollView style={styles.contentContainer}>
+                    {topicList.map(topic => (
+                        <TouchableOpacity key={topic.id} style={styles.topicContainer}>
+                            <Topic
+                                title={topic.title}
+                                description={topic.description}
+                                onDelete={() => handleDeleteTopic(topic.id)}
+                                onEdit={() => handleEditTopic(topic.id)}
+                                onTitleBlur={(newTitle) => handleTitleBlur(topic.id, newTitle)}
+                                onTouch={() => handleViewTopic(topic.id, topic.title, topic.content)}
+                            />
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+                <View style={styles.addBox}>
+                    <TouchableOpacity style={styles.iconBox} onPress={handleAddTopic}>
+                        <Icon icon={plusIcon} iconStyle={{ scale: 2, color: COLOR.TITLE }} />
                     </TouchableOpacity>
-                ))}
-            </ScrollView>
-            <View style={styles.addBox}>
-                <TouchableOpacity style={styles.iconBox} onPress={handleAddTopic}>
-                    <Icon icon={plusIcon} iconStyle={{scale: 2, color: COLOR.TITLE}} />
-                </TouchableOpacity>
+                </View>
             </View>
+
+            <SettingsOverlay.SlideInDown
+                isVisible={settingsOverlayVisible}
+                distanceToTop={distanceToTop}
+                onBackdropPress={handleBackdropPress}
+                // defaultFocusedId={sortOptionHeader.id}
+                optionsHeaderList={[]}
+            />
         </View>
     );
 }
@@ -102,7 +143,7 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         color: 'red',
-        width:'90%',
+        width: '90%',
         height: '100%',
     },
     searchBar: {

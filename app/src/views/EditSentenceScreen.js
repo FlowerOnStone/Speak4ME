@@ -28,19 +28,8 @@ export default function EditSentence(props) {
 
   const navigation = useNavigation();
   const [sentences, setSentences] = useState([]);
-  
+
     const [sentence, setSentence] = useState('');
-    const handleSpeakButtonClick = () => {
-        if (text.length === 0) {
-            alert('Bạn vui lòng nhập câu nói để phát âm thanh');
-            Keyboard.dismiss();
-            return false;
-        }
-        TTS.Tts.speak(text);
-        props.onSpeakButtonClick(text);
-        setText('');
-        Keyboard.dismiss();
-    };
 
     const handleChangeSentence = (newSentence) => {
       setSentence(newSentence);
@@ -77,7 +66,7 @@ export default function EditSentence(props) {
 				<TextInput
 					onChangeText={handleChangeSentence}
 					value={sentence}
-					multiline={true} 
+					multiline={true}
 					numberOfLines={10}
 					style={styles.textInput}
 					placeholder="Bạn hãy nhập văn bản..."

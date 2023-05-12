@@ -5,12 +5,12 @@
  * @format
  */
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  TextInput
+	StyleSheet,
+	View,
+	TouchableOpacity,
+	TextInput
 } from 'react-native';
 
 
@@ -23,24 +23,45 @@ import Icon from '../components/icons/icon-tag';
 import speakIcon from '../components/icons/speak-icon';
 import historyIcon from '../components/icons/history-icon';
 import popularSentencesIcon from '../components/icons/popular-sentences-icon';
-
+import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import { settingsIcon } from '../components/icons/settings-icon';
+import THEME from '../constants/theme';
+import SettingsOverlay from '../components/common/settings-overlay';
+import ScreenHeader from '../components/common/screen-header';
 
 export default function Editor(props) {
 
-  const navigation = useNavigation();
-  const [sentences, setSentences] = useState([]);
+	const navigation = useNavigation();
+	const [sentences, setSentences] = useState([]);
+	const [sentence, setSentence] = useState('');
 
-    const [sentence, setSentence] = useState('');
+	/// Header
+	const [settingsButton] = useState(
+		<TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
+			<Icon icon={settingsIcon} iconStyle={{ scale: 0.8 }} />
+		</TouchableOpacity>
+	);
+	const [backButton] = useState(
+		<TouchableOpacity onPress={() => navigation.goBack()}>
+			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_LARGE} color='black' />
+		</TouchableOpacity>
+	);
+	/// Settings Overlay
+	const [settingsOverlayVisible, setSettingsOverlayVisible] = useState(false);
+	const [distanceToTop, setDistanceToTop] = useState(0);
+	const handleBackdropPress = useCallback(() => {
+		setSettingsOverlayVisible(false);
+	}, []);
 
-    const handleChangeSentence = (newSentence) => {
-      setSentence(newSentence);
-      console.log(newSentence);
-    };
+	const handleChangeSentence = (newSentence) => {
+		setSentence(newSentence);
+		console.log(newSentence);
+	};
 
 	const handleSave = () => {
 		// Nếu câu hiện tại không rỗng, thêm câu hiện tại vào mảng sentences
 		if (sentence !== '') {
-		setSentences([sentence, ...sentences]);
+			setSentences([sentence, ...sentences]);
 		}
 		console.log(sentence);
 	};
@@ -53,25 +74,42 @@ export default function Editor(props) {
 	};
 	return (
 		<View style={styles.container}>
-			<View style={styles.contentContainer}>
-				<BaseFrame itemList={[<TouchableOpacity onPress={handleViewPopularSentences}>
-				<Icon icon={popularSentencesIcon} />
-				</TouchableOpacity>, <TouchableOpacity onPress={handleViewHistory}>
-				<Icon icon={historyIcon}/>
-				</TouchableOpacity>,<TouchableOpacity onPress={handleSave}>
-				<Icon icon={speakIcon} />
-				</TouchableOpacity>]}>
-				<TextInput
-					onChangeText={handleChangeSentence}
-					value={sentence}
-					multiline={true}
-					numberOfLines={10}
-					style={styles.textInput}
-					placeholder="Bạn muốn nói gì..."
+			<View
+				style={{ width: '100%', height: '100%', alignItems: 'center' }}
+				onLayout={(event) => { setDistanceToTop(event.nativeEvent.layout.height); }}
+			>
+				<ScreenHeader
+					leftItem={backButton}
+					title={'Soạn thảo'}
+					rightItem={settingsButton}
 				/>
-				</BaseFrame>
-				<SuggestionBox />
+				<View style={styles.contentContainer}>
+					<BaseFrame itemList={[<TouchableOpacity onPress={handleViewPopularSentences}>
+						<Icon icon={popularSentencesIcon} />
+					</TouchableOpacity>, <TouchableOpacity onPress={handleViewHistory}>
+						<Icon icon={historyIcon} />
+					</TouchableOpacity>, <TouchableOpacity onPress={handleSave}>
+						<Icon icon={speakIcon} />
+					</TouchableOpacity>]}>
+						<TextInput
+							onChangeText={handleChangeSentence}
+							value={sentence}
+							multiline={true}
+							numberOfLines={10}
+							style={styles.textInput}
+							placeholder="Bạn muốn nói gì..."
+						/>
+					</BaseFrame>
+					<SuggestionBox />
+				</View>
 			</View>
+			<SettingsOverlay.SlideInDown
+                isVisible={settingsOverlayVisible}
+                distanceToTop={distanceToTop}
+                onBackdropPress={handleBackdropPress}
+                // defaultFocusedId={sortOptionHeader.id}
+                optionsHeaderList={[]}
+            />
 		</View>
 	);
 }
@@ -84,21 +122,21 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	contentContainer: {
-        flex: 1,
-        color: 'red',
-        width:'90%',
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    paragraph: {
-      flex: 10,
-    },
-    suggestionbox: {
-      flex: 1,
-    },
-    textInput: {
+		flex: 1,
+		color: 'red',
+		width: '90%',
+		height: '100%',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	paragraph: {
+		flex: 10,
+	},
+	suggestionbox: {
+		flex: 1,
+	},
+	textInput: {
 
-      fontSize: 20,
-    }
+		fontSize: 20,
+	}
 });

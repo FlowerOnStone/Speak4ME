@@ -4,22 +4,28 @@ Sample React Native App
 https://github.com/facebook/react-native
 @format
 */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     ScrollView,
     StyleSheet,
     View,
     TouchableOpacity,
 } from 'react-native';
-
-
+import Icon from '../components/icons/icon-tag';
 import COLOR from '../constants/color';
 import PopularTopic from '../components/popular-sentences-screen/topic';
-
 import { SearchBar } from 'react-native-elements';
-
-import Icon from '../components/icons/icon-tag';
 import plusIcon from '../components/icons/plus-icon';
+import { settingsIcon } from '../components/icons/settings-icon';
+import { sortOptionHeader } from '../components/common/settings-overlay/template-options-header';
+import SettingsOverlay from '../components/common/settings-overlay';
+import ScreenHeader from '../components/common/screen-header';
+import { log } from '../utils/logger';
+import { SCREEN } from '../constants/screen';
+import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import THEME from '../constants/theme';
+
+const dataList = [sortOptionHeader];
 
 export default function PopularSentences({ props, navigation }) {
 
@@ -37,6 +43,22 @@ export default function PopularSentences({ props, navigation }) {
     ]);
     const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');
     const [isEditing, setIsEditing] = useState(false);
+    const [settingsOverlayVisible, setSettingsOverlayVisible] = useState(false);
+    const [settingsButton] = useState(
+        <TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
+            <Icon icon={settingsIcon} iconStyle={{scale: 0.8}}/>
+        </TouchableOpacity>
+    );
+    const [backButton] = useState(
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+            <RNVIcon name="angle-left" size={THEME.FONT_SIZE_LARGE} color='black'/>
+        </TouchableOpacity>
+    );
+    const [distanceToTop, setDistanceToTop] = useState(0);
+
+    const handleBackdropPress = useCallback(() => {
+        setSettingsOverlayVisible(false);
+    },[]);
 
     const handleAddTopic = () => {
         navigation.navigate('AddPopularTopicScreen');
@@ -66,6 +88,15 @@ export default function PopularSentences({ props, navigation }) {
 
     return (
         <View style={styles.container}>
+            <View
+                style={{width: '100%', height: '100%', alignItems: 'center'}}
+                onLayout={(event) => {setDistanceToTop(event.nativeEvent.layout.height);}}
+            >
+            <ScreenHeader
+                leftItem={backButton}
+                title={'Thông dụng'}
+                rightItem={settingsButton}
+            />
             <SearchBar containerStyle={styles.searchBar} inputContainerStyle={styles.searchBarInput} inputStyle={styles.searchBarTextInput} placeholder="Tìm kiếm..." value={searchText} onChangeText={handleSearch} />
             <ScrollView style={styles.contentContainer}>
                 {topicList.map(topic => (
@@ -85,6 +116,14 @@ export default function PopularSentences({ props, navigation }) {
                     <Icon icon={plusIcon} iconStyle={{scale: 2, color: COLOR.TITLE}} />
                 </TouchableOpacity>
             </View>
+            </View>
+            <SettingsOverlay.SlideInDown
+                isVisible={settingsOverlayVisible}
+                distanceToTop={distanceToTop}
+                onBackdropPress={handleBackdropPress}
+                defaultFocusedId={sortOptionHeader.id}
+                optionsHeaderList={dataList}
+            />
         </View>
     );
 }
@@ -103,10 +142,10 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         backgroundColor: '#fff', // Màu nền của thanh tìm kiếm
-        width: "90%",
+        width: '90%',
         borderRadius: 35,
         borderWidth: 2,
-        margin: 10
+        margin: 10,
     },
     searchBarInput: {
         backgroundColor: '#f2f2f2', // Màu nền của input trong thanh tìm kiếm
