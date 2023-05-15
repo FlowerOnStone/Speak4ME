@@ -14,32 +14,32 @@ import {
 } from 'react-native';
 
 
-import COLOR from '../constants/color';
-import BaseFrame from '../components/common/base-frame';
-import SuggestionBox from '../components/editor-screen/suggestionbox';
+import COLOR from '../../../constants/color';
+import BaseFrame from '../../../components/common/base-frame';
+import SuggestionBox from '../../../components/editor-screen/suggestionbox';
 
 import { useNavigation } from '@react-navigation/native';
-import Icon from '../components/icons/icon-tag';
-import binIcon from '../components/icons/bin-icon';
-import plusIcon from '../components/icons/plus-icon';
-export default function AddTopic(props) {
+import Icon from '../../../components/icons/icon-tag';
+import binIcon from '../../../components/icons/bin-icon';
+import saveIcon from '../../../components/icons/save-icon';
+export default function EditTopic(props) {
 
     const navigation = useNavigation();
-  
+
     const [topic, setTopic] = useState('');
     const [description, setDescription] = useState('');
 
     const handleChangeTopic = (newTopic) => {
         setTopic(newTopic);
-        console.log(newTopic);
+        // console.log(newTopic);
     };
     const handleChangeDescription = (newDescription) => {
         setDescription(newDescription);
-        console.log(newDescription);
+        // console.log(newDescription);
     };
 
     const handleSave = () => {
-        console.log(topic);
+        // console.log(topic);
     };
 
     const handleClearTopic = () => {
@@ -59,7 +59,7 @@ export default function AddTopic(props) {
 				<TextInput
 					onChangeText={handleChangeTopic}
 					value={topic}
-					multiline={true} 
+					multiline={true}
 					numberOfLines={3}
 					style={styles.textInput}
 					placeholder="Bạn hãy nhập tên chủ đề..."
@@ -72,17 +72,24 @@ export default function AddTopic(props) {
 				<TextInput
 					onChangeText={handleChangeDescription}
 					value={description}
-					multiline={true} 
+					multiline={true}
 					numberOfLines={4}
 					style={styles.textInput}
 					placeholder="Bạn hãy nhập mô tả về chủ đề..."
 					/>
-				</BaseFrame>                
+				</BaseFrame>
 				<SuggestionBox />
 				<View style={styles.addButton}>
-					<TouchableOpacity onPress={handleSave}>
-						<Icon icon={plusIcon} />
-					</TouchableOpacity>
+					<View style={{ marginRight: 10, marginLeft: 10 }}>
+						<TouchableOpacity onPress={handleSave}>
+							<Icon icon={saveIcon} />
+						</TouchableOpacity>
+					</View>
+					<View style={{ marginRight: 10, marginLeft: 10 }}>
+						<TouchableOpacity onPress={handleSave}>
+							<Icon icon={binIcon} />
+						</TouchableOpacity>
+					</View>
 				</View>
 			</View>
         </View>
@@ -105,7 +112,8 @@ const styles = StyleSheet.create({
 	},
 	addButton: {
 		width: "100%",
-		alignItems:"flex-end"
+        display: "flex",
+        flexDirection:"row-reverse",
 	},
 	paragraph: {
 		flex: 10,

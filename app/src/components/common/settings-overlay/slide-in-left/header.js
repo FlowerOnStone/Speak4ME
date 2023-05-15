@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     },
     titleStyle: {
         // fontSize: THEME.FONT_SIZE_LARGE,
-        fontSize: THEME.FONT_SIZE_LARGE,
+        fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
         fontFamily: 'Inner',
         color: 'black',
         marginLeft: 10,

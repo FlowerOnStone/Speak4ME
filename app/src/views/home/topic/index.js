@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /**
 
 Sample React Native App
@@ -11,19 +12,19 @@ import {
     View,
     TouchableOpacity,
 } from 'react-native';
-
-
-import COLOR from '../constants/color';
-import { SearchBar } from 'react-native-elements';
-
-import plusIcon from '../components/icons/plus-icon';
-import Topic from '../components/topic';
+import COLOR from '../../../constants/color';
+import plusIcon from '../../../components/icons/plus-icon';
+import Topic from '../../../components/topic';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
-import Icon from '../components/icons/icon-tag';
-import { settingsIcon } from '../components/icons/settings-icon';
-import THEME from '../constants/theme';
-import SettingsOverlay from '../components/common/settings-overlay';
-import ScreenHeader from '../components/common/screen-header';
+import Icon from '../../../components/icons/icon-tag';
+import { settingsIcon } from '../../../components/icons/settings-icon';
+import THEME from '../../../constants/theme';
+import SettingsOverlay from '../../../components/common/settings-overlay';
+import ScreenHeader from '../../../components/common/screen-header';
+import { log } from '../../../utils/logger';
+import SearchBar from '../../../components/common/search-bar';
+import { TouchableWithoutFeedback } from 'react-native';
+import { SCREEN } from '../../../constants/screen';
 
 export default function TopicScreen({ props, navigation }) {
 
@@ -50,7 +51,7 @@ export default function TopicScreen({ props, navigation }) {
     );
     const [backButton] = useState(
         <TouchableOpacity onPress={() => navigation.goBack()}>
-            <RNVIcon name="angle-left" size={THEME.FONT_SIZE_LARGE} color='black' />
+            <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color="black" />
         </TouchableOpacity>
     );
     /// Settings Overlay
@@ -61,18 +62,18 @@ export default function TopicScreen({ props, navigation }) {
     }, []);
 
     const handleAddTopic = () => {
-        navigation.navigate("AddTopicScreen");
+        navigation.navigate(SCREEN.ADD_TOPIC);
     };
 
     const handleDeleteTopic = (id) => {
         setTopicList(topicList.filter(topic => topic.id !== id));
     };
     const handleEditTopic = (id) => {
-        navigation.navigate("EditTopicScreen");
+        navigation.navigate(SCREEN.EDIT_TOPIC);
     };
     const handleViewTopic = (id, title, content) => {
-        console.log(content);
-        navigation.navigate('ListTopicSentencesScreen', { name: title, sentences: content });
+        // console.log(content);
+        navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
     };
 
     const handleTitleBlur = (targetId, newTitle) => {
@@ -101,21 +102,24 @@ export default function TopicScreen({ props, navigation }) {
                     title={'Chuẩn bị trước'}
                     rightItem={settingsButton}
                 />
-                <SearchBar containerStyle={styles.searchBar} inputContainerStyle={styles.searchBarInput} inputStyle={styles.searchBarTextInput} placeholder="Tìm kiếm..." value={searchText} onChangeText={handleSearch} />
-                <ScrollView style={styles.contentContainer}>
-                    {topicList.map(topic => (
-                        <TouchableOpacity key={topic.id} style={styles.topicContainer}>
-                            <Topic
-                                title={topic.title}
-                                description={topic.description}
-                                onDelete={() => handleDeleteTopic(topic.id)}
-                                onEdit={() => handleEditTopic(topic.id)}
-                                onTitleBlur={(newTitle) => handleTitleBlur(topic.id, newTitle)}
-                                onTouch={() => handleViewTopic(topic.id, topic.title, topic.content)}
-                            />
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView>
+                <SearchBar containerStyle={{marginTop: 5}}/>
+                <View style={styles.contentContainer}>
+                    {topicList.map(topic => {
+                        // log.debug(topic);
+                        return (
+                            <TouchableWithoutFeedback key={topic.id} >
+                                <Topic
+                                    title={topic.title}
+                                    description={topic.description}
+                                    onDelete={() => handleDeleteTopic(topic.id)}
+                                    onEdit={() => handleEditTopic(topic.id)}
+                                    onTitleBlur={(newTitle) => handleTitleBlur(topic.id, newTitle)}
+                                    onTouch={() => handleViewTopic(topic.id, topic.title, topic.content)}
+                                />
+                            </TouchableWithoutFeedback>
+                        );
+                    })}
+                </View>
                 <View style={styles.addBox}>
                     <TouchableOpacity style={styles.iconBox} onPress={handleAddTopic}>
                         <Icon icon={plusIcon} iconStyle={{ scale: 2, color: COLOR.TITLE }} />
@@ -142,16 +146,16 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flex: 1,
-        color: 'red',
+        // color: 'red',
         width: '90%',
-        height: '100%',
+        // height: '100%',
     },
     searchBar: {
         backgroundColor: '#fff', // Màu nền của thanh tìm kiếm
-        width: "90%",
+        width: '90%',
         borderRadius: 35,
         borderWidth: 2,
-        margin: 10
+        margin: 10,
     },
     searchBarInput: {
         backgroundColor: '#f2f2f2', // Màu nền của input trong thanh tìm kiếm

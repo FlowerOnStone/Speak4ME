@@ -69,9 +69,6 @@ const SlideInDown = ({
     containerStyle = undefined,
     children = undefined,
 }) => {
-    // log.debug(distanceToTop);
-    // distanceToTop = 500;
-    // log.debug(SCREEN.HEIGHT)
     const [focusedId, setFocusedId] = useState(defaultFocusedId);
     const [expandAll, setExpandAll] = useState(true);
     const [selectedId, setSelectedId] = useState(0);
@@ -172,9 +169,7 @@ const styles = StyleSheet.create({
     defaultContainerStyle: {
         width: '100%',
         height: '50%',
-        // position: 'absolute',
         backgroundColor: THEME.BACKGROUND_COLOR,
-        // backgroundColor: 'purple',
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
     },

@@ -3,6 +3,7 @@ import React from 'react';
 import { ScreenHeaderProps } from './type';
 import THEME from '../../../constants/theme';
 import toJSX from '../../../utils/convert-to-jsx';
+import { SCREEN } from '../../../constants/screen';
 
 const ScreenHeader = ({
     title,
@@ -40,7 +41,7 @@ export default ScreenHeader;
 const styles = StyleSheet.create({
     header: {
         width: '100%',
-        height: '7%',
+        height: SCREEN.HEIGHT * 0.07,
         backgroundColor: THEME.TITLE_COLOR,
         flexDirection: 'row',
         alignItems: 'center',
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
         right: 10,
     },
     title: {
-        fontSize: THEME.FONT_SIZE_LARGE,
+        fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
         color: THEME.FONT_COLOR,
         // fontWeight: 'bold',
     },

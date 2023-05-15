@@ -39,32 +39,33 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
     iconBox: {
-        flex: 1,
-        paddingLeft: 15,
-        justifyContent: 'center',
+        // justifyContent: 'center',
     },
     topicContainer: {
         flex: 1,
         justifyContent: 'center',
         flexDirection: 'row',
+        paddingBottom: 10,
     },
     topicText: {
-        flex: 9, 
+        flex: 9,
         fontSize: 20,
         fontWeight: 'bold',
         color: COLOR.TEXT,
     },
     sentenceContainer: {
-        flex: 1,
+        // flex: 1,
         borderTopColor: COLOR.LIGHT_TEXT,
         borderTopWidth: 1,
-        justifyContent: 'center',
+        // justifyContent: 'space-between',
         flexDirection: 'row',
-        paddingVertical: 5 
+        paddingVertical: 7,
+        // backgroundColor: 'yellow',
     },
     sentence: {
-        flex: 8,
+        flex: 1,
         justifyContent: 'center',
+        // alignSelf: 'flex-start',
     },
     sentenceText: {
         fontSize: 18,

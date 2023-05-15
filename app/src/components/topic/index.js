@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { Clipboard, Alert } from 'react-native';
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
 import styles from './style';
 import Icon from '../icons/icon-tag';
@@ -47,15 +47,18 @@ const Topic = (props) => {
 
 
   return (
-    <BaseFrame itemList={[
+    <BaseFrame
+      itemList={[
         <TouchableOpacity style={styles.iconBox} onPress={props.onEdit}>
             <Icon icon={editIcon} />
         </TouchableOpacity>,
           <TouchableOpacity style={styles.iconBox} onPress={props.onDelete}>
             <Icon icon={binIcon} />
-          </TouchableOpacity>
-      ]} >
-      <TouchableOpacity onPress={props.onTouch}>
+          </TouchableOpacity>,
+      ]}
+      // topBoxStyle={{padding: 0}}
+    >
+      <TouchableOpacity onPress={props.onTouch} style={{alignSelf: 'flex-start'}}>
         <View style={styles.topicContainer}>
             <Text style={styles.topicText}>{title}</Text>
         </View>
@@ -63,9 +66,9 @@ const Topic = (props) => {
             <Text style={styles.descriptionText}>{description}</Text>
         </View>
       </TouchableOpacity>
-    </BaseFrame>    
+    </BaseFrame>
   );
-}
+};
 
 
 export default Topic;

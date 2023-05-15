@@ -12,24 +12,21 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-
-import { SearchBar } from 'react-native-elements';
-
-
-import COLOR from '../constants/color';
-import HistorySentence from '../components/common/historySentence';
+import COLOR from '../../../constants/color';
+import HistorySentence from '../../../components/common/historySentence';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
-import Icon from '../components/icons/icon-tag';
-import { settingsIcon } from '../components/icons/settings-icon';
-import THEME from '../constants/theme';
-import SettingsOverlay from '../components/common/settings-overlay';
-import ScreenHeader from '../components/common/screen-header';
+import Icon from '../../../components/icons/icon-tag';
+import { settingsIcon } from '../../../components/icons/settings-icon';
+import THEME from '../../../constants/theme';
+import SettingsOverlay from '../../../components/common/settings-overlay';
+import ScreenHeader from '../../../components/common/screen-header';
+import SearchBar from '../../../components/common/search-bar';
 
 export default function History({ route, navigation }) {
 
   const { sentences = [] } = route.params ?? {};
 
-  console.log(route.params);
+  // console.log(route.params);
   const [searchText, setSearchText] = useState('');
   /// Header
   const [settingsButton] = useState(
@@ -39,7 +36,7 @@ export default function History({ route, navigation }) {
   );
   const [backButton] = useState(
     <TouchableOpacity onPress={() => navigation.goBack()}>
-      <RNVIcon name="angle-left" size={THEME.FONT_SIZE_LARGE} color='black' />
+      <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
     </TouchableOpacity>
   );
   /// Settings Overlay
@@ -66,14 +63,7 @@ export default function History({ route, navigation }) {
 					title={'Lịch sử nói'}
 					rightItem={settingsButton}
 				/>
-        <SearchBar
-          containerStyle={styles.searchBar}
-          inputContainerStyle={styles.searchBarInput}
-          inputStyle={styles.searchBarTextInput}
-          placeholder="Tìm kiếm..."
-          value={searchText}
-          onChangeText={handleSearch}
-        />
+        <SearchBar containerStyle={{marginTop: 5}}/>
         <View style={styles.contentContainer}>
           <ScrollView style={styles.scroll}>
             {

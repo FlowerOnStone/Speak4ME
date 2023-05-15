@@ -1,18 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { SCREEN } from '../../constants/screen';
 
 export default function StartScreen({ route, navigation }) {
 //   const { username } = route.params;
 
   const handleLogin = () => {
     // Call API to authenticate user
-    navigation.navigate('Login');
-  }
+    navigation.navigate(SCREEN.LOGIN);
+  };
 
   const handleRegister = () => {
     // Call API to register user
-    navigation.navigate('Register');
-    }
+    navigation.navigate(SCREEN.REGISTER);
+    };
 
   return (
     <SafeAreaView>
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     },
     button: {
         // flex:1,
-        backgroundColor: "#50D890",
+        backgroundColor: '#50D890',
         flexDirection: 'row',
         // textAlign: 'center',
         justifyContent: 'center',

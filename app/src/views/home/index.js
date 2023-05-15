@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { SCREEN } from '../../constants/screen';
 
 export default function HomeScreen({ route, navigation }) {
     const { username } = route.params;
@@ -10,19 +11,19 @@ export default function HomeScreen({ route, navigation }) {
     };
 
     const handleEditor = () => {
-        navigation.navigate('EditorScreen');
+        navigation.navigate(SCREEN.EDITOR);
     };
 
     const handleHistory = () => {
-        navigation.navigate('HistoryScreen', { sentences: ["abc", "bcd","abc", "bcd","abc", "bcd","abc", "bcd","abc", "bcd",] });
+        navigation.navigate(SCREEN.HISTORY, { sentences: ["abc", "bcd","abc", "bcd","abc", "bcd","abc", "bcd","abc", "bcd",] });
     };
 
     const handlePopularSentences = () => {
-        navigation.navigate('PopularSentencesScreen');
+        navigation.navigate(SCREEN.POPULAR_SENTENCES);
     }
     const handleTopics = () => {
-        console.log(1);
-        navigation.navigate('TopicScreen');
+        // console.log(1);
+        navigation.navigate(SCREEN.TOPIC);
     }
 
     return (
@@ -51,7 +52,7 @@ export default function HomeScreen({ route, navigation }) {
                 <TouchableOpacity onPress={handlePopularSentences}>
                     <View style = {styles.button}>
                         <Text>
-                            <Icon name="comments" color="#000000" type = "solid" size={20} />
+                            <Icon name="comments" color="#000000" size={20} />
                             <Text style = {styles.textBody}>
                                 {'  Các câu giao tiếp thông dụng'}
                             </Text>

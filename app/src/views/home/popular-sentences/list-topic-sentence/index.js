@@ -13,17 +13,19 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import { SearchBar } from 'react-native-elements';
-import Sentence from '../components/common/sentence';
-import COLOR from '../constants/color';
-import plusIcon from '../components/icons/plus-icon';
-import Icon from '../components/icons/icon-tag';
+import COLOR from '../../../../constants/color';
+import plusIcon from '../../../../components/icons/plus-icon';
+import Icon from '../../../../components/icons/icon-tag';
+import { randomId } from '../../../../utils/random-id';
+import SearchBar from '../../../../components/common/search-bar';
+import { SCREEN } from '../../../../constants/screen';
+import Sentence from '../../../../components/common/sentence';
 
 export default function ListTopicSentence({ route, navigation }) {
 
   const { sentences = [] } = route.params ?? {};
 
-  console.log(sentences);
+  // console.log(sentences);
   const [searchText, setSearchText] = useState('');
   const handleSearch = (text) => {
     setSearchText(text); // Lưu trữ giá trị của thanh tìm kiếm khi người dùng nhập vào
@@ -35,28 +37,21 @@ export default function ListTopicSentence({ route, navigation }) {
   });
 
   const handleAddSentence = () => {
-    navigation.navigate("AddSentenceScreen");
+    navigation.navigate(SCREEN.ADD_SENTENCE);
   }
 
   const handleEditSentence = () => {
-    navigation.navigate("EditSentenceScreen");
+    navigation.navigate(SCREEN.EDIT_SENTENCE);
   }
 
   return (
     <View style={styles.container}>
-      <SearchBar
-        containerStyle={styles.searchBar}
-        inputContainerStyle={styles.searchBarInput}
-        inputStyle={styles.searchBarTextInput}
-        placeholder="Tìm kiếm..."
-        value={searchText}
-        onChangeText={handleSearch}
-      />
+      <SearchBar containerStyle={{marginTop: 5}}/>
       <View style={styles.contentContainer}>
         <ScrollView style={styles.scroll}>
-          { 
+          {
             sentences.length > 0 && sentences.map((sentence, index) => (
-              <Sentence  onEdit={handleEditSentence} text={sentence} />
+              <Sentence key={randomId()} onEdit={handleEditSentence} text={sentence} />
             ))}
         </ScrollView>
       </View>
@@ -81,7 +76,7 @@ const styles = StyleSheet.create({
     height: '85%',
     width: '100%',
     justifyContent: 'center',
-    textAlign: 'center', 
+    textAlign: 'center',
     display: 'flex'
   },
   scroll: {

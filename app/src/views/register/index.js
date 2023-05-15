@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react'
-import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
-
-import color from '../constants/color'
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import color from '../../constants/color';
+import { SCREEN } from '../../constants/screen';
 
 export default function RegisterScreen({ navigation }) {
     const [firstandlastname, setFirstandlastname] = useState('');
@@ -12,13 +12,13 @@ export default function RegisterScreen({ navigation }) {
 
     const handleRegister = () => {
         // Call API to register user
-        navigation.navigate('Start', { username });
-    }
+        navigation.navigate(SCREEN.START, { username });
+    };
 
     const goBack = () => {
         // Call API to register user
-        navigation.navigate('Start');
-    }
+        navigation.navigate(SCREEN.START);
+    };
 
     return (
         <View style={styles.inputContainer}>
@@ -89,10 +89,10 @@ export default function RegisterScreen({ navigation }) {
         // flex: 1,
         flexDirection: 'row',
         fontSize: 18,
-        paddingLeft: 15
+        paddingLeft: 15,
     },
     registerContainer: {
-        backgroundColor: "#50D890",
+        backgroundColor: '#50D890',
         flexDirection: 'row',
         // textAlign: 'center',
         justifyContent: 'center',
@@ -107,5 +107,5 @@ export default function RegisterScreen({ navigation }) {
     registerText: {
         fontSize: 30,
         color: '#000000',
-    }
+    },
 });

@@ -7,6 +7,7 @@ import Icon from '../../icons/icon-tag';
 import {View} from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
 import {Shadow} from 'react-native-shadow-2';
+import THEME from '../../../constants/theme';
 // import { Icon } from 'react-native-vector-icons/FontAwesome';
 
 const dropShadowProps = {
@@ -21,12 +22,12 @@ const dropShadowProps = {
 
 // const clearIcon = React.createElement(FontAwesomeIcon, {size: 30, color: 'grey', name: 'crop'});
 const clearIcon = {
-    size: 30,
+    size: THEME.FONT_SIZE_SMALL,
 };
 
 const cancelIcon = {
     type: 'font-awesome',
-    size: 35,
+    size: THEME.FONT_SIZE_SMALL,
     name: 'angle-left',
 };
 
@@ -36,8 +37,8 @@ const SearchBar = (props) => {
         setSearch(text);
     };
     return (
-        <View style={{width: '90%'}}>
-            <DropShadow style={dropShadowProps}>
+        <View style={[{width: '90%'}, props.containerStyle]}>
+            {/* <DropShadow style={dropShadowProps}> */}
                 <View style={{borderRadius: 25}}>
                     <TempSearchBar
                         placeholder="Tìm kiếm"
@@ -56,7 +57,7 @@ const SearchBar = (props) => {
                         {...props}
                     />
                 </View>
-            </DropShadow>
+            {/* </DropShadow> */}
         </View>
     );
 };

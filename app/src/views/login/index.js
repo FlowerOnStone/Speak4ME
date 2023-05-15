@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 
-import color from '../constants/color'
+import color from '../../constants/color'
+import { SCREEN } from '../../constants/screen';
 
 export default function LoginScreen({ route, navigation }) {
   const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ export default function LoginScreen({ route, navigation }) {
 
   const handleLogin = () => {
     // Call API to authenticate user
-    navigation.navigate('Home', { username });
+    navigation.navigate(SCREEN.HOME, { username });
   }
 
   return (

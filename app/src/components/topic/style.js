@@ -39,17 +39,18 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
     iconBox: {
-        flex: 1,
-        paddingLeft: 15,
-        justifyContent: 'center',
+        // flex: 1,
+        // paddingLeft: 15,
+        // justifyContent: 'center',
     },
     topicContainer: {
-        flex: 1,
+        // flex: 1,
+        // height: 200,
         justifyContent: 'center',
         flexDirection: 'row',
     },
     topicText: {
-        flex: 9, 
+        flex: 9,
         fontSize: 20,
         fontWeight: 'bold',
         color: COLOR.TEXT,

@@ -36,14 +36,15 @@ const BottomBox = (props) => {
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 {
                     typeof props.itemList === 'undefined' ?
-                    null :
-                    props.itemList.map((Item, idx) => {
-                    return (
-                        <View key={idx} style={{ marginRight: 10, marginLeft: 10 }}>
-                            {typeof Item === 'function' ? <Item/> : Item}
-                        </View>
-                    );
-                })}
+                        null :
+                        props.itemList.map((Item, idx) => {
+                            return (
+                                <View key={idx} style={{ marginRight: 10, marginLeft: 10 }}>
+                                    {typeof Item === 'function' ? <Item /> : Item}
+                                </View>
+                            );
+                        })
+                }
             </View>
             <View style={{
                 position: 'absolute',

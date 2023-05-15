@@ -5,13 +5,14 @@ import BASE_FRAME from '../../../constants/base-frame';
 import TopBox from './sub-component/top-box';
 import Curve from './sub-component/curve';
 import BottomBox from './sub-component/bottom-box';
+import { log } from '../../../utils/logger';
 
 const styles = StyleSheet.create({
     defaultContainerStyle: {
         width: BASE_FRAME.FRAME_WIDTH,
         height: BASE_FRAME.FRAME_HEIGHT,
         backgroundColor: BASE_FRAME.BACKGROUND_COLOR,
-        marginVertical: 10
+        marginVertical: 10,
     },
     defaultFrameStyle: {
         borderWidth: BASE_FRAME.BORDER_WIDTH,
@@ -70,8 +71,14 @@ const BaseFrame = (props) => {
     const [bottomBoxHeight, setBottomBoxHeight] = useState(0);
 
     const updateBottomBoxLayout = (event) => {
-        setBottomBoxWidth(event.nativeEvent.layout.width);
-        setBottomBoxHeight(event.nativeEvent.layout.height * 2);
+        // log.debug(`width ${bottomBoxWidth}`)
+        // log.debug(`height ${bottomBoxHeight}`)
+        // log.debug(`layout width ${event.nativeEvent.layout.width}`);
+        // log.debug(`layout height ${event.nativeEvent.layout.height}`);
+        if (bottomBoxWidth === 0 || bottomBoxHeight === 0) {
+            setBottomBoxWidth(event.nativeEvent.layout.width);
+            setBottomBoxHeight(event.nativeEvent.layout.height);
+        }
     };
 
     return (

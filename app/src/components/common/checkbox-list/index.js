@@ -66,9 +66,6 @@ const CheckBoxList = ({
     const idRef = useRef(id);
 
     useEffect(() => {
-        return () => {log.error('unmounted')}
-    },[])
-    useEffect(() => {
         dispatch(actions.clearCheckedIdFrom({
             listId: getId(),
         }));

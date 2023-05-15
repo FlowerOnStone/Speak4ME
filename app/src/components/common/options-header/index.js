@@ -9,7 +9,7 @@ import {LightenDarkenColor} from 'lighten-darken-color';
 import ExpandCollapseAnim from './expand-collapse-anim';
 
 const defaultCollapseIcon = <RNVIcon name="angle-down"
-                                  size={THEME.FONT_SIZE_MEDIUM}
+                                  size={THEME.FONT_SIZE_LARGE}
                                   color={THEME.FONT_COLOR}
                          />;
 

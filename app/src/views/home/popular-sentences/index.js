@@ -10,25 +10,27 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
+    TouchableWithoutFeedback,
 } from 'react-native';
-import Icon from '../components/icons/icon-tag';
-import COLOR from '../constants/color';
-import PopularTopic from '../components/popular-sentences-screen/topic';
-import { SearchBar } from 'react-native-elements';
-import plusIcon from '../components/icons/plus-icon';
-import { settingsIcon } from '../components/icons/settings-icon';
-import { sortOptionHeader } from '../components/common/settings-overlay/template-options-header';
-import SettingsOverlay from '../components/common/settings-overlay';
-import ScreenHeader from '../components/common/screen-header';
-import { log } from '../utils/logger';
-import { SCREEN } from '../constants/screen';
+import Icon from '../../../components/icons/icon-tag';
+import COLOR from '../../../constants/color';
+import PopularTopic from '../../../components/popular-sentences-screen/topic';
+import SearchBar from '../../../components/common/search-bar';
+import plusIcon from '../../../components/icons/plus-icon';
+import { settingsIcon } from '../../../components/icons/settings-icon';
+import { sortOptionHeader } from '../../../components/common/settings-overlay/template-options-header';
+import SettingsOverlay from '../../../components/common/settings-overlay';
+import ScreenHeader from '../../../components/common/screen-header';
+import { log } from '../../../utils/logger';
+import { SCREEN } from '../../../constants/screen';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
-import THEME from '../constants/theme';
+import THEME from '../../../constants/theme';
 
 const dataList = [sortOptionHeader];
 
 export default function PopularSentences({ props, navigation }) {
 
+    log.debug('re render popular sentences');
     const [searchText, setSearchText] = useState('');
     const handleSearch = (text) => {
         setSearchText(text);
@@ -51,7 +53,7 @@ export default function PopularSentences({ props, navigation }) {
     );
     const [backButton] = useState(
         <TouchableOpacity onPress={() => navigation.goBack()}>
-            <RNVIcon name="angle-left" size={THEME.FONT_SIZE_LARGE} color='black'/>
+            <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black'/>
         </TouchableOpacity>
     );
     const [distanceToTop, setDistanceToTop] = useState(0);
@@ -61,15 +63,15 @@ export default function PopularSentences({ props, navigation }) {
     },[]);
 
     const handleAddTopic = () => {
-        navigation.navigate('AddPopularTopicScreen');
+        navigation.navigate(SCREEN.ADD_POPULAR_TOPIC);
     };
 
     const handleDeleteTopic = (id) => {
         setTopicList(topicList.filter(topic => topic.id !== id));
     };
     const handleViewTopic = (id, title, content) => {
-        console.log(content);
-        navigation.navigate('ListTopicSentencesScreen', { name: title, sentences: content });
+        // console.log(content);
+        navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
     };
 
     const handleTitleBlur = (targetId, newTitle) => {
@@ -97,10 +99,10 @@ export default function PopularSentences({ props, navigation }) {
                 title={'Thông dụng'}
                 rightItem={settingsButton}
             />
-            <SearchBar containerStyle={styles.searchBar} inputContainerStyle={styles.searchBarInput} inputStyle={styles.searchBarTextInput} placeholder="Tìm kiếm..." value={searchText} onChangeText={handleSearch} />
+            <SearchBar containerStyle={{marginTop: 5}}/>
             <ScrollView style={styles.contentContainer}>
                 {topicList.map(topic => (
-                    <TouchableOpacity key={topic.id} style={styles.topicContainer}>
+                    <TouchableWithoutFeedback key={topic.id} style={styles.topicContainer}>
                         <PopularTopic
                             title={topic.title}
                             sentences={topic.content}
@@ -108,7 +110,7 @@ export default function PopularSentences({ props, navigation }) {
                             onTitleBlur={(newTitle) => handleTitleBlur(topic.id, newTitle)}
                             onTouch={() => handleViewTopic(topic.id, topic.title, topic.content)}
                         />
-                    </TouchableOpacity>
+                    </TouchableWithoutFeedback>
                 ))}
             </ScrollView>
             <View style={styles.addBox}>
@@ -139,6 +141,7 @@ const styles = StyleSheet.create({
         color: 'red',
         width:'90%',
         height: '100%',
+        // backgroundColor: 'red',
     },
     searchBar: {
         backgroundColor: '#fff', // Màu nền của thanh tìm kiếm

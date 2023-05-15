@@ -14,20 +14,21 @@ import {
 } from 'react-native';
 
 
-import COLOR from '../constants/color';
-import BaseFrame from '../components/common/base-frame';
-import SuggestionBox from '../components/editor-screen/suggestionbox';
+import COLOR from '../../../constants/color';
+import BaseFrame from '../../../components/common/base-frame';
+import SuggestionBox from '../../../components/editor-screen/suggestionbox';
 
 import { useNavigation } from '@react-navigation/native';
-import Icon from '../components/icons/icon-tag';
-import speakIcon from '../components/icons/speak-icon';
-import historyIcon from '../components/icons/history-icon';
-import popularSentencesIcon from '../components/icons/popular-sentences-icon';
+import Icon from '../../../components/icons/icon-tag';
+import speakIcon from '../../../components/icons/speak-icon';
+import historyIcon from '../../../components/icons/history-icon';
+import popularSentencesIcon from '../../../components/icons/popular-sentences-icon';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
-import { settingsIcon } from '../components/icons/settings-icon';
-import THEME from '../constants/theme';
-import SettingsOverlay from '../components/common/settings-overlay';
-import ScreenHeader from '../components/common/screen-header';
+import { settingsIcon } from '../../../components/icons/settings-icon';
+import THEME from '../../../constants/theme';
+import SettingsOverlay from '../../../components/common/settings-overlay';
+import ScreenHeader from '../../../components/common/screen-header';
+import { SCREEN } from '../../../constants/screen';
 
 export default function Editor(props) {
 
@@ -43,7 +44,7 @@ export default function Editor(props) {
 	);
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_LARGE} color='black' />
+			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
 		</TouchableOpacity>
 	);
 	/// Settings Overlay
@@ -55,7 +56,7 @@ export default function Editor(props) {
 
 	const handleChangeSentence = (newSentence) => {
 		setSentence(newSentence);
-		console.log(newSentence);
+		// console.log(newSentence);
 	};
 
 	const handleSave = () => {
@@ -63,14 +64,14 @@ export default function Editor(props) {
 		if (sentence !== '') {
 			setSentences([sentence, ...sentences]);
 		}
-		console.log(sentence);
+		// console.log(sentence);
 	};
 	const handleViewHistory = () => {
 		navigation.navigate('HistoryScreen', { sentences });
 	};
 
 	const handleViewPopularSentences = () => {
-		navigation.navigate('PopularSentencesScreen');
+		navigation.navigate(SCREEN.POPULAR_SENTENCES);
 	};
 	return (
 		<View style={styles.container}>
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: COLOR.BACKGROUND,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	contentContainer: {
 		flex: 1,
@@ -127,7 +128,8 @@ const styles = StyleSheet.create({
 		width: '90%',
 		height: '100%',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		// backgroundColor: 'yellow'
 	},
 	paragraph: {
 		flex: 10,

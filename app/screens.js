@@ -1,23 +1,23 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import StartScreen from './src/views/StartScreen';
-import LoginScreen from './src/views/LoginScreen';
-import RegisterScreen from './src/views/RegisterScreen';
-import HomeScreen from './src/views/HomeScreen';
-import History from './src/views/history';
-import Editor from './src/views/editor';
+import StartScreen from './src/views/start';
+import LoginScreen from './src/views/login';
+import RegisterScreen from './src/views/register';
+import HomeScreen from './src/views/home';
+import History from './src/views/home/history';
+import Editor from './src/views/home/editor';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 // import { Icon } from './src/components/icons/icon-tag';
 import moreOptionIcon from './src/components/icons/more-options-icon';
 import HistorySentence from './src/components/common/historySentence';
-import PopularSentences from './src/views/popular-sentences';
+import PopularSentences from './src/views/home/popular-sentences';
 import COLOR from './src/constants/color';
-import ListTopicSentence from './src/views/ListTopicSentenceScreen';
-import TopicScreen from './src/views/TopicScreen';
-import AddPopularTopic from './src/views/AddPopularTopicScreen';
-import AddTopic from './src/views/AddTopicScreen';
-import EditTopic from './src/views/EditTopicScreen';
-import AddSentence from './src/views/AddSentenceScreen';
+import ListTopicSentence from './src/views/home/popular-sentences/list-topic-sentence';
+import TopicScreen from './src/views/home/topic';
+import AddPopularTopic from './src/views/home/popular-sentences/add-popular-topic';
+import AddTopic from './src/views/home/topic/add-topic';
+import EditTopic from './src/views/home/topic/edit-topic';
+import AddSentence from './src/views/home/popular-sentences/list-topic-sentence/add-sentence';
 
 const screens = [
     {
@@ -55,10 +55,10 @@ const screens = [
                 backgroundColor: COLOR.TITLE,
             },
             title: 'Trang chủ',
-            headerLeft: ()=> null,
+            headerLeft: () => null,
             headerRight: () => (
                 <TouchableOpacity style={styles.iconBox}>
-                    <Icon name="bars" color="#000000" type = "solid" style = {styles.setting}/>
+                    <Icon name="bars" color="#000000" type="solid" style={styles.setting} />
                 </TouchableOpacity>
             ),
         },
@@ -184,15 +184,15 @@ const screens = [
 ];
 
 const styles = StyleSheet.create({
-  iconBox: {
-    marginRight: 5,
-  },
-  setting: {
-    textAlign: 'right',
-    fontSize: 25,
-    marginRight:10,
-    marginTop: 5,
-},
+    iconBox: {
+        marginRight: 5,
+    },
+    setting: {
+        textAlign: 'right',
+        fontSize: 25,
+        marginRight: 10,
+        marginTop: 5,
+    },
 });
 
 export default screens;
