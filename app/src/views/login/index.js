@@ -5,39 +5,50 @@ import color from '../../constants/color'
 import { SCREEN } from '../../constants/screen';
 
 export default function LoginScreen({ route, navigation }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Call API to authenticate user
-    navigation.navigate(SCREEN.HOME, { username });
-  }
+    const handleLogin = () => {
+        // Call API to authenticate user
+        navigation.navigate(SCREEN.HOME, { username });
+    }
 
-  return (
-    <View style={styles.inputContainer}>
-        <TextInput
-            style={styles.inputBox}
-            value={username}
-            onChangeText={text => setUsername(text)}
-            placeholder="Tên đăng nhập"
-        />
-        <TextInput
-            style={styles.inputBox}
-            value={password}
-            onChangeText={text => setPassword(text)}
-            placeholder="Mật khẩu"
-            secureTextEntry={true}
-        />
-        <Text style= {styles.forgotPassword}>
-              *Quên mật khẩu? Nhấn vào đây
-        </Text>
-        <TouchableOpacity onPress={handleLogin } style={styles.loginContainer}>
-            <Text style= {styles.loginText}>
-                {'Đăng nhập'}
-            </Text>
-        </TouchableOpacity>
-    </View>
-  );
+    const handleForgotPassword = () => {
+        navigation.navigate("ForgotPasswordScreen");
+    }
+
+    return (
+        <View style={styles.inputContainer}>
+            <TextInput
+                style={styles.inputBox}
+                value={username}
+                onChangeText={text => setUsername(text)}
+                placeholder="Tên đăng nhập"
+            />
+            <TextInput
+                style={styles.inputBox}
+                value={password}
+                onChangeText={text => setPassword(text)}
+                placeholder="Mật khẩu"
+                secureTextEntry={true}
+            />
+            <View style= {styles.forgotPassword}>
+                <Text style= {styles.forgotQuestion}>
+                    *Quên mật khẩu?
+                </Text>
+                <TouchableOpacity onPress={handleForgotPassword}>
+                    <Text style= {styles.redForgotPassword}>
+                        Nhấn vào đây
+                    </Text>
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={handleLogin } style={styles.loginContainer}>
+                <Text style= {styles.loginText}>
+                    {'Đăng nhập'}
+                </Text>
+            </TouchableOpacity>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -90,7 +101,17 @@ const styles = StyleSheet.create({
         color: '#000000',
     },
     forgotPassword: {
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        marginLeft: 15,
+    },
+    forgotQuestion: {
         fontSize: 18,
-        marginLeft: 15
+    },
+    redForgotPassword: {
+        fontSize: 18,
+        marginLeft: 5, 
+        color: "red",
     }
 });

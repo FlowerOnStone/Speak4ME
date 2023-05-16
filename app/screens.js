@@ -18,6 +18,7 @@ import AddPopularTopic from './src/views/home/popular-sentences/add-popular-topi
 import AddTopic from './src/views/home/topic/add-topic';
 import EditTopic from './src/views/home/topic/edit-topic';
 import AddSentence from './src/views/home/popular-sentences/list-topic-sentence/add-sentence';
+import ForgotPasswordScreen from './src/views/login/forgotPassword/forgot';
 
 const screens = [
     {
@@ -89,6 +90,21 @@ const screens = [
         component: TopicScreen,
         options: {
             headerShown: false,
+        },
+    },
+    {
+        name: "ForgotPasswordScreen",
+        component: ForgotPasswordScreen,
+        options: {
+            headerStyle: {
+                backgroundColor: COLOR.TITLE,
+            },
+            title: "Quên mật khẩu",
+            headerRight: () => (
+                <TouchableOpacity style={styles.iconBox}>
+                    <Icon icon={moreOptionIcon} />
+                </TouchableOpacity>
+            ),
         },
     },
     {

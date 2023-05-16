@@ -61,10 +61,7 @@ const PopularTopic = (props) => {
       </TouchableOpacity>,
       <TouchableOpacity style={styles.iconBox}>
         <Icon icon={plusIcon} />
-      </TouchableOpacity>,
-      <TouchableOpacity style={styles.iconBox}>
-        <Icon icon={moreOptionsIcon} />
-      </TouchableOpacity>,
+      </TouchableOpacity>
     ]}
       topBoxStyle={{padding: 0}}
     >

@@ -29,6 +29,7 @@ import THEME from '../../../constants/theme';
 import SettingsOverlay from '../../../components/common/settings-overlay';
 import ScreenHeader from '../../../components/common/screen-header';
 import { SCREEN } from '../../../constants/screen';
+import { Text } from 'react-native-svg';
 
 export default function Editor(props) {
 
@@ -91,7 +92,7 @@ export default function Editor(props) {
 						<Icon icon={historyIcon} />
 					</TouchableOpacity>, <TouchableOpacity onPress={handleSave}>
 						<Icon icon={speakIcon} />
-					</TouchableOpacity>]}>
+						</TouchableOpacity>]}>
 						<TextInput
 							onChangeText={handleChangeSentence}
 							value={sentence}
