@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from '../../../components/icons/icon-tag';
 import EditInfoIcon from '../../../components/icons/edit-info-icon';
 
 export default function AccountInfoScreen({ route, navigation }) {

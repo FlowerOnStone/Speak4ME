@@ -12,15 +12,20 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     textbox: {
-        backgroundColor: COLOR.LIGHT_TEXT,
+        backgroundColor: "white",
         width: 80,
         height: 30,
         paddingHorizontal: 10,
         paddingVertical: 3,
+        borderWidth: 1, 
+        borderRadius: 20, 
+        
     },
     text: {
         color: COLOR.TEXT,
         fontSize: 15,
+        textAlign: "center", 
+        justifyContent: "center", 
     },
 
 })
