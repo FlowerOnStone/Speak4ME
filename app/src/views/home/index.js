@@ -2,9 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SCREEN } from '../../constants/screen';
+import ScreenHeader from '../../components/common/screen-header';
+import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import THEME from '../../constants/theme';
 
 export default function HomeScreen({ route, navigation }) {
-    const { username } = route.params;
 
     const handleLogout = () => {
         navigation.goBack();
@@ -15,24 +17,30 @@ export default function HomeScreen({ route, navigation }) {
     };
 
     const handleHistory = () => {
-        navigation.navigate(SCREEN.HISTORY, { sentences: ["abc", "bcd","abc", "bcd","abc", "bcd","abc", "bcd","abc", "bcd",] });
+        navigation.navigate(SCREEN.HISTORY, { sentences: ['abc', 'bcd','abc', 'bcd','abc', 'bcd','abc', 'bcd','abc', 'bcd'] });
     };
 
     const handlePopularSentences = () => {
-        navigation.navigate(SCREEN.POPULAR_SENTENCES);
-    }
+        navigation.navigate(SCREEN.POPULAR_SENTENCES_NAVIGATOR);
+    };
     const handleTopics = () => {
         // console.log(1);
-        navigation.navigate(SCREEN.TOPIC);
-    }
+        navigation.navigate(SCREEN.TOPIC_NAVIGATOR);
+    };
 
     return (
         <SafeAreaView>
+            <ScreenHeader
+                title={'Trang chủ'}
+                rightItem={ <TouchableOpacity style={styles.iconBox}>
+                                <RNVIcon name="bars" color="#000000" size={THEME.FONT_SIZE_EXTRA_LARGE}/>
+                            </TouchableOpacity>}
+            />
             <View style = {styles.body}>
                 <TouchableOpacity onPress={handleEditor}>
                     <View style={styles.button}>
                         <Text>
-                            <Icon name="edit" color="#000000" type = "solid" size={20} />
+                            <Icon name="edit" color="#000000" size={20} />
                             <Text style = {styles.textBody}>
                                 {'  Soạn thảo văn bản'}
                             </Text>
@@ -42,7 +50,7 @@ export default function HomeScreen({ route, navigation }) {
                 <TouchableOpacity onPress={handleHistory}>
                     <View style = {styles.button}>
                         <Text>
-                            <Icon name="history" color="#000000" type = "solid" size={20} />
+                            <Icon name="history" color="#000000" size={20} />
                             <Text style = {styles.textBody}>
                                 {'  Lịch sử soạn thảo văn bản'}
                             </Text>
@@ -62,7 +70,7 @@ export default function HomeScreen({ route, navigation }) {
                 <TouchableOpacity onPress={handleTopics}>
                     <View style = {styles.button}>
                         <Text>
-                            <Icon name="comment-alt" color="#000000" type = "solid" size={20} />
+                            <Icon name="comment-alt" color="#000000" size={20} />
                             <Text style = {styles.textBody}>
                                 {'  Chuẩn bị trước văn bản'}
                             </Text>
@@ -91,12 +99,13 @@ const styles = StyleSheet.create({
     textBody: {
         fontSize: 20,
         color: '#000000',
+        // fontFamily: 'monospace',
         // marginLeft: 30,
         // justifyCentent: 'center',
     },
     button: {
         // flex:1,
-        backgroundColor: "#EFFFFB",
+        backgroundColor: '#EFFFFB',
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 20,

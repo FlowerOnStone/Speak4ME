@@ -22,10 +22,19 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from '../../../components/icons/icon-tag';
 import binIcon from '../../../components/icons/bin-icon';
 import saveIcon from '../../../components/icons/save-icon';
+import ScreenHeader from '../../../components/common/screen-header';
+import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import THEME from '../../../constants/theme';
+
 export default function EditTopic(props) {
 
     const navigation = useNavigation();
 
+	const [backButton] = useState(
+		<TouchableOpacity onPress={() => navigation.goBack()}>
+			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
+		</TouchableOpacity>
+	);
     const [topic, setTopic] = useState('');
     const [description, setDescription] = useState('');
 
@@ -50,6 +59,8 @@ export default function EditTopic(props) {
     }
 
     return (
+		<>
+		<ScreenHeader title="Sửa chủ đề" leftItem={backButton}/>
 		<View style={styles.container}>
 			<View style={styles.contentContainer}>
 				<BaseFrame itemList={[
@@ -93,6 +104,7 @@ export default function EditTopic(props) {
 				</View>
 			</View>
         </View>
+		</>
     );
 }
 

@@ -21,11 +21,20 @@ import SuggestionBox from '../../../components/editor-screen/suggestionbox';
 import Icon from '../../../components/icons/icon-tag';
 import binIcon from '../../../components/icons/bin-icon';
 import plusIcon from '../../../components/icons/plus-icon';
+import ScreenHeader from '../../../components/common/screen-header';
+import { useNavigation } from '@react-navigation/native';
+import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import THEME from '../../../constants/theme';
+
 export default function AddTopic() {
-
-
+	const navigation = useNavigation();
 	const [topic, setTopic] = useState('');
 	const [description, setDescription] = useState('');
+	const [backButton] = useState(
+		<TouchableOpacity onPress={() => navigation.goBack()}>
+			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
+		</TouchableOpacity>
+	);
 
 	const handleChangeTopic = (newTopic) => {
 		setTopic(newTopic);
@@ -49,6 +58,7 @@ export default function AddTopic() {
 
 	return (
 		<View style={styles.container}>
+			<ScreenHeader title="Thêm chủ đề" leftItem={backButton}/>
 			<View style={styles.contentContainer}>
 				<BaseFrame itemList={[
 					<TouchableOpacity onPress={handleClearTopic}>

@@ -21,10 +21,19 @@ import SuggestionBox from '../../../components/editor-screen/suggestionbox';
 import Icon from '../../../components/icons/icon-tag';
 import saveIcon from '../../../components/icons/save-icon';
 import binIcon from '../../../components/icons/bin-icon';
+import ScreenHeader from '../../../components/common/screen-header';
+import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import THEME from '../../../constants/theme';
+import { useNavigation } from '@react-navigation/native';
 
 export default function AddPopularTopic() {
 
-
+	const navigation = useNavigation();
+    const [backButton] = useState(
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+            <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black'/>
+        </TouchableOpacity>
+    );
 	const [topic, setTopic] = useState('');
 	const handleChangeTopic = (newTopic) => {
 		setTopic(newTopic);
@@ -40,27 +49,30 @@ export default function AddPopularTopic() {
 	};
 
 	return (
-		<View style={styles.container}>
-			<View style={styles.contentContainer}>
-				<BaseFrame itemList={[
-					<TouchableOpacity onPress={handleClear}>
-						<Icon icon={binIcon} />
-					</TouchableOpacity>,
-					<TouchableOpacity onPress={handleSave}>
-						<Icon icon={saveIcon} />
-					</TouchableOpacity>]}>
-					<TextInput
-						onChangeText={handleChangeTopic}
-						value={topic}
-						multiline={true}
-						numberOfLines={5}
-						style={styles.textInput}
-						placeholder="Bạn hãy nhập tên chủ đề..."
-					/>
-				</BaseFrame>
-				<SuggestionBox />
+		<>
+			<ScreenHeader title={'Thêm chủ đề'} leftItem={backButton}/>
+			<View style={styles.container}>
+				<View style={styles.contentContainer}>
+					<BaseFrame itemList={[
+						<TouchableOpacity onPress={handleClear}>
+							<Icon icon={binIcon} />
+						</TouchableOpacity>,
+						<TouchableOpacity onPress={handleSave}>
+							<Icon icon={saveIcon} />
+						</TouchableOpacity>]}>
+						<TextInput
+							onChangeText={handleChangeTopic}
+							value={topic}
+							multiline={true}
+							numberOfLines={5}
+							style={styles.textInput}
+							placeholder="Bạn hãy nhập tên chủ đề..."
+						/>
+					</BaseFrame>
+					<SuggestionBox />
+				</View>
 			</View>
-		</View>
+		</>
 	);
 }
 

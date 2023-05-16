@@ -18,18 +18,27 @@ import COLOR from '../../../../constants/color';
 import BaseFrame from '../../../../components/common/base-frame';
 import SuggestionBox from '../../../../components/editor-screen/suggestionbox';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from '../../../../components/icons/icon-tag';
 import speakIcon from '../../../../components/icons/speak-icon';
 import plusIcon from '../../../../components/icons/plus-icon';
 import binIcon from '../../../../components/icons/bin-icon';
 import { SCREEN } from '../../../../constants/screen';
+import ScreenHeader from '../../../../components/common/screen-header';
+import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import THEME from '../../../../constants/theme';
 
 export default function AddSentence(props) {
 
+  const route = useRoute();
   const navigation = useNavigation();
   const [sentences, setSentences] = useState([]);
 
+	const [backButton] = useState(
+	  <TouchableOpacity onPress={() => navigation.goBack()}>
+		  <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black'/>
+	  </TouchableOpacity>
+  );
   const [sentence, setSentence] = useState('');
   const handleChangeSentence = (newSentence) => {
     setSentence(newSentence);
@@ -51,6 +60,8 @@ export default function AddSentence(props) {
     navigation.navigate(SCREEN.POPULAR_SENTENCES);
   };
   return (
+    <>
+		<ScreenHeader title={route.params?.name || 'Title'} leftItem={backButton}/>
     <View style={styles.container}>
       <View style={styles.contentContainer}>
         <BaseFrame
@@ -78,6 +89,7 @@ export default function AddSentence(props) {
         <SuggestionBox />
       </View>
     </View>
+    </>
   );
 }
 

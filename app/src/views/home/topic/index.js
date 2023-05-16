@@ -11,6 +11,7 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
+    KeyboardAvoidingView,
 } from 'react-native';
 import COLOR from '../../../constants/color';
 import plusIcon from '../../../components/icons/plus-icon';
@@ -26,7 +27,7 @@ import SearchBar from '../../../components/common/search-bar';
 import { TouchableWithoutFeedback } from 'react-native';
 import { SCREEN } from '../../../constants/screen';
 
-export default function TopicScreen({ props, navigation }) {
+export default function TopicScreen({ route, navigation }) {
 
     const [searchText, setSearchText] = useState('');
     const handleSearch = (text) => {
@@ -73,7 +74,7 @@ export default function TopicScreen({ props, navigation }) {
     };
     const handleViewTopic = (id, title, content) => {
         // console.log(content);
-        navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
+        navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE_NAVIGATOR, { name: title, sentences: content });
     };
 
     const handleTitleBlur = (targetId, newTitle) => {
@@ -91,12 +92,11 @@ export default function TopicScreen({ props, navigation }) {
     };
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior="height">
             <View
                 style={{ width: '100%', height: '100%', alignItems: 'center' }}
                 onLayout={(event) => { setDistanceToTop(event.nativeEvent.layout.height); }}
             >
-
                 <ScreenHeader
                     leftItem={backButton}
                     title={'Chuẩn bị trước'}
@@ -120,11 +120,9 @@ export default function TopicScreen({ props, navigation }) {
                         );
                     })}
                 </View>
-                <View style={styles.addBox}>
-                    <TouchableOpacity style={styles.iconBox} onPress={handleAddTopic}>
-                        <Icon icon={plusIcon} iconStyle={{ scale: 2, color: COLOR.TITLE }} />
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.iconBox} onPress={handleAddTopic}>
+                    <Icon icon={plusIcon} iconStyle={{ scale: 2, color: COLOR.TITLE }} />
+                </TouchableOpacity>
             </View>
 
             <SettingsOverlay.SlideInDown
@@ -134,7 +132,7 @@ export default function TopicScreen({ props, navigation }) {
                 // defaultFocusedId={sortOptionHeader.id}
                 optionsHeaderList={[]}
             />
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -174,8 +172,10 @@ const styles = StyleSheet.create({
     },
 
     iconBox: {
-        flex: 1,
-        paddingLeft: 15,
-        justifyContent: 'flex-end',
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
+        backgroundColor: 'white',
+        borderRadius: 1000,
     },
 });

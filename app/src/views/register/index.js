@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import color from '../../constants/color';
 import { SCREEN } from '../../constants/screen';
+import ScreenHeader from '../../components/common/screen-header';
 
 export default function RegisterScreen({ navigation }) {
     const [firstandlastname, setFirstandlastname] = useState('');
@@ -21,6 +22,8 @@ export default function RegisterScreen({ navigation }) {
     };
 
     return (
+        <>
+        <ScreenHeader title="Đăng ký"/>
         <View style={styles.inputContainer}>
             <TextInput
                 style={styles.inputBox}
@@ -59,6 +62,7 @@ export default function RegisterScreen({ navigation }) {
                 </Text>
             </TouchableOpacity>
         </View>
+        </>
     );
     }
 

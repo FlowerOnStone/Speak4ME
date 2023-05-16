@@ -24,7 +24,7 @@ import SearchBar from '../../../components/common/search-bar';
 
 export default function History({ route, navigation }) {
 
-  const { sentences = [] } = route.params ?? {};
+  const { sentences = ['Không biết đó là gì', 'UI'] } = route.params ?? {};
 
   // console.log(route.params);
   const [searchText, setSearchText] = useState('');

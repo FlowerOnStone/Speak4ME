@@ -15,6 +15,7 @@ import moreOptionsIcon from '../../icons/more-options-icon';
 import TTS from '../../../utils/TTS';
 import BaseFrame from '../../common/base-frame';
 import { log } from '../../../utils/logger';
+import { TouchableWithoutFeedback } from 'react-native';
 
 const padding = 20;
 

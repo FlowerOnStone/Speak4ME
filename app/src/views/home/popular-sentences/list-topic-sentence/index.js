@@ -20,8 +20,18 @@ import { randomId } from '../../../../utils/random-id';
 import SearchBar from '../../../../components/common/search-bar';
 import { SCREEN } from '../../../../constants/screen';
 import Sentence from '../../../../components/common/sentence';
+import ScreenHeader from '../../../../components/common/screen-header';
+import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import THEME from '../../../../constants/theme';
 
 export default function ListTopicSentence({ route, navigation }) {
+
+
+  const [backButton] = useState(
+    <TouchableOpacity onPress={() => navigation.goBack()}>
+        <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black'/>
+    </TouchableOpacity>
+);
 
   const { sentences = [] } = route.params ?? {};
 
@@ -33,7 +43,7 @@ export default function ListTopicSentence({ route, navigation }) {
   };
 
   navigation.setOptions({
-    title: route.params.name,
+    title: route.params?.name,
   });
 
   const handleAddSentence = () => {
@@ -45,6 +55,8 @@ export default function ListTopicSentence({ route, navigation }) {
   }
 
   return (
+    <>
+    <ScreenHeader title={route.params?.name || 'Title'} leftItem={backButton}/>
     <View style={styles.container}>
       <SearchBar containerStyle={{marginTop: 5}}/>
       <View style={styles.contentContainer}>
@@ -61,6 +73,7 @@ export default function ListTopicSentence({ route, navigation }) {
           </TouchableOpacity>
       </View>
     </View>
+    </>
   );
 }
 

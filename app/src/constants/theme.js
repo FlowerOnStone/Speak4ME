@@ -1,5 +1,3 @@
-import { SCREEN } from './screen';
-
 const THEME = {
     FONT_SIZE_SMALL: 20,
     FONT_SIZE_MEDIUM: 25,
@@ -12,6 +10,8 @@ const THEME = {
     BACKGROUND_COLOR: 'white',
     TITLE_COLOR: '#50D890',
     DISABLE_COLOR: '#DFDFDF',
+    STRONG_DISABLE_COLOR: '#D8D9CF',
+    ACTIVE_COLOR: '#50D890',
     PRIMARY_COLOR: 'rgb(30, 147, 242)',
     SECONDARY_COLOR: 'rgb(238, 167, 2)',
 };

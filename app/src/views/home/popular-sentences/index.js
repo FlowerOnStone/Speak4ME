@@ -11,6 +11,7 @@ import {
     View,
     TouchableOpacity,
     TouchableWithoutFeedback,
+    KeyboardAvoidingView,
 } from 'react-native';
 import Icon from '../../../components/icons/icon-tag';
 import COLOR from '../../../constants/color';
@@ -25,12 +26,12 @@ import { log } from '../../../utils/logger';
 import { SCREEN } from '../../../constants/screen';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import THEME from '../../../constants/theme';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const dataList = [sortOptionHeader];
 
-export default function PopularSentences({ props, navigation }) {
+export default function PopularSentences({ route, navigation }) {
 
-    log.debug('re render popular sentences');
     const [searchText, setSearchText] = useState('');
     const handleSearch = (text) => {
         setSearchText(text);
@@ -39,6 +40,11 @@ export default function PopularSentences({ props, navigation }) {
     const [topicList, setTopicList] = useState([
         {
             id: 1,
+            title: 'Chủ đề 1',
+            content: ['first sentence', 'second sentence', 'the third sentence'],
+        },
+        {
+            id: 2,
             title: 'Chủ đề 1',
             content: ['first sentence', 'second sentence', 'the third sentence'],
         },
@@ -71,7 +77,10 @@ export default function PopularSentences({ props, navigation }) {
     };
     const handleViewTopic = (id, title, content) => {
         // console.log(content);
-        navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
+        navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE_NAVIGATOR, {
+            screen: SCREEN.LIST_TOPIC_SENTENCE,
+            params: { name: title, sentences: content },
+        });
     };
 
     const handleTitleBlur = (targetId, newTitle) => {
@@ -89,7 +98,10 @@ export default function PopularSentences({ props, navigation }) {
     };
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior="height"
+        >
             <View
                 style={{width: '100%', height: '100%', alignItems: 'center'}}
                 onLayout={(event) => {setDistanceToTop(event.nativeEvent.layout.height);}}
@@ -113,11 +125,11 @@ export default function PopularSentences({ props, navigation }) {
                     </TouchableWithoutFeedback>
                 ))}
             </ScrollView>
-            <View style={styles.addBox}>
+            {/* <View style={styles.addBox}> */}
                 <TouchableOpacity style={styles.iconBox} onPress={handleAddTopic}>
                     <Icon icon={plusIcon} iconStyle={{scale: 2, color: COLOR.TITLE}} />
                 </TouchableOpacity>
-            </View>
+            {/* </View> */}
             </View>
             <SettingsOverlay.SlideInDown
                 isVisible={settingsOverlayVisible}
@@ -126,7 +138,7 @@ export default function PopularSentences({ props, navigation }) {
                 defaultFocusedId={sortOptionHeader.id}
                 optionsHeaderList={dataList}
             />
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -164,11 +176,20 @@ const styles = StyleSheet.create({
         borderColor: COLOR.TITLE,
         alignItems: 'flex-end',
         paddingRight: '10%',
+        // position: 'absolute',
     },
 
     iconBox: {
-        flex: 1,
-        paddingLeft: 15,
-        justifyContent: 'flex-end',
+        // flex: 1,
+        // marginRight: '5%',
+        // marginBottom: '5%',
+        // justifyContent: 'flex-end',
+        // alignSelf: 'flex-end',
+        // backgroundColor: 'purple'
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
+        backgroundColor: 'white',
+        borderRadius: 1000,
     },
 });
