@@ -49,12 +49,12 @@ const Topic = (props) => {
   return (
     <BaseFrame
       itemList={[
-        <TouchableOpacity style={styles.iconBox} onPress={props.onEdit}>
-            <Icon icon={editIcon} />
-        </TouchableOpacity>,
           <TouchableOpacity style={styles.iconBox} onPress={props.onDelete}>
             <Icon icon={binIcon} />
           </TouchableOpacity>,
+        <TouchableOpacity style={styles.iconBox} onPress={props.onEdit}>
+            <Icon icon={editIcon} />
+        </TouchableOpacity>,
       ]}
       // topBoxStyle={{padding: 0}}
     >

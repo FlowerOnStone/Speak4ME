@@ -86,13 +86,10 @@ const styles = StyleSheet.create({
     loginContainer: {
       backgroundColor: "#50D890",
       flexDirection: 'row',
-      // textAlign: 'center',
       justifyContent: 'center',
-      // marginTop: 60,
       marginHorizontal: 70,
       marginTop: 50,
       paddingVertical: 20,
-      // paddingLeft: 10,
       borderRadius: 20,
       elevation: 5,
     },

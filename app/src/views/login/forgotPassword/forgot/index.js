@@ -3,14 +3,18 @@ import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'rea
 
 import color from '../../../../constants/color'
 import { SCREEN } from '../../../../constants/screen';
+import GoogleIcon from '../../../../components/icons/google-icon';
+import Icon from '../../../../components/icons/icon-tag';
 
 export default function ForgotPasswordScreen({ route, navigation }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-
+    const handleSubmit = () => {
+        navigation.navigate("VerificationForgotPasswordScreen");
+    }
     return (
-        <View style={styles.inputContainer}>
+        <View style={styles.container}>
             <Text style={styles.title}>
                 Nhập địa chỉ email
             </Text>
@@ -25,15 +29,18 @@ export default function ForgotPasswordScreen({ route, navigation }) {
                     Quay lại đăng nhập
                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.submitContainer}>
+            <TouchableOpacity style={styles.submitContainer} onPress={handleSubmit}>
                 <Text style={styles.buttonText}>
                     Gửi
                 </Text>
             </TouchableOpacity>
-            <Text>
+            <Text style={styles.orText}>
                 hoặc
             </Text>
-            <Text>
+            <TouchableOpacity style={{marginTop: 20}}>
+                <Icon icon={GoogleIcon}/>
+            </TouchableOpacity>
+            <Text style={styles.haveAccount}>
                 Bạn không có tài khoản?
             </Text>
             <TouchableOpacity style={styles.registerContainer}>
@@ -55,6 +62,17 @@ const styles = StyleSheet.create({
     backToLogin: {
         fontSize: 18,
     },
+    orText: {
+        marginTop: 30,
+        marginBottom: 10,
+        fontWeight: "bold",
+        color: "black",
+        fontSize: 18
+    },
+    haveAccount: {
+        marginTop: 20,
+
+    },
     inputBox: {
         width: "90%",
         height: 75,
@@ -64,11 +82,10 @@ const styles = StyleSheet.create({
         borderColor: '#BEBEBE',
         elevation: 20,
         marginVertical: 15,
-        // flex: 1,
         fontSize: 20,
         paddingLeft: 15,
-   },
-    inputContainer: {
+    },
+    container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',

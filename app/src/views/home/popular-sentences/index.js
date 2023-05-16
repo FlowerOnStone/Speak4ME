@@ -39,8 +39,8 @@ export default function PopularSentences({ props, navigation }) {
     const [topicList, setTopicList] = useState([
         {
             id: 1,
-            title: 'Chủ đề 1',
-            content: ['first sentence', 'second sentence', 'the third sentence'],
+            title: 'Chào hỏi',
+            content: ['Xin chào', 'Tạm biệt', 'Hẹn gặp lại'],
         },
     ]);
     const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');

@@ -46,6 +46,8 @@ export default function RegisterScreen({ navigation }) {
                 value={repeatpassword}
                 onChangeText={text => setRepeatpassword(text)}
                 placeholder="Nhập lại mật khẩu"
+                secureTextEntry={true}
+
             />
             <TextInput
                 style={styles.inputBox}
