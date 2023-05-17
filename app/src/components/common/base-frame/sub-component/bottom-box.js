@@ -39,7 +39,7 @@ const BottomBox = (props) => {
                         null :
                         props.itemList.map((Item, idx) => {
                             return (
-                                <View key={idx} style={{ marginRight: 10, marginLeft: 10 }}>
+                                <View key={idx} style={{ marginRight: 15, marginLeft: 15 }}>
                                     {typeof Item === 'function' ? <Item /> : Item}
                                 </View>
                             );

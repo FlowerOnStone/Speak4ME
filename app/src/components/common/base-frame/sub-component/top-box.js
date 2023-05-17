@@ -10,7 +10,6 @@ const TopBox = (props) => {
             // borderTopRightRadius: props.borderRadius,
             // borderBottomLeftRadius: props.borderRadius,
             borderBottomRightRadius: 0,
-            alignItems: 'center',
             ...props,
         }}
         >

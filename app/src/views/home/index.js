@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SCREEN } from '../../constants/screen';
@@ -7,19 +7,27 @@ import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import THEME from '../../constants/theme';
 
 export default function HomeScreen({ route, navigation }) {
-
+    const { username } = route.params;
     const handleLogout = () => {
         navigation.goBack();
     };
-
     const handleEditor = () => {
         navigation.navigate(SCREEN.EDITOR);
     };
 
     const handleHistory = () => {
-        navigation.navigate(SCREEN.HISTORY, { sentences: ['abc', 'bcd','abc', 'bcd','abc', 'bcd','abc', 'bcd','abc', 'bcd'] });
+        navigation.navigate(SCREEN.HISTORY, { sentences: ["Xin chào", "Bạn có khỏe không", "Bạn đã ăn cơm chưa", "Bây giờ là mấy giờ", "Tôi khỏe", "Bạn tên là gì", "Bạn muốn mua gì",] });
     };
-
+    const handleInfo = () => {
+        navigation.navigate("AccountInfoScreen");
+    };
+    navigation.setOptions({
+        headerRight: () => (
+            <TouchableOpacity style={styles.iconBox} onPress={handleInfo}>
+                <Icon name="bars" color="#000000" type="solid" style={styles.setting} />
+            </TouchableOpacity>
+        ),
+    });
     const handlePopularSentences = () => {
         navigation.navigate(SCREEN.POPULAR_SENTENCES_NAVIGATOR);
     };
@@ -114,5 +122,8 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         borderRadius: 20,
         elevation: 5,
+    },
+    iconBox: {
+        marginRight: 5,
     },
 });

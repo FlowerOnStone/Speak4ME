@@ -11,36 +11,44 @@ export default function LoginScreen({ route, navigation }) {
 
     const handleLogin = () => {
         // Call API to authenticate user
-        navigation.navigate(SCREEN.HOME_NAVIGATOR, { username });
+        navigation.navigate(SCREEN.HOME, { username });
+    }
+
+    const handleForgotPassword = () => {
+        navigation.navigate("ForgotPasswordScreen");
     }
 
     return (
-        <>
-            <ScreenHeader title="Đăng nhập" />
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.inputBox}
-                    value={username}
-                    onChangeText={text => setUsername(text)}
-                    placeholder="Tên đăng nhập"
-                />
-                <TextInput
-                    style={styles.inputBox}
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                    placeholder="Mật khẩu"
-                    secureTextEntry={true}
-                />
-                <Text style={styles.forgotPassword}>
-                    *Quên mật khẩu? Nhấn vào đây
+        <View style={styles.inputContainer}>
+            <TextInput
+                style={styles.inputBox}
+                value={username}
+                onChangeText={text => setUsername(text)}
+                placeholder="Tên đăng nhập"
+            />
+            <TextInput
+                style={styles.inputBox}
+                value={password}
+                onChangeText={text => setPassword(text)}
+                placeholder="Mật khẩu"
+                secureTextEntry={true}
+            />
+            <View style= {styles.forgotPassword}>
+                <Text style= {styles.forgotQuestion}>
+                    *Quên mật khẩu?
                 </Text>
-                <TouchableOpacity onPress={handleLogin} style={styles.loginContainer}>
-                    <Text style={styles.loginText}>
-                        {'Đăng nhập'}
+                <TouchableOpacity onPress={handleForgotPassword}>
+                    <Text style= {styles.redForgotPassword}>
+                        Nhấn vào đây
                     </Text>
                 </TouchableOpacity>
             </View>
-        </>
+            <TouchableOpacity onPress={handleLogin } style={styles.loginContainer}>
+                <Text style= {styles.loginText}>
+                    {'Đăng nhập'}
+                </Text>
+            </TouchableOpacity>
+        </View>
     );
 }
 
@@ -77,24 +85,31 @@ const styles = StyleSheet.create({
         // backgroundColor: '#fff'
     },
     loginContainer: {
-        backgroundColor: "#50D890",
-        flexDirection: 'row',
-        // textAlign: 'center',
-        justifyContent: 'center',
-        // marginTop: 60,
-        marginHorizontal: 70,
-        marginTop: 50,
-        paddingVertical: 20,
-        // paddingLeft: 10,
-        borderRadius: 20,
-        elevation: 5,
+      backgroundColor: "#50D890",
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginHorizontal: 70,
+      marginTop: 50,
+      paddingVertical: 20,
+      borderRadius: 20,
+      elevation: 5,
     },
     loginText: {
         fontSize: 30,
         color: '#000000',
     },
     forgotPassword: {
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        marginLeft: 15,
+    },
+    forgotQuestion: {
         fontSize: 18,
-        marginLeft: 15
+    },
+    redForgotPassword: {
+        fontSize: 18,
+        marginLeft: 5,
+        color: "red",
     }
 });
