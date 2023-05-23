@@ -14,26 +14,26 @@ const ScreenHeader = ({
     rightItemContainerStyle,
     headerStyle,
 }: ScreenHeaderProps) => {
-  return (
-    <View style={[styles.header, headerStyle]}>
-        <View style={[styles.leftItem, leftItemContainerStyle]}>
-            {toJSX(leftItem)}
+    return (
+        <View style={[styles.header, headerStyle]}>
+            <View style={[styles.leftItem, leftItemContainerStyle]}>
+                {toJSX(leftItem)}
+            </View>
+            <View style={[styles.titleContainer, titleContainerStyle]}>
+                {
+                    typeof title === 'string' ?
+                    <Text style={styles.title}>
+                        {title}
+                    </Text>
+                    :
+                    toJSX(title)
+                }
+            </View>
+            <View style={[styles.rightItem, rightItemContainerStyle]}>
+                {toJSX(rightItem)}
+            </View>
         </View>
-        <View style={[styles.titleContainer, titleContainerStyle]}>
-            {
-                typeof title === 'string' ?
-                <Text style={styles.title}>
-                    {title}
-                </Text>
-                :
-                toJSX(title)
-            }
-        </View>
-        <View style={[styles.rightItem, rightItemContainerStyle]}>
-            {toJSX(rightItem)}
-        </View>
-    </View>
-  );
+    );
 };
 
 export default ScreenHeader;
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         right: 10,
     },
     title: {
-        fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
+        fontSize: THEME.FONT_SIZE_LARGE,
         color: THEME.FONT_COLOR,
         // fontWeight: 'bold',
     },

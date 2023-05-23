@@ -10,7 +10,8 @@ import {
 	StyleSheet,
 	View,
 	TouchableOpacity,
-	TextInput
+	TextInput, 
+	SafeAreaView
 } from 'react-native';
 
 
@@ -24,6 +25,10 @@ import speakIcon from '../../../../components/icons/speak-icon';
 import saveIcon from '../../../../components/icons/save-icon';
 import binIcon from '../../../../components/icons/bin-icon';
 import { SCREEN } from '../../../../constants/screen';
+import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import ScreenHeader from ',,/../../../components/common/screen-header';
+import THEME from '../../../../constants/theme';
+import STYLES from '../../../../constants/styles';
 
 export default function EditSentence(props) {
 
@@ -51,8 +56,19 @@ export default function EditSentence(props) {
 	const handleViewPopularSentences = () => {
 		navigation.navigate(SCREEN.POPULAR_SENTENCES);
 	};
+	
+	const [backButton] = useState(
+		<TouchableOpacity onPress={() => navigation.goBack()}>
+			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
+		</TouchableOpacity>
+	);
+
 	return (
-		<View style={styles.container}>
+		<View style={STYLES.container}>
+			<ScreenHeader
+				leftItem={backButton}
+				title={"Sửa văn bản"}
+			/>
 			<View style={styles.contentContainer}>
 				<BaseFrame itemList={[
 					<TouchableOpacity onPress={handleViewPopularSentences}>
@@ -81,18 +97,14 @@ export default function EditSentence(props) {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		backgroundColor: COLOR.BACKGROUND,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center', 
+		height: "93%"
 	},
 	contentContainer: {
-		flex: 1,
-		color: 'red',
+		...STYLES.contentContainer,
 		width: '90%',
-		height: '100%',
-		alignItems: 'center',
-		justifyContent: 'center'
 	},
 	paragraph: {
 		flex: 10,

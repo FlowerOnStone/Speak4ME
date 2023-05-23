@@ -30,6 +30,7 @@ import SettingsOverlay from '../../../components/common/settings-overlay';
 import ScreenHeader from '../../../components/common/screen-header';
 import { SCREEN } from '../../../constants/screen';
 import { Text } from 'react-native-svg';
+import STYLES from '../../../constants/styles';
 
 export default function Editor(props) {
 
@@ -75,7 +76,7 @@ export default function Editor(props) {
 		navigation.navigate(SCREEN.POPULAR_SENTENCES);
 	};
 	return (
-		<View style={styles.container}>
+		<View style={STYLES.container}>
 			<View
 				style={{ width: '100%', height: '100%', alignItems: 'center' }}
 				onLayout={(event) => { setDistanceToTop(event.nativeEvent.layout.height); }}
@@ -117,20 +118,9 @@ export default function Editor(props) {
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: COLOR.BACKGROUND,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
 	contentContainer: {
-		flex: 1,
-		color: 'red',
+		...STYLES.contentContainer,
 		width: '90%',
-		height: '100%',
-		alignItems: 'center',
-		justifyContent: 'center',
-		// backgroundColor: 'yellow'
 	},
 	paragraph: {
 		flex: 10,
@@ -139,7 +129,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	textInput: {
-
 		fontSize: 20,
 	}
 });
