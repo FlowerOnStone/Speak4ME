@@ -13,6 +13,7 @@ import THEME from '../../constants/theme';
 import TopicNavigator from './topic/navigator';
 import PopularSentencesNavigator from './popular-sentences/navigator';
 import { Platform } from 'react-native';
+import InfoNavigator from './info/navigator';
 const screenOptions = ({
     route,
 }: {
@@ -40,6 +41,9 @@ const screenOptions = ({
             case SCREEN.TOPIC_NAVIGATOR:
                 iconName = 'comment-alt';
                 break;
+            case SCREEN.INFO_NAVIGATOR:
+                iconName = 'none';
+                break;
             default:
                 iconName = 'home';
                 log.error(`Has no ${route.name} in home navigator`);
@@ -56,12 +60,13 @@ const screenOptions = ({
 const Tab = createBottomTabNavigator();
 const HomeNavigator = () => {
     return (
-        <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Navigator screenOptions={screenOptions} initialRouteName={SCREEN.HOME}>
             <Tab.Screen name={SCREEN.HOME} component={HomeScreen} />
             <Tab.Screen name={SCREEN.EDITOR} component={Editor} />
             <Tab.Screen name={SCREEN.HISTORY} component={History} />
             <Tab.Screen name={SCREEN.POPULAR_SENTENCES_NAVIGATOR} component={PopularSentencesNavigator} />
             <Tab.Screen name={SCREEN.TOPIC_NAVIGATOR} component={TopicNavigator} />
+            <Tab.Screen name={SCREEN.INFO_NAVIGATOR} component={InfoNavigator} options={{tabBarButton: () => null}}/>
         </Tab.Navigator>
     );
 };

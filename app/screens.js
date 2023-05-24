@@ -1,27 +1,23 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
 import StartScreen from './src/views/start';
 import LoginScreen from './src/views/login';
+import ForgotPasswordScreen from './src/views/login/forgotPassword';
+import VerificationForgotPasswordScreen from './src/views/login/forgotPassword/varification';
+import SetNewPasswordScreen from './src/views/login/forgotPassword/new-password';
 import RegisterScreen from './src/views/register';
 import HomeScreen from './src/views/home';
-import History from './src/views/home/history';
+import AccountInfoScreen from './src/views/home/info';
+import ChangePasswordScreen from './src/views/home/info/change-password';
+import ChangeInfoScreen from './src/views/home/info/change-info';
 import Editor from './src/views/home/editor';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-// import { Icon } from './src/components/icons/icon-tag';
-import moreOptionIcon from './src/components/icons/more-options-icon';
-import HistorySentence from './src/components/common/historySentence';
+import History from './src/views/home/history';
 import PopularSentences from './src/views/home/popular-sentences';
-import COLOR from './src/constants/color';
 import ListTopicSentence from './src/views/home/popular-sentences/list-topic-sentence';
-import TopicScreen from './src/views/home/topic';
 import AddPopularTopic from './src/views/home/popular-sentences/add-popular-topic';
+import AddSentence from './src/views/home/popular-sentences/list-topic-sentence/add-sentence';
+import EditSentence from './src/views/home/popular-sentences/list-topic-sentence/edit-sentence';
+import TopicScreen from './src/views/home/topic';
 import AddTopic from './src/views/home/topic/add-topic';
 import EditTopic from './src/views/home/topic/edit-topic';
-import AddSentence from './src/views/home/popular-sentences/list-topic-sentence/add-sentence';
-import ForgotPasswordScreen from './src/views/login/forgotPassword/forgot';
-import VerificationForgotPasswordScreen from './src/views/login/forgotPassword/verification';
-import SetNewPasswordScreen from './src/views/login/forgotPassword/newPassword';
-import AccountInfoScreen from './src/views/home/info';
 
 const screens = [
     {
@@ -35,42 +31,63 @@ const screens = [
         name: 'Login',
         component: LoginScreen,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: 'Đăng nhập',
+            headerShown: false,
+        },
+    },
+    {
+        name: "ForgotPasswordScreen",
+        component: ForgotPasswordScreen,
+        options: {
+            headerShown: false,
+        },
+    },
+    {
+        name: "VerificationForgotPasswordScreen",
+        component: VerificationForgotPasswordScreen,
+        options: {
+            headerShown: false,
+        },
+    },
+    {
+        name: "SetNewPasswordScreen",
+        component: SetNewPasswordScreen,
+        options: {
+            headerShown: false,
         },
     },
     {
         name: 'Register',
         component: RegisterScreen,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: 'Đăng ký',
+            headerShown: false,
         },
     },
     {
         name: 'Home',
         component: HomeScreen,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: 'Trang chủ',
-            eaderLeft: () => null,            
-
+            headerShown: false,
         },
     },
     {
         name: 'AccountInfoScreen',
         component: AccountInfoScreen,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: 'Thông tin chung',
+            headerShown: false,
+        },
+    },
+    {
+        name: 'ChangeInfoScreen',
+        component: ChangeInfoScreen,
+        options: {
+            headerShown: false,
+        },
+    },
+    {
+        name: 'ChangePasswordScreen',
+        component: ChangePasswordScreen,
+        options: {
+            headerShown: false,
         },
     },
     {
@@ -95,6 +112,20 @@ const screens = [
         },
     },
     {
+        name: "AddSentenceScreen",
+        component: AddSentence,
+        options: {
+            headerShown: false,
+        },
+    },
+    {
+        name: "EditSentenceScreen",
+        component: EditSentence,
+        options: {
+            headerShown: false,
+        },
+    },
+    {
         name: "TopicScreen",
         component: TopicScreen,
         options: {
@@ -102,152 +133,32 @@ const screens = [
         },
     },
     {
-        name: "ForgotPasswordScreen",
-        component: ForgotPasswordScreen,
-        options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Quên mật khẩu",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
-        },
-    },
-    {
-        name: "VerificationForgotPasswordScreen",
-        component: VerificationForgotPasswordScreen,
-        options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Xác minh",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
-        },
-    },
-    {
-        name: "SetNewPasswordScreen",
-        component: SetNewPasswordScreen,
-        options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Đặt lại mật khẩu",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
-        },
-    },
-    {
         name: "ListTopicSentencesScreen",
         component: ListTopicSentence,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Thông dụng",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
+            headerShown: false,
         },
     },
     {
         name: "AddPopularTopicScreen",
         component: AddPopularTopic,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Thêm chủ đề thông dụng",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
+            headerShown: false,
         },
     },
     {
         name: "AddTopicScreen",
         component: AddTopic,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Thêm chủ đề",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
+            headerShown: false,
         },
     },
     {
         name: "EditTopicScreen",
         component: EditTopic,
         options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Sửa chủ đề",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
-        },
-    },
-    {
-        name: "AddSentenceScreen",
-        component: AddSentence,
-        options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Thêm văn bản",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
-        },
-    },
-    {
-        name: "EditSentenceScreen",
-        component: AddSentence,
-        options: {
-            headerStyle: {
-                backgroundColor: COLOR.TITLE,
-            },
-            title: "Sửa văn bản",
-            headerRight: () => (
-                <TouchableOpacity style={styles.iconBox}>
-                    <Icon icon={moreOptionIcon} />
-                </TouchableOpacity>
-            ),
+            headerShown: false,
         },
     },
 ];
-
-const styles = StyleSheet.create({
-    iconBox: {
-        marginRight: 5,
-    },
-    setting: {
-        textAlign: 'right',
-        fontSize: 25,
-        marginRight: 10,
-        marginTop: 5,
-    },
-});
-
 export default screens;

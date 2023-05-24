@@ -7,10 +7,11 @@
 
 import React, { useState } from 'react';
 import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  TextInput,
+	StyleSheet,
+	View,
+	TouchableOpacity,
+	TextInput,
+	SafeAreaView
 } from 'react-native';
 
 
@@ -24,37 +25,35 @@ import speakIcon from '../../../../components/icons/speak-icon';
 import plusIcon from '../../../../components/icons/plus-icon';
 import binIcon from '../../../../components/icons/bin-icon';
 import { SCREEN } from '../../../../constants/screen';
-import ScreenHeader from '../../../../components/common/screen-header';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import ScreenHeader from ',,/../../../components/common/screen-header';
 import THEME from '../../../../constants/theme';
+import STYLES from '../../../../constants/styles';
 
-export default function AddSentence(props) {
-
-  const route = useRoute();
-  const navigation = useNavigation();
-  const [sentences, setSentences] = useState([]);
+export default function AddSentence({ route, navigation }) {
+	const [sentences, setSentences] = useState([]);
 
 	const [backButton] = useState(
 	  <TouchableOpacity onPress={() => navigation.goBack()}>
 		  <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black'/>
 	  </TouchableOpacity>
   );
-  const [sentence, setSentence] = useState('');
-  const handleChangeSentence = (newSentence) => {
-    setSentence(newSentence);
-    // console.log(newSentence);
-  };
+	const [sentence, setSentence] = useState('');
+	const handleChangeSentence = (newSentence) => {
+		setSentence(newSentence);
+		// console.log(newSentence);
+	};
 
-  const handleSave = () => {
-    // Nếu câu hiện tại không rỗng, thêm câu hiện tại vào mảng sentences
-    if (sentence !== '') {
-      setSentences([sentence, ...sentences]);
-    }
-    // console.log(sentence);
-  };
-  const handleViewHistory = () => {
-    navigation.navigate(SCREEN.HISTORY, { sentences });
-  };
+	const handleSave = () => {
+		// Nếu câu hiện tại không rỗng, thêm câu hiện tại vào mảng sentences
+		if (sentence !== '') {
+		setSentences([sentence, ...sentences]);
+		}
+		// console.log(sentence);
+	};
+	const handleViewHistory = () => {
+		navigation.navigate(SCREEN.HISTORY, { sentences });
+	};
 
   const handleViewPopularSentences = () => {
     navigation.navigate(SCREEN.POPULAR_SENTENCES);
@@ -94,28 +93,17 @@ export default function AddSentence(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLOR.BACKGROUND,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  contentContainer: {
-    flex: 1,
-    color: 'red',
-    width: '90%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paragraph: {
-    flex: 10,
-  },
-  suggestionbox: {
-    flex: 1,
-  },
-  textInput: {
-
-    fontSize: 20,
-  },
+	contentContainer: {
+		...STYLES.contentContainer,
+		width: '90%',
+	},
+	paragraph: {
+		flex: 10,
+	},
+	suggestionbox: {
+		flex: 1,
+	},
+	textInput: {
+		fontSize: 20,
+	},
 });

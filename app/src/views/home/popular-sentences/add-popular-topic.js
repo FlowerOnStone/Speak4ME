@@ -11,6 +11,7 @@ import {
 	View,
 	TouchableOpacity,
 	TextInput,
+	SafeAreaView
 } from 'react-native';
 
 
@@ -21,14 +22,13 @@ import SuggestionBox from '../../../components/editor-screen/suggestionbox';
 import Icon from '../../../components/icons/icon-tag';
 import saveIcon from '../../../components/icons/save-icon';
 import binIcon from '../../../components/icons/bin-icon';
-import ScreenHeader from '../../../components/common/screen-header';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
-import { useNavigation } from '@react-navigation/native';
+import STYLES from '../../../constants/styles';
 
-export default function AddPopularTopic() {
+export default function AddPopularTopic({ props, navigation }) {
 
-	const navigation = useNavigation();
     const [backButton] = useState(
         <TouchableOpacity onPress={() => navigation.goBack()}>
             <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black'/>
@@ -48,48 +48,39 @@ export default function AddPopularTopic() {
 		setTopic('');
 	};
 
-	return (
-		<>
-			<ScreenHeader title={'Thêm chủ đề'} leftItem={backButton}/>
-			<View style={styles.container}>
-				<View style={styles.contentContainer}>
-					<BaseFrame itemList={[
-						<TouchableOpacity onPress={handleClear}>
-							<Icon icon={binIcon} />
-						</TouchableOpacity>,
-						<TouchableOpacity onPress={handleSave}>
-							<Icon icon={saveIcon} />
-						</TouchableOpacity>]}>
-						<TextInput
-							onChangeText={handleChangeTopic}
-							value={topic}
-							multiline={true}
-							numberOfLines={5}
-							style={styles.textInput}
-							placeholder="Bạn hãy nhập tên chủ đề..."
-						/>
-					</BaseFrame>
-					<SuggestionBox />
-				</View>
+    return (
+        <View styles={STYLES.container}>
+            <ScreenHeader
+                leftItem={backButton}
+                title={'Thêm chủ đề thông dụng'}
+            />
+			<View style={styles.contentContainer}>
+				<BaseFrame itemList={[
+					<TouchableOpacity onPress={handleClear}>
+						<Icon icon={binIcon} />
+					</TouchableOpacity>,
+					<TouchableOpacity onPress={handleSave}>
+						<Icon icon={saveIcon} />
+					</TouchableOpacity>]}>
+					<TextInput
+						onChangeText={handleChangeTopic}
+						value={topic}
+						multiline={true}
+						numberOfLines={5}
+						style={styles.textInput}
+						placeholder="Bạn hãy nhập tên chủ đề..."
+					/>
+				</BaseFrame>
+				<SuggestionBox />
 			</View>
-		</>
+		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: COLOR.BACKGROUND,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
 	contentContainer: {
-		flex: 1,
-		color: 'red',
-		width: '90%',
-		height: '100%',
-		alignItems: 'center',
-		justifyContent: 'center',
+		...STYLES.contentContainer,
+		paddingHorizontal: "5%",
 	},
 	paragraph: {
 		flex: 10,
@@ -98,7 +89,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	textInput: {
-
 		fontSize: 20,
 	},
 });

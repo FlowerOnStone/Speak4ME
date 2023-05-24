@@ -10,7 +10,8 @@ import {
 	StyleSheet,
 	View,
 	TouchableOpacity,
-	TextInput
+	TextInput,
+	SafeAreaView
 } from 'react-native';
 
 
@@ -24,9 +25,10 @@ import speakIcon from '../../../../components/icons/speak-icon';
 import saveIcon from '../../../../components/icons/save-icon';
 import binIcon from '../../../../components/icons/bin-icon';
 import { SCREEN } from '../../../../constants/screen';
-import ScreenHeader from '../../../../components/common/screen-header';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import ScreenHeader from ',,/../../../components/common/screen-header';
 import THEME from '../../../../constants/theme';
+import STYLES from '../../../../constants/styles';
 
 export default function EditSentence(props) {
 	const navigation = useNavigation();
@@ -59,51 +61,49 @@ export default function EditSentence(props) {
 	const handleViewPopularSentences = () => {
 		navigation.navigate(SCREEN.POPULAR_SENTENCES);
 	};
+
 	return (
-		<>
-			<ScreenHeader title={route.params?.name || 'Title'} leftItem={backButton} />
-			<View style={styles.container}>
-				<View style={styles.contentContainer}>
-					<BaseFrame itemList={[
-						<TouchableOpacity onPress={handleViewPopularSentences}>
-							<Icon icon={binIcon} />
-						</TouchableOpacity>,
-						<TouchableOpacity onPress={handleViewHistory}>
-							<Icon icon={saveIcon} />
-						</TouchableOpacity>,
-						<TouchableOpacity onPress={handleSave}>
-							<Icon icon={speakIcon} />
-						</TouchableOpacity>]}>
-						<TextInput
-							onChangeText={handleChangeSentence}
-							value={sentence}
-							multiline={true}
-							numberOfLines={10}
-							style={styles.textInput}
-							placeholder="Bạn hãy nhập văn bản..."
-						/>
-					</BaseFrame>
-					<SuggestionBox />
-				</View>
+		<View style={STYLES.container}>
+			<ScreenHeader
+				leftItem={backButton}
+				title={"Sửa văn bản"}
+			/>
+			<View style={styles.contentContainer}>
+				<BaseFrame itemList={[
+					<TouchableOpacity onPress={handleViewPopularSentences}>
+						<Icon icon={binIcon} />
+					</TouchableOpacity>,
+					<TouchableOpacity onPress={handleViewHistory}>
+						<Icon icon={saveIcon} />
+					</TouchableOpacity>,
+					<TouchableOpacity onPress={handleSave}>
+						<Icon icon={speakIcon} />
+					</TouchableOpacity>]}>
+					<TextInput
+						onChangeText={handleChangeSentence}
+						value={sentence}
+						multiline={true}
+						numberOfLines={10}
+						style={styles.textInput}
+						placeholder="Bạn hãy nhập văn bản..."
+					/>
+				</BaseFrame>
+				<SuggestionBox />
 			</View>
-		</>
+		</View>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		backgroundColor: COLOR.BACKGROUND,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		height: "93%"
 	},
 	contentContainer: {
-		flex: 1,
-		color: 'red',
+		...STYLES.contentContainer,
 		width: '90%',
-		height: '100%',
-		alignItems: 'center',
-		justifyContent: 'center'
 	},
 	paragraph: {
 		flex: 10,
