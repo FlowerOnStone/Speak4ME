@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SCREEN } from '../../constants/screen';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
@@ -17,7 +17,7 @@ export default function HomeScreen({ route, navigation }) {
 	};
 
 	const handleHistory = () => {
-		navigation.navigate(SCREEN.HISTORY, { sentences: ["Xin chào", "Bạn có khỏe không", "Bạn đã ăn cơm chưa", "Bây giờ là mấy giờ", "Tôi khỏe", "Bạn tên là gì", "Bạn muốn mua gì",] });
+		navigation.navigate(SCREEN.HISTORY, { sentences: ['Xin chào', 'Bạn có khỏe không', 'Bạn đã ăn cơm chưa', 'Bây giờ là mấy giờ', 'Tôi khỏe', 'Bạn tên là gì', 'Bạn muốn mua gì'] });
 	};
 	const handleInfo = () => {
 		navigation.navigate(SCREEN.INFO_NAVIGATOR, {
@@ -32,17 +32,21 @@ export default function HomeScreen({ route, navigation }) {
 	);
 
 	const handlePopularSentences = () => {
-		navigation.navigate(SCREEN.POPULAR_SENTENCES);
-	}
+		navigation.navigate(SCREEN.POPULAR_SENTENCES_NAVIGATOR, {
+			screen: SCREEN.POPULAR_SENTENCES,
+		});
+	};
 
 	const handleTopics = () => {
 		// console.log(1);
-		navigation.navigate(SCREEN.TOPIC);
-	}
+		navigation.navigate(SCREEN.TOPIC_NAVIGATOR, {
+			screen: SCREEN.TOPIC,
+		});
+	};
 
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
+			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color="black" />
 		</TouchableOpacity>
 	);
 
@@ -86,13 +90,13 @@ const styles = StyleSheet.create({
 	textBody: {
 		fontSize: 20,
 		color: '#000000',
-		width: "80%",
-		textAlign: "center"
+		width: '80%',
+		textAlign: 'center',
 	},
 	button: {
 		...STYLES.greenButton,
-		backgroundColor: "#EFFFFB",
+		backgroundColor: '#EFFFFB',
 		height: 95,
-		marginVertical: 10
+		marginVertical: 10,
 	},
 });
