@@ -74,7 +74,7 @@ export default function ListTopicSentence({ route, navigation }) {
 	};
 	const handleViewTopic = (id, title, content) => {
 		// console.log(content);
-		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
+		navigation.push(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
 	};
 
 	const handleTitleBlur = (targetId, newTitle) => {

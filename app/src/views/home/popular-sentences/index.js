@@ -6,12 +6,12 @@ https://github.com/facebook/react-native
 */
 import React, { useCallback, useState } from 'react';
 import {
-    ScrollView,
-    StyleSheet,
-    View,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    KeyboardAvoidingView,
+	ScrollView,
+	StyleSheet,
+	View,
+	TouchableOpacity,
+	TouchableWithoutFeedback,
+	KeyboardAvoidingView,
 } from 'react-native';
 import Icon from '../../../components/icons/icon-tag';
 import COLOR from '../../../constants/color';
@@ -30,7 +30,7 @@ import STYLES from '../../../constants/styles';
 
 const dataList = [sortOptionHeader];
 
-export default function PopularSentences({ props, navigation }) {
+export default function PopularSentences({ route, navigation }) {
 	const [searchText, setSearchText] = useState('');
 	const handleSearch = (text) => {
 		setSearchText(text);
@@ -48,19 +48,19 @@ export default function PopularSentences({ props, navigation }) {
 	const [settingsOverlayVisible, setSettingsOverlayVisible] = useState(false);
 	const [settingsButton] = useState(
 		<TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
-			<Icon icon={settingsIcon} iconStyle={{scale: 0.8}}/>
+			<Icon icon={settingsIcon} iconStyle={{ scale: 0.8 }} />
 		</TouchableOpacity>
 	);
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black'/>
+			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color="black" />
 		</TouchableOpacity>
 	);
 	const [distanceToTop, setDistanceToTop] = useState(0);
 
 	const handleBackdropPress = useCallback(() => {
 		setSettingsOverlayVisible(false);
-	},[]);
+	}, []);
 
 	const handleAddTopic = () => {
 		navigation.navigate(SCREEN.ADD_POPULAR_TOPIC);
@@ -71,7 +71,13 @@ export default function PopularSentences({ props, navigation }) {
 	};
 	const handleViewTopic = (id, title, content) => {
 		// console.log(content);
-		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
+		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE_NAVIGATOR, {
+			screen: SCREEN.LIST_TOPIC_SENTENCE,
+			params: {
+				name: title,
+				sentences: content,
+			},
+		});
 	};
 
 	const handleTitleBlur = (targetId, newTitle) => {
@@ -91,15 +97,15 @@ export default function PopularSentences({ props, navigation }) {
 	return (
 		<View style={STYLES.container}>
 			<View
-				style={{width: '100%', height: '100%', alignItems: 'center'}}
-				onLayout={(event) => {setDistanceToTop(event.nativeEvent.layout.height);}}
+				style={{ width: '100%', height: '100%', alignItems: 'center' }}
+				onLayout={(event) => { setDistanceToTop(event.nativeEvent.layout.height); }}
 			>
 				<ScreenHeader
 					leftItem={backButton}
 					title={'Thông dụng'}
 					rightItem={settingsButton}
 				/>
-				<SearchBar containerStyle={{marginTop: 5}}/>
+				<SearchBar containerStyle={{ marginTop: 5 }} />
 				<ScrollView style={styles.contentContainer}>
 					{topicList.map(topic => (
 						<TouchableWithoutFeedback key={topic.id} style={styles.topicContainer}>
@@ -115,7 +121,7 @@ export default function PopularSentences({ props, navigation }) {
 				</ScrollView>
 				<View style={styles.addBox}>
 					<TouchableOpacity style={styles.iconBox} onPress={handleAddTopic}>
-						<Icon icon={plusIcon} iconStyle={{scale: 2, color: COLOR.TITLE}} />
+						<Icon icon={plusIcon} iconStyle={{ scale: 2, color: COLOR.TITLE }} />
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -140,7 +146,7 @@ const styles = StyleSheet.create({
 	contentContainer: {
 		flex: 1,
 		color: 'red',
-		width:'90%',
+		width: '90%',
 		height: '100%',
 		// backgroundColor: 'red',
 	},
@@ -164,9 +170,9 @@ const styles = StyleSheet.create({
 
 	addBox: {
 		borderColor: COLOR.TITLE,
-		position: "absolute",
+		position: 'absolute',
 		bottom: 30,
-		right: 30
+		right: 30,
 	},
 
 	iconBox: {

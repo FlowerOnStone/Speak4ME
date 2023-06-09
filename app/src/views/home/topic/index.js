@@ -39,7 +39,7 @@ export default function TopicScreen({ route, navigation }) {
 			id: 1,
 			title: 'Chủ đề 1',
 			description: 'Đây là chủ đề 1',
-			content: ["Bình yên nằm trong tâm trí, vậy mà người người không biết cứ sốt sắng tìm kiếm từ bên ngoài.", "Có một nơi để về, đó là nhà. Có những người để yêu thương, đó là gia đình. Có được cả hai, đó là hạnh phúc. Một cuộc đời hạnh phúc cần có sự bình yên tâm hồn.", "Chỉ đến khi chấp nhận mình khiếm khuyết rồi tìm cách bù đắp lại lỗ hỏng, con người mới mong có ngày bình yên.", "Bình yên là khi ngoảnh lại những năm tháng đã qua, thấy gập ghềnh chông gai lởm chởm. Thế mà mình vẫn còn ngồi đây với một vài vết xước nhỏ đã phai màu.", "Hai chữ bình yên viết ra dễ dàng lắm, vậy mà mất cả đời để cảm nhận bình yên là chi."],
+			content: ['Bình yên nằm trong tâm trí, vậy mà người người không biết cứ sốt sắng tìm kiếm từ bên ngoài.', 'Có một nơi để về, đó là nhà. Có những người để yêu thương, đó là gia đình. Có được cả hai, đó là hạnh phúc. Một cuộc đời hạnh phúc cần có sự bình yên tâm hồn.', 'Chỉ đến khi chấp nhận mình khiếm khuyết rồi tìm cách bù đắp lại lỗ hỏng, con người mới mong có ngày bình yên.', 'Bình yên là khi ngoảnh lại những năm tháng đã qua, thấy gập ghềnh chông gai lởm chởm. Thế mà mình vẫn còn ngồi đây với một vài vết xước nhỏ đã phai màu.', 'Hai chữ bình yên viết ra dễ dàng lắm, vậy mà mất cả đời để cảm nhận bình yên là chi.'],
 		},
 	]);
 	const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');
@@ -74,7 +74,13 @@ export default function TopicScreen({ route, navigation }) {
 	};
 	const handleViewTopic = (id, title, content) => {
 		// console.log(content);
-		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
+		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE_NAVIGATOR, {
+			screen: SCREEN.LIST_TOPIC_SENTENCE,
+			params: {
+				name: title,
+				sentences: content,
+			},
+		});
 	};
 
 	const handleTitleBlur = (targetId, newTitle) => {
@@ -169,9 +175,9 @@ const styles = StyleSheet.create({
 
 	addBox: {
 		borderColor: COLOR.TITLE,
-		position: "absolute",
+		position: 'absolute',
 		bottom: 30,
-		right: 30
+		right: 30,
 	},
 
 	iconBox: {

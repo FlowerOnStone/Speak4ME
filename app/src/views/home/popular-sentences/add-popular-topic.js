@@ -27,7 +27,7 @@ import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
 
-export default function AddPopularTopic({ props, navigation }) {
+export default function AddPopularTopic({ route, navigation }) {
 
     const [backButton] = useState(
         <TouchableOpacity onPress={() => navigation.goBack()}>
