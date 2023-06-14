@@ -25,7 +25,7 @@ const Sentence = (props) => {
   };
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [netInfo, setNetInfo] = useState(useNetInfo()); // store the result of useNetInfo in a state variable
+  const [netInfo, setNetInfo] = useState(useNetInfo()); 
 
   useEffect(() => {
     // check that the netInfo object is defined before subscribing to it
@@ -36,7 +36,6 @@ const Sentence = (props) => {
   }, [netInfo]);
 
   const handleSpeakButtonClick = () => {
-    let audioPath = props.audioPath || '';
     if (isPlaying) {
       TTS.stop();
       setIsPlaying(false);
@@ -44,10 +43,6 @@ const Sentence = (props) => {
     }
   
     if (netInfo.isConnected) {
-      if (!audioPath) {
-        audioPath = `${RNFS.DocumentDirectoryPath}/audio-${Date.now()}.mp3`;
-      }
-  
       TTS.save(props.text)
         .then((path) => {
           if (path) {
@@ -83,7 +78,7 @@ const Sentence = (props) => {
       }
     }
   };
-  
+
   return (
     <BaseFrame itemList={[
       <TouchableOpacity style={styles.iconBox} onPress={handleCopyClick}>
