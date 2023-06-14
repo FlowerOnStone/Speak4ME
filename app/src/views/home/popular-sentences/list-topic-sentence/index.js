@@ -11,7 +11,8 @@ import {
 	StyleSheet,
 	View,
 	TouchableOpacity,
-  	SafeAreaView
+  	SafeAreaView,
+	Text
 } from 'react-native';
 
 import COLOR from '../../../../constants/color';
@@ -41,11 +42,15 @@ export default function ListTopicSentence({ route, navigation }) {
 
 	const [topicList, setTopicList] = useState([
 		{
-			id: 1,
-			title: 'Chào hỏi',
-			content: ['Xin chào', 'Tạm biệt', 'Hẹn gặp lại'],
+		  id: 1,
+		  title: 'Chào hỏi',
+		  content: [
+			{ id: 1, text: 'Xin chào', audioPaths: [] },
+			{ id: 2, text: 'Tạm biệt', audioPaths: [] },
+			{ id: 3, text: 'Hẹn gặp lại', audioPaths: [] },
+		  ],
 		},
-	]);
+	  ]);
 	const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');
 	const [isEditing, setIsEditing] = useState(false);
 	const [settingsOverlayVisible, setSettingsOverlayVisible] = useState(false);
@@ -73,9 +78,8 @@ export default function ListTopicSentence({ route, navigation }) {
 		setTopicList(topicList.filter(topic => topic.id !== id));
 	};
 	const handleViewTopic = (id, title, content) => {
-		// console.log(content);
-		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
-	};
+		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content.map(sentence => sentence.text) });
+	  };
 
 	const handleTitleBlur = (targetId, newTitle) => {
 
@@ -115,9 +119,20 @@ export default function ListTopicSentence({ route, navigation }) {
 				<View style={styles.contentContainer}>
 					<ScrollView style={styles.scroll}>
 					{
-						sentences.length > 0 && sentences.map((sentence, index) => (
-						<Sentence key={randomId()} onEdit={handleEditSentence} text={sentence} />
-						))
+						topicList.map((topic) => (
+							<View key={topic.id}>
+							  <TouchableOpacity
+								style={styles.topic}
+								onPress={() => handleViewTopic(topic.id, topic.title, topic.content)}
+							  >
+							  </TouchableOpacity>
+							  <View style={styles.sentences}>
+								{topic.content.map((sentence) => (
+								  <Sentence key={sentence.id} onEdit={handleEditSentence} text={sentence.text} audioPaths={sentence.audioPaths} />
+								))}
+							  </View>
+							</View>
+						  ))
 					}
 					</ScrollView>
 				</View>

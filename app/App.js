@@ -1,16 +1,27 @@
-import React from 'react';
-import { TouchableOpacity,StyleSheet } from 'react-native'
+import React, { useEffect } from 'react';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import color from './src/constants/color';
 import screens from './screens';
 import { LogBox } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
+
 LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 const Stack = createStackNavigator();
 
 function App() {
+  useEffect(() => {
+    NetInfo.configure({
+      reachabilityTest: async () => {
+        const response = await fetch('https://www.google.com');
+        return response.status === 200;
+      },
+    });
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -23,7 +34,7 @@ function App() {
             fontWeight: 'bold',
             fontSize: 25,
           },
-          headerTitleAlign: 'center'
+          headerTitleAlign: 'center',
         }}
       >
         {screens.map((screen) => (
@@ -40,11 +51,9 @@ function App() {
 }
 
 const styles = StyleSheet.create({
-    iconBox: {
-      marginRight: 10,
-    },
+  iconBox: {
+    marginRight: 10,
+  },
 });
 
 export default App;
-
-// export {default} from './.storybook';
