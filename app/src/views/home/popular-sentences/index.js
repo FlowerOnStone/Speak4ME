@@ -12,6 +12,7 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 	KeyboardAvoidingView,
+	FlatList
 } from 'react-native';
 import Icon from '../../../components/icons/icon-tag';
 import COLOR from '../../../constants/color';
@@ -27,6 +28,10 @@ import { SCREEN } from '../../../constants/screen';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
+import styles from '../../../components/common/search-bar/styles';
+import { SearchBar as TempSearchBar } from '@rneui/themed';
+import SearchIcon from '../../../components/icons/search-icon';
+import parseColor from 'parse-color';
 
 const dataList = [sortOptionHeader];
 
@@ -94,6 +99,44 @@ export default function PopularSentences({ route, navigation }) {
 		setTopicList(updatedList);
 	};
 
+	const clearIcon = {
+		size: THEME.FONT_SIZE_SMALL,
+	};
+	
+	const cancelIcon = {
+		type: 'font-awesome',
+		size: THEME.FONT_SIZE_SMALL,
+		name: 'angle-left',
+	};
+
+	const dropShadowProps = {
+		'shadowOffset': {
+			'width': 0,
+			'height': 3,
+		},
+		'shadowRadius': 2,
+		'shadowColor': parseInt(parseColor('rgba(0, 0, 0, 0.25)').hex.substring(1), 16),
+		'shadowOpacity': 0.2,
+	};
+
+	const renderItem = ({ item }) => (
+			topicList.map(item => (
+				<TouchableWithoutFeedback key={item.id} style={popularStyles.topicContainer}>
+					<PopularTopic
+						title={item.title}
+						sentences={item.content}
+						onDelete={() => handleDeleteTopic(item.id)}
+						onTitleBlur={(newTitle) => handleTitleBlur(item.id, newTitle)}
+						onTouch={() => handleViewTopic(item.id, item.title, item.content)}
+					/>
+				</TouchableWithoutFeedback>
+			))
+  	);
+
+  	const filteredData = topicList.filter(item =>
+    	item.title.toLowerCase().includes(searchText.toLowerCase())
+  	);
+
 	return (
 		<View style={STYLES.container}>
 			<View
@@ -105,22 +148,39 @@ export default function PopularSentences({ route, navigation }) {
 					title={'Thông dụng'}
 					rightItem={settingsButton}
 				/>
-				<SearchBar containerStyle={{ marginTop: 5 }} />
-				<ScrollView style={styles.contentContainer}>
-					{topicList.map(topic => (
-						<TouchableWithoutFeedback key={topic.id} style={styles.topicContainer}>
-							<PopularTopic
-								title={topic.title}
-								sentences={topic.content}
-								onDelete={() => handleDeleteTopic(topic.id)}
-								onTitleBlur={(newTitle) => handleTitleBlur(topic.id, newTitle)}
-								onTouch={() => handleViewTopic(topic.id, topic.title, topic.content)}
+				{/* <SearchBar containerStyle={{ marginTop: 5 }} /> */}
+				<View style={[{width: '90%'}, containerStyle={marginTop: 18}]}>
+					{/* <DropShadow style={dropShadowProps}> */}
+						<View style={{borderRadius: 25}}>
+							<TempSearchBar
+								// placeholder="Tìm kiếm"
+								searchIcon={<Icon icon={SearchIcon}/>}
+								clearIcon={clearIcon}
+								cancelIcon={cancelIcon}
+								platform="android"
+								// onChangeText={updateSearch}
+								value={searchText}
+								onChangeText={(text) => setSearchText(text)}
+								placeholder="Tìm kiếm"
+								dropShadow={dropShadowProps}
+								containerStyle={styles.containerStyle}
+								inputContainerStyle={styles.inputContainerStyle}
+								leftIconContainerStyle={styles.leftIconContainerStyle}
+								inputStyle={styles.inputStyle}
+								rightIconContainerStyle={styles.rightIconContainerStyle}
+								// {...props}
 							/>
-						</TouchableWithoutFeedback>
-					))}
-				</ScrollView>
-				<View style={styles.addBox}>
-					<TouchableOpacity style={styles.iconBox} onPress={handleAddTopic}>
+						</View>
+					{/* </DropShadow> */}
+       			</View>
+				<FlatList
+						style={popularStyles.contentContainer}
+						data={filteredData}
+						renderItem={renderItem}
+						keyExtractor={item => item}
+				/>
+				<View style={popularStyles.addBox}>
+					<TouchableOpacity style={popularStyles.iconBox} onPress={handleAddTopic}>
 						<Icon icon={plusIcon} iconStyle={{ scale: 2, color: COLOR.TITLE }} />
 					</TouchableOpacity>
 				</View>
@@ -136,7 +196,7 @@ export default function PopularSentences({ route, navigation }) {
 	);
 }
 
-const styles = StyleSheet.create({
+const popularStyles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: COLOR.BACKGROUND,

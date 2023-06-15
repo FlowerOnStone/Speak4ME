@@ -6,9 +6,14 @@ import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../components/common/screen-header';
 import THEME from '../../constants/theme';
 import STYLES from '../../constants/styles';
+import { addText, deleteText } from './Data/history-data';
+import { useNavigation } from '@react-navigation/native';
 
-export default function HomeScreen({ route, navigation }) {
+export default function HomeScreen({ route}) {
 	const { username } = route.params;
+	const navigation = useNavigation();
+	// const [sentences, setSentences] = useState([]);
+
 	const handleLogout = () => {
 		navigation.goBack();
 	};
@@ -17,7 +22,7 @@ export default function HomeScreen({ route, navigation }) {
 	};
 
 	const handleHistory = () => {
-		navigation.navigate(SCREEN.HISTORY, { sentences: ['Xin chào', 'Bạn có khỏe không', 'Bạn đã ăn cơm chưa', 'Bây giờ là mấy giờ', 'Tôi khỏe', 'Bạn tên là gì', 'Bạn muốn mua gì'] });
+		navigation.navigate(SCREEN.HISTORY);
 	};
 	const handleInfo = () => {
 		navigation.navigate(SCREEN.INFO_NAVIGATOR, {
