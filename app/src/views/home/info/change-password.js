@@ -1,21 +1,78 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
 
-import color from '../../../constants/color'
 import { SCREEN } from '../../../constants/screen';
-import GoogleIcon from '../../../components/icons/google-icon';
-import Icon from '../../../components/icons/icon-tag';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import { ScrollView } from 'react-native';
 import STYLES from '../../../constants/styles';
+import CONSTANTS from '../../../constants/contants';
+import PassMeter from "react-native-passmeter";
 
 export default function ChangePasswordScreen({ route, navigation }) {
+    const [currentPassword, setCurrentPassword] = useState('');
+	const [isValidationCurrentPassword, setIsValidationCurrentPassword] = useState(true);
+	const [currentPasswordWarning, setCurrentPasswordWarning] = useState(''); 
+
     const [password, setPassword] = useState('');
-    const [repeatpassword, setRepeatpassword] = useState('');
+	const [showPasswordRequirement, setShowPasswordRequirement] = useState(false);
+	const [isValidationPassword, setIsValidationPassword] = useState(false);
+	const [passwordWarning, setPasswordWarning] = useState(''); 
+
+	const [repeatPassword, setRepeatPassword] = useState('');
+	const [isValidationRepeatPassword, setIsValidationRepeatPassword] = useState(true);
+	const [repeatPasswordWarning, setRepeatPasswordWarning] = useState(''); 
+
+    const validationCurrentPassword = () => {
+		if (currentPassword.length == 0) {
+			setIsValidationCurrentPassword(false);
+			setCurrentPasswordWarning("Bạn chưa nhập mật khẩu hiện tại");
+			return false;
+		}
+		setIsValidationCurrentPassword(true);
+		return true;
+	}
+
+    const validationPassword = () => {
+		setShowPasswordRequirement(false);
+		setPasswordWarning('');
+		if (password.length == 0) {
+			setIsValidationPassword(false);
+			setPasswordWarning("Bạn chưa nhập mật khẩu");
+			return false;
+		}
+		const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})");
+		if (strongRegex.test(password) == 0) {
+			setIsValidationPassword(false);
+			return false;
+		}
+		setIsValidationPassword(true);
+		return true;
+	}
+
+	const validationRepeatPassword = () => {
+		if (repeatPassword.length == 0) {
+			setIsValidationRepeatPassword(false);
+			setRepeatPasswordWarning("Bạn chưa nhập lại mật khẩu");
+			return false;
+		}
+		if (repeatPassword != password) {
+			setIsValidationRepeatPassword(false);
+			setRepeatPasswordWarning("Nhập lại mật khẩu không khớp");
+			return false;
+		}
+		setIsValidationRepeatPassword(true);
+		return true;
+	}
 
     const handleSubmit = () => {
+        validationCurrentPassword();
+        validationPassword();
+        validationRepeatPassword();
+        if (!validationCurrentPassword() || !validationPassword() || !validationRepeatPassword()) {
+            return;
+        }
         navigation.navigate(SCREEN.INFO);
     };
     const [backButton] = useState(
@@ -36,32 +93,67 @@ export default function ChangePasswordScreen({ route, navigation }) {
                     </Text>
                     <TextInput
                         style={STYLES.underlineInputBox}
-                        value={password}
-                        onChangeText={text => setPassword(text)}
+                        value={currentPassword}
+                        onChangeText={text => setCurrentPassword(text)}
+                        onTextInput={() => setIsValidationCurrentPassword(true)}
+                        onEndEditing={validationCurrentPassword}
                         placeholder="Mật khẩu hiện tại"
                         secureTextEntry={true}
                     />
+                    { !isValidationCurrentPassword && 
+                        <Text style={STYLES.errorTextbox}>
+                            {currentPasswordWarning}
+                        </Text>
+                    }
                     <Text style={STYLES.underlineInputTitle}>
                         Mật khẩu mới
                     </Text>
+                    {
+                        showPasswordRequirement && 
+                        <Text style={{ ...STYLES.requirementTextbox, width:"100%" }}>
+                            {CONSTANTS.PASSWORD_REQUIREMENT}
+                        </Text>
+                    }
                     <TextInput
                         style={STYLES.underlineInputBox}
                         value={password}
                         onChangeText={text => setPassword(text)}
+                        onTextInput={() => setShowPasswordRequirement(true)}
+                        onEndEditing={validationPassword}
                         placeholder="Mật khẩu mới"
                         secureTextEntry={true}
                     />
+                    { password.length == 0 && !isValidationPassword && passwordWarning.length != 0 && 
+                        <Text style={STYLES.errorTextbox}>
+                            {passwordWarning}
+                        </Text>
+                    }
+                    { password.length > 0 && 
+                        <PassMeter
+                            showLabels
+                            password={password}
+                            maxLength={CONSTANTS.MAX_LEN}
+                            minLength={CONSTANTS.MIN_LEN}
+                            labels={CONSTANTS.PASS_LABELS}
+                        />
+                    }
                     <Text style={STYLES.underlineInputTitle}>
                         Nhập lại mật khẩu
                     </Text>
                     <TextInput
                         style={STYLES.underlineInputBox}
-                        value={repeatpassword}
-                        onChangeText={text => setRepeatpassword(text)}
+                        value={repeatPassword}
+                        onChangeText={text => setRepeatPassword(text)}
+                        onTextInput={() => setIsValidationRepeatPassword(true)}
+                        onEndEditing={validationRepeatPassword}
                         placeholder="Nhập lại mật khẩu"
                         secureTextEntry={true}
                     />
-
+                    { !isValidationRepeatPassword && 
+                        <Text style={STYLES.errorTextbox}>
+                            {repeatPasswordWarning}
+                        </Text>
+                    }
                     <TouchableOpacity style={STYLES.greenButton} onPress={handleSubmit}>
                         <Text style={STYLES.greenButtonText}>
                             Cập nhật

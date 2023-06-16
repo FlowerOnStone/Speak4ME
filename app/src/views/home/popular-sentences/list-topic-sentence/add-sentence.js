@@ -59,36 +59,34 @@ export default function AddSentence({ route, navigation }) {
     navigation.navigate(SCREEN.POPULAR_SENTENCES);
   };
   return (
-    <>
+    <View style={STYLES.container}>
 		<ScreenHeader title={route.params?.name || 'Title'} leftItem={backButton}/>
-    <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        <BaseFrame
-          itemList={[
-            <TouchableOpacity onPress={handleViewPopularSentences}>
-              <Icon icon={binIcon} />
-            </TouchableOpacity>,
-            <TouchableOpacity onPress={handleViewHistory}>
-              <Icon icon={plusIcon} />
-            </TouchableOpacity>,
-            <TouchableOpacity onPress={handleSave}>
-              <Icon icon={speakIcon} />
-            </TouchableOpacity>,
-          ]}
-        >
-          <TextInput
-            onChangeText={handleChangeSentence}
-            value={sentence}
-            multiline={true}
-            numberOfLines={10}
-            style={styles.textInput}
-            placeholder="Bạn hãy nhập văn bản..."
-          />
-        </BaseFrame>
-        <SuggestionBox />
-      </View>
+		<View style={styles.contentContainer}>
+			<BaseFrame
+			itemList={[
+				<TouchableOpacity onPress={handleViewPopularSentences}>
+				<Icon icon={binIcon} />
+				</TouchableOpacity>,
+				<TouchableOpacity onPress={handleViewHistory}>
+				<Icon icon={plusIcon} />
+				</TouchableOpacity>,
+				<TouchableOpacity onPress={handleSave}>
+				<Icon icon={speakIcon} />
+				</TouchableOpacity>,
+			]}
+			>
+			<TextInput
+				onChangeText={handleChangeSentence}
+				value={sentence}
+				multiline={true}
+				numberOfLines={10}
+				style={styles.textInput}
+				placeholder="Bạn hãy nhập văn bản..."
+			/>
+			</BaseFrame>
+			<SuggestionBox />
+		</View>
     </View>
-    </>
   );
 }
 

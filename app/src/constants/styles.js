@@ -17,6 +17,14 @@ const STYLES = StyleSheet.create({
         fontSize: 17,
         marginTop: 16, 
 	},
+	requirementTextbox: {
+		width: "90%", 
+		color: "gray",
+	},
+	errorTextbox: {
+		width: "90%", 
+		color: "red",
+	},
 	loginRegisterInputBox: {
 		height: 75,
 		width: "90%",

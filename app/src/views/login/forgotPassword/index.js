@@ -11,11 +11,35 @@ import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
 
 export default function ForgotPasswordScreen({ route, navigation }) {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+	const [email, setEmail] = useState('');
+	const [emailWarning, setEmailWarning] = useState('');
+	const [isValidationEmail, setIsValidationEmail] = useState(false);
+
+	const validationEmail = () => {
+		if (email.length == 0) {
+			setIsValidationEmail(false);
+			setEmailWarning("Bạn chưa nhập email");
+			return false;
+		}
+		const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		if (regex.test(email) == false) {
+			setIsValidationEmail(false);
+			setEmailWarning("Email không hợp lệ");
+			return false;
+		} 
+		setIsValidationEmail(true);
+		return true;
+	}
 
 	const handleSubmit = () => {
+		if (!validationEmail()) {
+			return;
+		}
 		navigation.navigate(SCREEN.VERIFY_FORGOT_PASSWORD);
+	}
+
+	const handleRegister = () => {
+		navigation.navigate(SCREEN.REGISTER);
 	}
 
 	const [backButton] = useState(
@@ -36,10 +60,18 @@ export default function ForgotPasswordScreen({ route, navigation }) {
 				</Text>
 				<TextInput
 					style={STYLES.loginRegisterInputBox}
-					value={username}
-					onChangeText={text => setUsername(text)}
+					value={email}
+					onChangeText={text => setEmail(text)}
+					onTextInput={() => setIsValidationEmail(true)}
+					onEndEditing={validationEmail}
 					placeholder="email"
 				/>
+				{
+					!isValidationEmail &&
+					<Text style={STYLES.errorTextbox}>
+						{emailWarning}
+					</Text>
+				}
 				<TouchableOpacity>
 					<Text style={styles.backToLogin}>
 						Quay lại đăng nhập
@@ -59,7 +91,7 @@ export default function ForgotPasswordScreen({ route, navigation }) {
 				<Text style={styles.haveAccount}>
 					Bạn không có tài khoản?
 				</Text>
-				<TouchableOpacity style={{...STYLES.greenButton, backgroundColor: "#ffffff"}}>
+				<TouchableOpacity style={{...STYLES.greenButton, backgroundColor: "#ffffff"}} onPress={handleRegister}>
 					<Text style={STYLES.greenButtonText}>
 						Đăng ký
 					</Text>
