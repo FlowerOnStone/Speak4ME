@@ -133,6 +133,15 @@ android {
         }
     }
 
+    buildscript {
+        ext {
+            buildToolsVersion = "30.0.3"
+            minSdkVersion = 21
+            compileSdkVersion = 30
+            targetSdkVersion = 30
+        }
+    }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -153,6 +162,7 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation project(':react-native-tts')
+    implementation project(':react-native-fs')
 
     implementation("com.facebook.react:react-android")
 

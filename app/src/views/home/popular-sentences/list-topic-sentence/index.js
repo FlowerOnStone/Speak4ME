@@ -45,9 +45,9 @@ export default function ListTopicSentence({ route, navigation }) {
 		  id: 1,
 		  title: 'Chào hỏi',
 		  content: [
-			{ id: 1, text: 'Xin chào', audioPaths: [] },
-			{ id: 2, text: 'Tạm biệt', audioPaths: [] },
-			{ id: 3, text: 'Hẹn gặp lại', audioPaths: [] },
+			{ id: 11, text: 'Xin chào', audioPaths: [] },
+			{ id: 12, text: 'Tạm biệt', audioPaths: [] },
+			{ id: 13, text: 'Hẹn gặp lại', audioPaths: [] },
 		  ],
 		},
 	  ]);
@@ -128,7 +128,7 @@ export default function ListTopicSentence({ route, navigation }) {
 							  </TouchableOpacity>
 							  <View style={styles.sentences}>
 								{topic.content.map((sentence) => (
-								  <Sentence key={sentence.id} onEdit={handleEditSentence} text={sentence.text} audioPaths={sentence.audioPaths} />
+								  <Sentence key={sentence.id} onEdit={handleEditSentence} text={sentence.text} id={sentence.id} audioPaths={sentence.audioPaths} />
 								))}
 							  </View>
 							</View>

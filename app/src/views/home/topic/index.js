@@ -35,12 +35,18 @@ export default function TopicScreen({ props, navigation }) {
 
 	const [topicList, setTopicList] = useState([
 		{
-			id: 1,
-			title: 'Chủ đề 1',
-			description: 'Đây là chủ đề 1',
-			content: ["Bình yên nằm trong tâm trí, vậy mà người người không biết cứ sốt sắng tìm kiếm từ bên ngoài.", "Có một nơi để về, đó là nhà. Có những người để yêu thương, đó là gia đình. Có được cả hai, đó là hạnh phúc. Một cuộc đời hạnh phúc cần có sự bình yên tâm hồn.", "Chỉ đến khi chấp nhận mình khiếm khuyết rồi tìm cách bù đắp lại lỗ hỏng, con người mới mong có ngày bình yên.", "Bình yên là khi ngoảnh lại những năm tháng đã qua, thấy gập ghềnh chông gai lởm chởm. Thế mà mình vẫn còn ngồi đây với một vài vết xước nhỏ đã phai màu.", "Hai chữ bình yên viết ra dễ dàng lắm, vậy mà mất cả đời để cảm nhận bình yên là chi."],
+		  id: 1,
+		  title: 'Chủ đề 1',
+		  description: 'Đây là chủ đề 1',
+		  content: [
+			{ id: 21, text: 'Bình yên nằm trong tâm trí, vậy mà người người không biết cứ sốt sắng tìm kiếm từ bên ngoài.', audioPaths: [] },
+			{ id: 22, text: 'Có một nơi để về, đó là nhà. Có những người để yêu thương, đó là gia đình. Có được cả hai, đó là hạnh phúc. Một cuộc đời hạnh phúc cần có sự bình yên tâm hồn.', audioPaths: [] },
+			{ id: 23, text: 'Chỉ đến khi chấp nhận mình khiếm khuyết rồi tìm cách bù đắp lại lỗ hỏng, con người mới mong có ngày bình yên.', audioPaths: [] },
+			{ id: 24, text: 'Bình yên là khi ngoảnh lại những năm tháng đã qua, thấy gập ghềnh chông gai lởm chởm. Thế mà mình vẫn còn ngồi đây với một vài vết xước nhỏ đã phai màu.', audioPaths: []},
+			{ id: 25, text: 'Hai chữ bình yên viết ra dễ dàng lắm, vậy mà mất cả đời để cảm nhận bình yên là chi.', audioPaths: []}
+		  ],
 		},
-	]);
+	  ]);
 	const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');
 	const [isEditing, setIsEditing] = useState(false);
 	/// Header
@@ -72,8 +78,8 @@ export default function TopicScreen({ props, navigation }) {
 		navigation.navigate(SCREEN.EDIT_TOPIC);
 	};
 	const handleViewTopic = (id, title, content) => {
-		// console.log(content);
-		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
+		console.log(content);
+		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content.map(sentence => sentence.text) });
 	};
 
 	const handleTitleBlur = (targetId, newTitle) => {

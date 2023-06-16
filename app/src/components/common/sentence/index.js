@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Clipboard, Alert } from 'react-native';
-import { useNetInfo } from "@react-native-community/netinfo";
 import React, { useEffect, useState } from 'react';
 
 import Icon from '../../icons/icon-tag';
@@ -13,6 +12,20 @@ import BaseFrame from '../base-frame';
 import editIcon from '../../icons/edit-icon';
 import COLOR from '../../../constants/color';
 
+const NetInfo = require('@react-native-community/netinfo');
+
+const saveSpeechToFile = async (filePath, speech) => {
+  console.log(filePath + " " + speech);
+  try {
+    const audioData = await Tts.speechToBlob(speech);
+    const audioBuffer = Buffer.from(audioData, 'base64');
+    await RNFS.writeFile(filePath, audioBuffer);
+    console.log(`Speech saved to ${filePath}`);
+  } catch (error) {
+    console.log('Error saving speech:', error);
+  }
+};
+
 const Sentence = (props) => {
 
   useEffect(() => {
@@ -24,61 +37,42 @@ const Sentence = (props) => {
     Alert.alert('Copy thành công vào clipboard');
   };
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [netInfo, setNetInfo] = useState(useNetInfo()); 
-
-  useEffect(() => {
-    // check that the netInfo object is defined before subscribing to it
-    if (netInfo && netInfo.addEventListener) {
-      const unsubscribe = netInfo.addEventListener(setNetInfo);
-      return () => unsubscribe();
-    }
-  }, [netInfo]);
-
   const handleSpeakButtonClick = () => {
-    if (isPlaying) {
-      TTS.stop();
-      setIsPlaying(false);
-      return;
-    }
-  
-    if (netInfo.isConnected) {
-      TTS.save(props.text)
-        .then((path) => {
-          if (path) {
-            setIsPlaying(true);
-            props.audioPath = path;
-            TTS.speak(path);
-            console.log('File saved to: ' + path);
-            const tempPath = RNFS.DocumentDirectoryPath + '/' + (props.audioPath ? props.audioPath.split('/').pop() : '');
-            console.log('Temporary file path: ' + tempPath);
-            // you can access and manage the file using RNFS functions here
-          }
-        })
-        .catch((error) => {
-          console.log(error + ' TTS_save');
-        });
-    } else {
-      if (props.audioPath && props.audioPath.split) {
-        const tempPath = RNFS.DocumentDirectoryPath + '/' + props.audioPath.split('/').pop();
-        RNFS.exists(props.audioPath)
-          .then((exists) => {
-            if (exists) {
-              setIsPlaying(true);
-              TTS.playSavedAudio(props.audioPath);
-            } else {
-              alert('Không có kết nối mạng và file âm thanh cũng không được lưu trên thiết bị.');
-            }
-          })
-          .catch((error) => {
-            console.log(error + ' RNFS');
-          });
-      } else {
-        alert('Không có kết nối mạng và file âm thanh cũng không được lưu trên thiết bị.');
-      }
-    }
-  };
+    NetInfo.fetch().then(state => {
+      if (state.isConnected) {
+        console.log("network is connected");
+        TTS.Tts.speak(props.text);
 
+        const currentTimestamp = new Date().getTime();
+        const fileName = `tts_${currentTimestamp}_${props.id}.mp3`;
+        let filePath;
+        if (props.audioPath && RNFS.exists(props.audioPath)) {
+          filePath = props.audioPath;
+        } else {
+          filePath = RNFS.DocumentDirectoryPath + '/' + fileName;
+        }
+
+        saveSpeechToFile(filePath, props.text);
+      } else {
+        console.log("network is not connected");
+        if (props.audioPath) {
+          RNFS.exists(props.audioPath)
+            .then((exists) => {
+              if (exists) {
+                TTS.Tts.playSavedAudio(props.audioPath);
+              } else {
+                alert('Không có kết nối mạng và file âm thanh cũng không được lưu trên thiết bị.');
+              }
+            })
+            .catch((error) => {
+              console.log(error + ' RNFS');
+            });
+        } else {
+          alert('Không có kết nối mạng và file âm thanh cũng không được lưu trên thiết bị.');
+        }
+      }
+    });
+  }
   return (
     <BaseFrame itemList={[
       <TouchableOpacity style={styles.iconBox} onPress={handleCopyClick}>
