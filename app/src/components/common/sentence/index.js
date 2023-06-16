@@ -17,7 +17,7 @@ const NetInfo = require('@react-native-community/netinfo');
 const saveSpeechToFile = async (filePath, speech) => {
   console.log(filePath + " " + speech);
   try {
-    const audioData = await Tts.speechToBlob(speech);
+    const audioData = await TTS.Tts.speechToBlob(speech);
     const audioBuffer = Buffer.from(audioData, 'base64');
     await RNFS.writeFile(filePath, audioBuffer);
     console.log(`Speech saved to ${filePath}`);
