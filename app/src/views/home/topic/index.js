@@ -12,6 +12,7 @@ import {
     View,
     TouchableOpacity,
     KeyboardAvoidingView,
+	FlatList
 } from 'react-native';
 import COLOR from '../../../constants/color';
 import plusIcon from '../../../components/icons/plus-icon';
@@ -26,6 +27,10 @@ import { log } from '../../../utils/logger';
 import SearchBar from '../../../components/common/search-bar';
 import { TouchableWithoutFeedback } from 'react-native';
 import { SCREEN } from '../../../constants/screen';
+import styles from '../../../components/common/search-bar/styles';
+import { SearchBar as TempSearchBar } from '@rneui/themed';
+import SearchIcon from '../../../components/icons/search-icon';
+import parseColor from 'parse-color';
 
 export default function TopicScreen({ route, navigation }) {
 
@@ -97,8 +102,50 @@ export default function TopicScreen({ route, navigation }) {
 		setTopicList(updatedList);
 	};
 
+	const clearIcon = {
+		size: THEME.FONT_SIZE_SMALL,
+	};
+	
+	const cancelIcon = {
+		type: 'font-awesome',
+		size: THEME.FONT_SIZE_SMALL,
+		name: 'angle-left',
+	};
+
+	const dropShadowProps = {
+		'shadowOffset': {
+			'width': 0,
+			'height': 3,
+		},
+		'shadowRadius': 2,
+		'shadowColor': parseInt(parseColor('rgba(0, 0, 0, 0.25)').hex.substring(1), 16),
+		'shadowOpacity': 0.2,
+	};
+
+	const renderItem = ({ item }) => (
+		topicList.map(item => {
+			// log.debug(topic);
+			return (
+				<TouchableWithoutFeedback key={item.id} >
+					<Topic
+						title={item.title}
+						description={item.description}
+						onDelete={() => handleDeleteTopic(item.id)}
+						onEdit={() => handleEditTopic(item.id)}
+						onTitleBlur={(newTitle) => handleTitleBlur(item.id, newTitle)}
+						onTouch={() => handleViewTopic(item.id, item.title, item.content)}
+					/>
+				</TouchableWithoutFeedback>
+			);
+		})
+  	);
+
+  	const filteredData = topicList.filter(item =>
+    	item.title.toLowerCase().includes(searchText.toLowerCase())
+  	);
+
 	return (
-		<View style={styles.container}>
+		<View style={prepareStyles.container}>
 			<View
 				style={{ width: '100%', height: '100%', alignItems: 'center' }}
 				onLayout={(event) => { setDistanceToTop(event.nativeEvent.layout.height); }}
@@ -108,26 +155,39 @@ export default function TopicScreen({ route, navigation }) {
 					title={'Chuẩn bị trước'}
 					rightItem={settingsButton}
 				/>
-				<SearchBar containerStyle={{marginTop: 5}}/>
-				<View style={styles.contentContainer}>
-					{topicList.map(topic => {
-						// log.debug(topic);
-						return (
-							<TouchableWithoutFeedback key={topic.id} >
-								<Topic
-									title={topic.title}
-									description={topic.description}
-									onDelete={() => handleDeleteTopic(topic.id)}
-									onEdit={() => handleEditTopic(topic.id)}
-									onTitleBlur={(newTitle) => handleTitleBlur(topic.id, newTitle)}
-									onTouch={() => handleViewTopic(topic.id, topic.title, topic.content)}
-								/>
-							</TouchableWithoutFeedback>
-						);
-					})}
-				</View>
-				<View style={styles.addBox}>
-					<TouchableOpacity style={styles.iconBox} onPress={handleAddTopic}>
+				{/* <SearchBar containerStyle={{marginTop: 5}}/> */}
+				<View style={[{width: '90%'}, containerStyle={marginTop: 18}]}>
+					{/* <DropShadow style={dropShadowProps}> */}
+						<View style={{borderRadius: 25}}>
+							<TempSearchBar
+								// placeholder="Tìm kiếm"
+								searchIcon={<Icon icon={SearchIcon}/>}
+								clearIcon={clearIcon}
+								cancelIcon={cancelIcon}
+								platform="android"
+								// onChangeText={updateSearch}
+								value={searchText}
+								onChangeText={(text) => setSearchText(text)}
+								placeholder="Tìm kiếm"
+								dropShadow={dropShadowProps}
+								containerStyle={styles.containerStyle}
+								inputContainerStyle={styles.inputContainerStyle}
+								leftIconContainerStyle={styles.leftIconContainerStyle}
+								inputStyle={styles.inputStyle}
+								rightIconContainerStyle={styles.rightIconContainerStyle}
+								// {...props}
+							/>
+						</View>
+					{/* </DropShadow> */}
+       			</View>
+				<FlatList
+						style={prepareStyles.contentContainer}
+						data={filteredData}
+						renderItem={renderItem}
+						keyExtractor={item => item}
+				/>
+				<View style={prepareStyles.addBox}>
+					<TouchableOpacity style={prepareStyles.iconBox} onPress={handleAddTopic}>
 						<Icon icon={plusIcon} iconStyle={{ scale: 2, color: COLOR.TITLE }} />
 					</TouchableOpacity>
 				</View>
@@ -144,7 +204,7 @@ export default function TopicScreen({ route, navigation }) {
 	);
 }
 
-const styles = StyleSheet.create({
+const prepareStyles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: COLOR.BACKGROUND,

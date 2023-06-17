@@ -34,11 +34,13 @@ import TTS from '../../../utils/TTS';
 import { textOptionHeader } from '../../../components/common/settings-overlay/template-options-header';
 import { shouldUseActivityState } from 'react-native-screens';
 import STYLES from '../../../constants/styles';
+import { addText, getTexts } from '../Data/history-data';
 
-export default function Editor(props) {
+export default function Editor() {
 
 	const navigation = useNavigation();
-	const [sentences, setSentences] = useState([]);
+	// const [sentences, setSentences] = useState([]);
+	// const { sentences = [] } = route.params ?? {};
 	const [sentence, setSentence] = useState('');
 	const [fontSize, setFontSize] = useState(THEME.FONT_SIZE_SMALL);
 	const [fontSizeValue, setFontSizeValue] = useState('' + fontSize);
@@ -118,13 +120,13 @@ export default function Editor(props) {
 	const handleSave = () => {
 		// Nếu câu hiện tại không rỗng, thêm câu hiện tại vào mảng sentences
 		if (sentence !== '') {
-			setSentences([sentence, ...sentences]);
+			addText(sentence)
 		}
 		TTS.Tts.speak(sentence);
 		// console.log(sentence);
 	};
 	const handleViewHistory = () => {
-		navigation.navigate(SCREEN.HISTORY, { sentences });
+		navigation.navigate(SCREEN.HISTORY);
 	};
 
 	const handleViewPopularSentences = () => {
