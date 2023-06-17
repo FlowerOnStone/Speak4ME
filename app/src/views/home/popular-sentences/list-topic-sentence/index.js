@@ -92,7 +92,7 @@ export default function ListTopicSentence({ route, navigation }) {
 	};
 
 	const handleAddSentence = () => {
-		navigation.navigate(SCREEN.ADD_SENTENCE);
+		navigation.navigate(SCREEN.ADD_SENTENCE, { type: "popular_topic", id: route.params.id, title: route.params.name});
 	}
 
 	const handleEditSentence = () => {

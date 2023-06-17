@@ -26,6 +26,8 @@ import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
+import { addPopularTopic } from '../Data/popular-topic-data';
+import { SCREEN } from '../../../constants/screen';
 
 export default function AddPopularTopic({ route, navigation }) {
 
@@ -41,7 +43,8 @@ export default function AddPopularTopic({ route, navigation }) {
 	};
 
 	const handleSave = () => {
-		// console.log(topic);
+		addPopularTopic(topic);
+		navigation.navigate(SCREEN.POPULAR_SENTENCES)
 	};
 
 	const handleClear = () => {

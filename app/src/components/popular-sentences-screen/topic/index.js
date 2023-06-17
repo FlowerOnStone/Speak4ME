@@ -60,7 +60,7 @@ const PopularTopic = (props) => {
       <TouchableOpacity style={styles.iconBox} onPress={props.onDelete}>
         <Icon icon={binIcon} />
       </TouchableOpacity>,
-      <TouchableOpacity style={styles.iconBox}>
+      <TouchableOpacity style={styles.iconBox} onPress={props.onAddSentence}>
         <Icon icon={plusIcon} />
       </TouchableOpacity>
     ]}

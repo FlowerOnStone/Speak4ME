@@ -60,7 +60,7 @@ export default function AddSentence({ route, navigation }) {
   };
   return (
     <View style={STYLES.container}>
-		<ScreenHeader title={route.params?.name || 'Title'} leftItem={backButton}/>
+		<ScreenHeader title={route.params?.title || 'Title'} leftItem={backButton}/>
 		<View style={styles.contentContainer}>
 			<BaseFrame
 			itemList={[

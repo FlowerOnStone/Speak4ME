@@ -76,13 +76,7 @@ const SearchBar = (props) => {
                         rightIconContainerStyle={styles.rightIconContainerStyle}
                         {...props}
                     />
-                </View>
-                <FlatList
-					style={styles.list}
-					data={filteredData}
-					renderItem={renderItem}
-					keyExtractor={item => item.id}
-				/>
+                </View> 
             {/* </DropShadow> */}
         </View>
     );

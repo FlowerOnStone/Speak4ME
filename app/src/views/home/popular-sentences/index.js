@@ -32,6 +32,7 @@ import styles from '../../../components/common/search-bar/styles';
 import { SearchBar as TempSearchBar } from '@rneui/themed';
 import SearchIcon from '../../../components/icons/search-icon';
 import parseColor from 'parse-color';
+import { getPopularTopics, deletePopularTopic, changePopularTopicTitle } from '../Data/popular-topic-data';
 
 const dataList = [sortOptionHeader];
 
@@ -40,15 +41,8 @@ export default function PopularSentences({ route, navigation }) {
 	const handleSearch = (text) => {
 		setSearchText(text);
 	};
+	const [reset, setReset] = useState(false);
 
-	const [topicList, setTopicList] = useState([
-		{
-			id: 1,
-			title: 'Chào hỏi',
-			content: ['Xin chào', 'Tạm biệt', 'Hẹn gặp lại'],
-		},
-	]);
-	const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');
 	const [isEditing, setIsEditing] = useState(false);
 	const [settingsOverlayVisible, setSettingsOverlayVisible] = useState(false);
 	const [settingsButton] = useState(
@@ -72,8 +66,16 @@ export default function PopularSentences({ route, navigation }) {
 	};
 
 	const handleDeleteTopic = (id) => {
-		setTopicList(topicList.filter(topic => topic.id !== id));
+		deletePopularTopic(id);
+		setReset(!reset);
 	};
+
+	const handleAddSentence = (topicId, topicTitle) => {
+		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE_NAVIGATOR, {
+			screen: SCREEN.ADD_SENTENCE,
+			params: { type: "popular_topic", id: topicId, title: topicTitle},
+		} )
+	}
 	const handleViewTopic = (id, title, content) => {
 		// console.log(content);
 		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE_NAVIGATOR, {
@@ -86,17 +88,8 @@ export default function PopularSentences({ route, navigation }) {
 	};
 
 	const handleTitleBlur = (targetId, newTitle) => {
-
-		const updatedList = topicList.map((topic) => {
-			if (topic.id === targetId) {
-				return { ...topic, title: newTitle };
-			} else {
-				return topic;
-			}
-		});
-
+		changePopularTopicTitle(targetId, newTitle);
 		setIsEditing(false);
-		setTopicList(updatedList);
 	};
 
 	const clearIcon = {
@@ -120,20 +113,19 @@ export default function PopularSentences({ route, navigation }) {
 	};
 
 	const renderItem = ({ item }) => (
-			topicList.map(item => (
-				<TouchableWithoutFeedback key={item.id} style={popularStyles.topicContainer}>
-					<PopularTopic
-						title={item.title}
-						sentences={item.content}
-						onDelete={() => handleDeleteTopic(item.id)}
-						onTitleBlur={(newTitle) => handleTitleBlur(item.id, newTitle)}
-						onTouch={() => handleViewTopic(item.id, item.title, item.content)}
-					/>
-				</TouchableWithoutFeedback>
-			))
+		<TouchableWithoutFeedback key={item.id} style={popularStyles.topicContainer}>
+			<PopularTopic
+				title={item.title}
+				sentences={item.content}
+				onDelete={() => handleDeleteTopic(item.id)}
+				onTitleBlur={(newTitle) => handleTitleBlur(item.id, newTitle)}
+				onAddSentence={() => handleAddSentence(item.id, item.title)}
+				onTouch={() => handleViewTopic(item.id, item.title, item.content)}
+			/>
+		</TouchableWithoutFeedback>
   	);
 
-  	const filteredData = topicList.filter(item =>
+  	const filteredData = getPopularTopics().filter(item =>
     	item.title.toLowerCase().includes(searchText.toLowerCase())
   	);
 
