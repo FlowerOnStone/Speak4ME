@@ -88,7 +88,7 @@ export default function EditSentence(props) {
 						placeholder="Bạn hãy nhập văn bản..."
 					/>
 				</BaseFrame>
-				<SuggestionBox />
+				<SuggestionBox change={handleChangeSentence} data={sentence}/>
 			</View>
 		</View>
 	);

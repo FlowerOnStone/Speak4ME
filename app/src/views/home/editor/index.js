@@ -163,7 +163,7 @@ export default function Editor(props) {
 							placeholder="Bạn muốn nói gì..."
 						/>
 					</BaseFrame>
-					<SuggestionBox />
+					<SuggestionBox change={handleChangeSentence} data={sentence}/>
 				</View>
 			</View>
 			<SettingsOverlay.SlideInDown

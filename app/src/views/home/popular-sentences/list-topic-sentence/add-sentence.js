@@ -84,7 +84,7 @@ export default function AddSentence({ route, navigation }) {
 				placeholder="Bạn hãy nhập văn bản..."
 			/>
 			</BaseFrame>
-			<SuggestionBox />
+			<SuggestionBox change={handleChangeSentence} data={sentence}/>
 		</View>
     </View>
   );

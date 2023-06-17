@@ -71,7 +71,7 @@ export default function AddPopularTopic({ route, navigation }) {
 						placeholder="Bạn hãy nhập tên chủ đề..."
 					/>
 				</BaseFrame>
-				<SuggestionBox />
+				<SuggestionBox change={handleChangeTopic} data={topic}/>
 			</View>
 		</View>
 	);
