@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import { View, Text, Touchable } from 'react-native';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 
 const BottomBox = (props) => {
     let inside = [];

@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	StyleSheet,
 	View,
@@ -13,6 +13,8 @@ import {
 	TextInput,
 	SafeAreaView
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 import COLOR from '../../../../constants/color';
@@ -30,6 +32,18 @@ import STYLES from '../../../../constants/styles';
 
 export default function AddSentence({ route, navigation }) {
 	const [sentences, setSentences] = useState([]);
+
+	
+	const [darkMode, setDarkMode] = useState(null);
+
+  useEffect(() => {
+    AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+      if (storedDarkMode !== null) {
+        setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+      }
+    });
+    console.log("history screen" + darkMode);
+  }, []);
 
 	const [sentence, setSentence] = useState('');
 	const handleChangeSentence = (newSentence) => {
@@ -58,12 +72,12 @@ export default function AddSentence({ route, navigation }) {
 	);
 
 	return (
-		<View style={STYLES.container}>
+		<View style={[STYLES.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 			<ScreenHeader
 				leftItem={backButton}
 				title={"Thêm văn bản"}
 			/>
-			<View style={styles.contentContainer}>
+			<View style={[styles.contentContainer, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 				<BaseFrame
 					itemList={[
 					<TouchableOpacity onPress={handleViewPopularSentences}>

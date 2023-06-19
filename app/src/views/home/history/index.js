@@ -62,7 +62,7 @@ export default function History({ route, navigation }) {
 
 	const handleSearch = (text) => {
 		setSearchText(text); // Lưu trữ giá trị của thanh tìm kiếm khi người dùng nhập vào
-		// Thực hiện hoạt động tìm kiếm dựa trên searchText ở đây
+		// Thực hiện hoạt động tìm kiếm dựa trên searchText ở đây 
 	};
 
 
@@ -77,7 +77,7 @@ export default function History({ route, navigation }) {
 					title={'Lịch sử nói'}
 					rightItem={settingsButton}
 				/>
-				<SearchBar containerStyle={{marginTop: 5}}/>
+				<SearchBar containerStyle={{marginTop: 5, backgroundColor: darkMode === true ? 'black' : 'white'}}/>
 				<ScrollView style={[styles.scroll, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 					{
 					sentences.length > 0 && sentences.map((sentence, index) => (

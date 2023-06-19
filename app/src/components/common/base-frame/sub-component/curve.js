@@ -15,6 +15,7 @@ const Curve = (props) => (
             borderTopColor: props.borderColor,
             borderRightColor: props.borderColor,
             borderBottomColor: props.borderColor,
+            backgroundColor: props.backgroundColor,
             marginTop: -props.borderWidth,
             marginRight: -props.borderWidth,
             ...props,

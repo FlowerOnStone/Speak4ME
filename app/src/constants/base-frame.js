@@ -7,7 +7,14 @@ const BASE_FRAME = {
     FRAME_HEIGHT: 'auto',
     BORDER_RADIUS: 15,
     FRAME_COLOR: COLOR.FRAME,
-    BACKGROUND_COLOR: COLOR.BACKGROUND,
+    
+
+    light: {
+        BACKGROUND_COLOR: 'white',
+    },
+    dark: {
+        BACKGROUND_COLOR: 'black',
+    },
 
     TOP_BOX_WIDTH: '100%',
     TOP_BOX_HEIGHT: 'auto',

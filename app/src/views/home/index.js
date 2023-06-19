@@ -11,7 +11,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen({ route, navigation }) {
 
-	const [darkMode, setDarkMode] = useState(null)
+	const [darkMode, setDarkMode] = useState(!darkMode);
+	const [count, setCount] = useState(0);
 
 	useEffect(() => {
 	  AsyncStorage.getItem('darkMode').then(storedDarkMode => {
@@ -19,10 +20,9 @@ export default function HomeScreen({ route, navigation }) {
 		  setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
 		}
 	  });
-	  console.log("home screen" + darkMode);
-	}, []);
+	  console.log("home screen " + darkMode + " " + count);
+	}, [count]);
 
-	const { username } = route.params;
 	const handleLogout = () => {
 		navigation.goBack();
 	};
@@ -34,6 +34,7 @@ export default function HomeScreen({ route, navigation }) {
 		navigation.navigate(SCREEN.HISTORY, { sentences: ["Xin chào", "Bạn có khỏe không", "Bạn đã ăn cơm chưa", "Bây giờ là mấy giờ", "Tôi khỏe", "Bạn tên là gì", "Bạn muốn mua gì",] });
 	};
 	const handleInfo = () => {
+		setCount(count + 1);
 		navigation.navigate("AccountInfoScreen");
 	};
 

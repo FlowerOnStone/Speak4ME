@@ -39,7 +39,7 @@ export default function TopicScreen({ props, navigation }) {
         setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
       }
     });
-    console.log("history screen" + darkMode);
+    console.log("topic screen" + darkMode);
   }, []);
 
 	const [searchText, setSearchText] = useState('');
@@ -121,7 +121,7 @@ export default function TopicScreen({ props, navigation }) {
 					title={'Chuẩn bị trước'}
 					rightItem={settingsButton}
 				/>
-				<SearchBar containerStyle={{marginTop: 5}}/>
+				<SearchBar containerStyle={{marginTop: 5, backgroundColor: darkMode === true ? 'black' : 'white'}}/>
 				<View style={[styles.contentContainer, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 					{topicList.map(topic => {
 						// log.debug(topic);

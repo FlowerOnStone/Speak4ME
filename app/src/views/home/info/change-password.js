@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
 
 import color from '../../../constants/color'
@@ -10,8 +10,20 @@ import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import { ScrollView } from 'react-native';
 import STYLES from '../../../constants/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function ChangePasswordScreen({ route, navigation }) {
+    const [darkMode, setDarkMode] = useState(null);
+
+    useEffect(() => {
+        AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+        if (storedDarkMode !== null) {
+            setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+        }
+        });
+        console.log("history screen" + darkMode);
+    }, []);
     const [password, setPassword] = useState('');
     const [repeatpassword, setRepeatpassword] = useState('');
 
@@ -24,14 +36,14 @@ export default function ChangePasswordScreen({ route, navigation }) {
         </TouchableOpacity>
     );
     return (
-        <View style={STYLES.container}> 
+        <View style={[STYLES.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}> 
             <ScreenHeader
                 leftItem={backButton}
                 title={'Đổi mật khẩu'}
             />
-            <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} style={styles.container}>
-				<View style={styles.contentContainer}>
-                    <Text style={STYLES.underlineInputTitle}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} style={[styles.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
+				<View style={[styles.contentContainer, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
+                    <Text style={[STYLES.underlineInputTitle, {color: darkMode === true ? 'white' : 'black'}]}>
                         Mật khẩu hiện tại
                     </Text>
                     <TextInput
@@ -41,7 +53,7 @@ export default function ChangePasswordScreen({ route, navigation }) {
                         placeholder="Mật khẩu hiện tại"
                         secureTextEntry={true}
                     />
-                    <Text style={STYLES.underlineInputTitle}>
+                    <Text style={[STYLES.underlineInputTitle, {color: darkMode === true ? 'white' : 'black'}]}>
                         Mật khẩu mới
                     </Text>
                     <TextInput
@@ -51,7 +63,7 @@ export default function ChangePasswordScreen({ route, navigation }) {
                         placeholder="Mật khẩu mới"
                         secureTextEntry={true}
                     />
-                    <Text style={STYLES.underlineInputTitle}>
+                    <Text style={[STYLES.underlineInputTitle, {color: darkMode === true ? 'white' : 'black'}]}>
                         Nhập lại mật khẩu
                     </Text>
                     <TextInput

@@ -11,8 +11,7 @@ import {
 	StyleSheet,
 	View,
 	TouchableOpacity,
-  	SafeAreaView,
-	Text
+  	SafeAreaView
 } from 'react-native';
 
 import COLOR from '../../../../constants/color';
@@ -36,18 +35,19 @@ const dataList = [sortOptionHeader];
 
 export default function ListTopicSentence({ route, navigation }) {
 	const { sentences = [] } = route.params ?? {};
-	const [darkMode, setDarkMode] = useState(null);
 
+
+	const [darkMode, setDarkMode] = useState(null);
 
 	useEffect(() => {
 		AsyncStorage.getItem('darkMode').then(storedDarkMode => {
-		  if (storedDarkMode !== null) {
+		if (storedDarkMode !== null) {
 			setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
-		  }
+		}
 		});
 		console.log("history screen" + darkMode);
-	  }, []);
-	
+	}, []);
+
 
 	const [searchText, setSearchText] = useState('');
 	const handleSearch = (text) => {
@@ -56,15 +56,11 @@ export default function ListTopicSentence({ route, navigation }) {
 
 	const [topicList, setTopicList] = useState([
 		{
-		  id: 1,
-		  title: 'Chào hỏi',
-		  content: [
-			{ id: 11, text: 'Xin chào', audioPaths: [] },
-			{ id: 12, text: 'Tạm biệt', audioPaths: [] },
-			{ id: 13, text: 'Hẹn gặp lại', audioPaths: [] },
-		  ],
+			id: 1,
+			title: 'Chào hỏi',
+			content: ['Xin chào', 'Tạm biệt', 'Hẹn gặp lại'],
 		},
-	  ]);
+	]);
 	const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');
 	const [isEditing, setIsEditing] = useState(false);
 	const [settingsOverlayVisible, setSettingsOverlayVisible] = useState(false);
@@ -92,8 +88,9 @@ export default function ListTopicSentence({ route, navigation }) {
 		setTopicList(topicList.filter(topic => topic.id !== id));
 	};
 	const handleViewTopic = (id, title, content) => {
-		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content.map(sentence => sentence.text) });
-	  };
+		// console.log(content);
+		navigation.push(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
+	};
 
 	const handleTitleBlur = (targetId, newTitle) => {
 
@@ -108,7 +105,7 @@ export default function ListTopicSentence({ route, navigation }) {
 		setIsEditing(false);
 		setTopicList(updatedList);
 	};
-	
+
 	const handleAddSentence = () => {
 		navigation.navigate(SCREEN.ADD_SENTENCE);
 	}
@@ -129,24 +126,13 @@ export default function ListTopicSentence({ route, navigation }) {
 					title={route.params.name}
 					rightItem={settingsButton}
 				/>
-				<SearchBar containerStyle={{marginTop: 5}}/>
-				<View style={[styles.contentContainer, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
+				<SearchBar containerStyle={{marginTop: 5, backgroundColor: darkMode === true ? 'black' : 'white'}}/>
+				<View style={[styles.contentContaine, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 					<ScrollView style={styles.scroll}>
 					{
-						topicList.map((topic) => (
-							<View key={topic.id}>
-							  <TouchableOpacity
-								style={styles.topic}
-								onPress={() => handleViewTopic(topic.id, topic.title, topic.content)}
-							  >
-							  </TouchableOpacity>
-							  <View style={styles.sentences}>
-								{topic.content.map((sentence) => (
-								  <Sentence key={sentence.id} onEdit={handleEditSentence} text={sentence.text} id={sentence.id} audioPaths={sentence.audioPaths} />
-								))}
-							  </View>
-							</View>
-						  ))
+						sentences.length > 0 && sentences.map((sentence, index) => (
+						<Sentence key={randomId()} onEdit={handleEditSentence} text={sentence} />
+						))
 					}
 					</ScrollView>
 				</View>
@@ -194,14 +180,14 @@ const styles = StyleSheet.create({
 		backgroundColor: '#f2f2f2', // Màu nền của input trong thanh tìm kiếm
 		borderRadius: 30,
 	},
-	
+
 	searchBarTextInput: {
 		fontSize: 16, // Kích thước chữ trong input của thanh tìm kiếm
 	},
-	
+
 	addBox: {
 		borderColor: COLOR.TITLE,
-		position: "absolute", 
+		position: "absolute",
 		bottom: 30,
 		right: 30
 	},

@@ -111,7 +111,7 @@ export default function PopularSentences({ props, navigation }) {
 					title={'Thông dụng'}
 					rightItem={settingsButton}
 				/>
-				<SearchBar containerStyle={{marginTop: 5}}/>
+				<SearchBar containerStyle={{marginTop: 5, backgroundColor: darkMode === true ? 'black' : 'white'}}/>
 				<ScrollView style={styles.contentContainer}>
 					{topicList.map(topic => (
 						<TouchableWithoutFeedback key={topic.id} style={styles.topicContainer}>

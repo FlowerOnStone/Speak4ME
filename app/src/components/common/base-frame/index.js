@@ -1,11 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import BASE_FRAME from '../../../constants/base-frame';
 import TopBox from './sub-component/top-box';
 import Curve from './sub-component/curve';
 import BottomBox from './sub-component/bottom-box';
 import { log } from '../../../utils/logger';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const styles = StyleSheet.create({
     defaultContainerStyle: {
@@ -53,6 +55,18 @@ const styles = StyleSheet.create({
  * @returns BaseFrame
  */
 const BaseFrame = (props) => {
+    
+	const [darkMode, setDarkMode] = useState(null);
+
+    useEffect(() => {
+      AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+        if (storedDarkMode !== null) {
+          setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+        }
+      });
+      console.log("history screen" + darkMode);
+    }, []);
+    
     const containerStyle = StyleSheet.flatten([styles.defaultContainerStyle, props.containerStyle]);
     const frameStyle = StyleSheet.flatten([styles.defaultFrameStyle, props.frameStyle]);
     const baseBoxStyle = StyleSheet.create({
@@ -62,7 +76,7 @@ const BaseFrame = (props) => {
         borderColor: frameStyle.borderColor,
     });
     const curveStyle = StyleSheet.flatten([styles.defaultCurveStyle, baseBoxStyle,
-    { backgroundColor: containerStyle.backgroundColor },
+    { backgroundColor: darkMode === true ? "black" : "white", borderColor: darkMode === true ? "black" : "white" },
     props.curveStyle]);
     const bottomBoxStyle = StyleSheet.flatten([styles.defaultBottomBoxStyle, baseBoxStyle, props.bottomBoxStyle]);
     const topBoxStyle = StyleSheet.flatten([styles.defaultTopBoxStyle, baseBoxStyle, props.topBoxStyle]);

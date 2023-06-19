@@ -11,19 +11,36 @@ import RNFS from 'react-native-fs';
 import BaseFrame from '../base-frame';
 import editIcon from '../../icons/edit-icon';
 import COLOR from '../../../constants/color';
+import Sound from 'react-native-sound';
 
 const NetInfo = require('@react-native-community/netinfo');
 
+const playSound = (filePath) => {
+  // Create a new Sound object with the file path
+  console.log("play sound saved");
+  const sound = new Sound(filePath, '', (error) => {
+    if (error) {
+      console.log('Failed to load the sound file', error);
+      return;
+    }
+
+    // Play the sound file
+    sound.play((success) => {
+      if (success) {
+        console.log('Sound file played successfully');
+      } else {
+        console.log('Failed to play the sound file');
+      }
+    });
+  });
+};
+
+
 const saveSpeechToFile = async (filePath, speech) => {
   try {
-    await TTS.synthesizeToFile(speech, filePath, {
-      language: 'vi-VN',
-      pitch: 1.0,
-      rate: 0.85,
-    });
-   /* const audioBuffer = Buffer.from(audioData, 'base64');
-    await RNFS.writeFile(filePath, audioBuffer);*/
-    console.log(`Speech saved to ${filePath}`);
+    const audioData = await TTS.Tts.speak(speech);
+    await RNFS.writeFile(filePath, audioData);
+    console.log("Saved file to " + filePath);
   } catch (error) {
     console.log('Error saving speech:', error);
   }
@@ -41,28 +58,23 @@ const Sentence = (props) => {
   };
 
   const handleSpeakButtonClick = () => {
+    const fileName = `tts_${props.text}.mp3`;
+    let filePath = RNFS.DocumentDirectoryPath + '/' + fileName;
+
     NetInfo.fetch().then(state => {
       if (state.isConnected) {
         console.log("network is connected");
         TTS.Tts.speak(props.text);
 
-        const currentTimestamp = new Date().getTime();
-        const fileName = `tts_${currentTimestamp}_${props.id}.mp3`;
-        let filePath;
-        if (props.audioPath && RNFS.exists(props.audioPath)) {
-          filePath = props.audioPath;
-        } else {
-          filePath = RNFS.DocumentDirectoryPath + '/' + fileName;
-        }
-
         saveSpeechToFile(filePath, props.text);
       } else {
-        console.log("network is not connected");
-        if (props.audioPath) {
-          RNFS.exists(props.audioPath)
+        console.log("network is not connected " + filePath);
+
+        if (filePath) {
+          RNFS.exists(filePath)
             .then((exists) => {
               if (exists) {
-                TTS.Tts.playSavedAudio(props.audioPath);
+                playSound(filePath);
               } else {
                 alert('Không có kết nối mạng và file âm thanh cũng không được lưu trên thiết bị.');
               }
