@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SCREEN } from '../../constants/screen';
@@ -6,8 +6,22 @@ import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../components/common/screen-header';
 import THEME from '../../constants/theme';
 import STYLES from '../../constants/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function HomeScreen({ route, navigation }) {
+
+	const [darkMode, setDarkMode] = useState(null)
+
+	useEffect(() => {
+	  AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+		if (storedDarkMode !== null) {
+		  setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+		}
+	  });
+	  console.log("home screen" + darkMode);
+	}, []);
+
 	const { username } = route.params;
 	const handleLogout = () => {
 		navigation.goBack();
@@ -50,7 +64,7 @@ export default function HomeScreen({ route, navigation }) {
 				title={'Trang chủ'}
 				rightItem={infoButton}
 			/>
-			<View style = {STYLES.contentContainer}>
+			<View style = {[STYLES.contentContainer, {backgroundColor: darkMode === true ? "black" : "white"}]}>
 				<TouchableOpacity onPress={handleEditor} style={styles.button}>
 					<Icon name="edit" color="#000000" type = "solid" size={20} />
 					<Text style = {styles.textBody}>

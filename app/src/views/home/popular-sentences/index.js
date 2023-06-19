@@ -4,7 +4,7 @@ Sample React Native App
 https://github.com/facebook/react-native
 @format
 */
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
     ScrollView,
     StyleSheet,
@@ -26,6 +26,8 @@ import { SCREEN } from '../../../constants/screen';
 import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const dataList = [sortOptionHeader];
 
@@ -34,6 +36,17 @@ export default function PopularSentences({ props, navigation }) {
 	const handleSearch = (text) => {
 		setSearchText(text);
 	};
+
+	const [darkMode, setDarkMode] = useState(null);
+
+	useEffect(() => {
+		AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+		if (storedDarkMode !== null) {
+			setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+		}
+		});
+		console.log("history screen" + darkMode);
+	}, []);
 
 	const [topicList, setTopicList] = useState([
 		{
@@ -88,7 +101,7 @@ export default function PopularSentences({ props, navigation }) {
 	};
 
 	return (
-		<View style={STYLES.container}>
+		<View style={[STYLES.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 			<View
 				style={{width: '100%', height: '100%', alignItems: 'center'}}
 				onLayout={(event) => {setDistanceToTop(event.nativeEvent.layout.height);}}

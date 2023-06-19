@@ -27,7 +27,7 @@ const HistorySentence = (props) => {
     };
 
     return (
-        <BaseFrame itemList={[
+        <BaseFrame style={{background: props.darkMode === true ? "black" : "white"}} itemList={[
             <TouchableOpacity style={styles.iconBox} onPress={handleCopyClick}>
                 <Icon icon={binIcon} />
             </TouchableOpacity>,

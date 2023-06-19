@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity } from 'react-native';
 import Icon from '../../../components/icons/icon-tag';
 import EditInfoIcon from '../../../components/icons/edit-info-icon';
@@ -13,9 +13,33 @@ import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
+import { EventRegister } from 'react-native-event-listeners'
+import themeContext from '../../../constants/themeContext';
+import { ThemeProvider } from '@rneui/themed';
+import { SCREEN } from '../../../constants/screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function AccountInfoScreen({ route, navigation }) {
+    const [theme, setTheme] = useState(useContext(themeContext));
+    const [darkMode, setDarkMode] = useState(false);
+
+    useEffect(() => {
+        AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+          if (storedDarkMode !== null) {
+            setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+          }
+        });
+      }, []);
+
+    const handleChangeMode = () => {
+        const newDarkMode = !darkMode;
+        setDarkMode(newDarkMode);
+        AsyncStorage.setItem('darkMode', JSON.stringify(newDarkMode));
+        EventRegister.emit('ChangeTheme', false);
+       // navigation.navigate(SCREEN.AccountInfoScreen);
+       console.log(AccountInfoScreen + " " + darkMode);
+    };
 
     const handleChangePassword = () => {
         navigation.navigate("ChangePasswordScreen");
@@ -32,82 +56,86 @@ export default function AccountInfoScreen({ route, navigation }) {
         </TouchableOpacity>
     );
     return (
-        <View style={STYLES.container}> 
-            <ScreenHeader
-                leftItem={backButton}
-                title={'Thông tin chung'}
-            />
-            <View style={STYLES.contentContainer}>
-                <View style= {styles.infoContainer}>
-                    <View style={styles.info}>
-                        <View style={styles.avatar}>
+        <ThemeProvider theme={theme}>
+            <View style={[STYLES.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}> 
+                <ScreenHeader
+                    leftItem={backButton}
+                    title={'Thông tin chung'}
+                />
+                <View style={[STYLES.contentContainer, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
+                    <View style= {styles.infoContainer}>
+                        <View style={styles.info}>
+                            <View style={styles.avatar}>
+                            </View>
+                            <Text style={[styles.name, {color : darkMode === true ? 'white' : 'black'}]}>
+                                Nguyễn Đức Thuận
+                            </Text>
+                            <View  style={styles.editAccount}>
+                                <TouchableOpacity  onPress={handleChangeInfo}>
+                                    <Icon icon={EditInfoIcon} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        <Text style={styles.name}>
-                            Nguyễn Đức Thuận
-                        </Text>
-                        <View  style={styles.editAccount}>
-                            <TouchableOpacity  onPress={handleChangeInfo}>
-                                <Icon icon={EditInfoIcon} />
+                        <View style={styles.contactInfo}>
+                            <Icon icon={PhoneIcon} containerStyle={styles.contactInfoIconContainer} />
+                            <Text style={[styles.contactInfoText, {color: darkMode === true ? 'white' : 'black'}]}>
+                                0123456789 
+                            </Text>
+                        </View>
+                        <View style={styles.contactInfo}>
+                            <Icon icon={EmailIcon} containerStyle={styles.contactInfoIconContainer} />
+                            <Text style={[styles.contactInfoText, {color: darkMode === true ? 'white' : 'black'}]}>
+                                thuanbn03@gmail.com 
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={styles.settingContainer}> 
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity 
+                                style={styles.button}
+                                onPress={handleChangeMode}
+                            >
+                                <Icon icon={DarkModeIcon} containerStyle={styles.settingIconContainer} iconStyle={[styles.settingIcon]} />
+                                <Text style={[styles.settingText, {color: darkMode === true ? 'white' : 'black'}]}>
+                                    Chế độ tối
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View  style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.button}>
+                                <Icon icon={speakIcon} containerStyle={styles.settingIconContainer} iconStyle={styles.settingIcon} />
+                                <Text style={[styles.settingText, {color: darkMode === true ? 'white' : 'black'}]}>
+                                    Âm lượng
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.button} onPress={handleChangePassword}>
+                                <Icon icon={ChangePasswordIcon} containerStyle={styles.settingIconContainer} iconStyle={styles.settingIcon} />
+                                <Text style={[styles.settingText, {color: darkMode === true ? 'white' : 'black'}]}>
+                                    Đổi mật khẩu
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={styles.contactInfo}>
-                        <Icon icon={PhoneIcon} containerStyle={styles.contactInfoIconContainer} />
-                        <Text style={styles.contactInfoText}>
-                            0123456789
-                        </Text>
-                    </View>
-                    <View style={styles.contactInfo}>
-                        <Icon icon={EmailIcon} containerStyle={styles.contactInfoIconContainer} />
-                        <Text style={styles.contactInfoText}>
-                            thuanbn03@gmail.com 
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.settingContainer}> 
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button}>
-                            <Icon icon={DarkModeIcon} containerStyle={styles.settingIconContainer} iconStyle={styles.settingIcon} />
-                            <Text style={styles.settingText}>
-                                Chế độ tối
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View  style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button}>
-                            <Icon icon={speakIcon} containerStyle={styles.settingIconContainer} iconStyle={styles.settingIcon} />
-                            <Text style={styles.settingText}>
-                                Âm lượng
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button} onPress={handleChangePassword}>
-                            <Icon icon={ChangePasswordIcon} containerStyle={styles.settingIconContainer} iconStyle={styles.settingIcon} />
-                            <Text style={styles.settingText}>
-                                Đổi mật khẩu
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.logoutContainer}>
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button} onPress={handleLogout}>
-                            <Icon icon={LogoutIcon} containerStyle={styles.settingIconContainer}/>
-                            <Text style={styles.logoutText}>
-                                Đăng xuất
-                            </Text>
-                        </TouchableOpacity>
+                    <View style={styles.logoutContainer}>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.button} onPress={handleLogout}>
+                                <Icon icon={LogoutIcon} containerStyle={styles.settingIconContainer}/>
+                                <Text style={styles.logoutText}>
+                                    Đăng xuất
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </View>
-        </View>
+        </ThemeProvider>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: COLOR.BACKGROUND,
         height: "93%"
     },
     infoContainer: {
@@ -133,7 +161,7 @@ const styles = StyleSheet.create({
     name: {
         flex: 5,
         textAlignVertical: "center",
-        fontSize: 24
+        fontSize: 24,
     }, 
     editAccount: {
         alignContent: "center",
@@ -149,8 +177,8 @@ const styles = StyleSheet.create({
     }, 
     contactInfoText: {
         fontSize: 16,
+        fontWeight: 'bold',
         textAlignVertical: "center", 
-        color: "black"
     }, 
     settingContainer: {
         padding: 15,
@@ -172,10 +200,8 @@ const styles = StyleSheet.create({
         width: 65,
     }, 
     settingIcon: {
-        color: "black"
     }, 
     settingText: {
-        color: "black",
         fontSize: 18
     }, 
     logoutContainer: {

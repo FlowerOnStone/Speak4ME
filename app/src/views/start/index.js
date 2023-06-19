@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import { SCREEN } from '../../constants/screen';
 import STYLES from '../../constants/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function StartScreen({ route, navigation }) {
 	// const { username } = route.params;

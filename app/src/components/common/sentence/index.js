@@ -15,11 +15,14 @@ import COLOR from '../../../constants/color';
 const NetInfo = require('@react-native-community/netinfo');
 
 const saveSpeechToFile = async (filePath, speech) => {
-  console.log(filePath + " " + speech);
   try {
-    const audioData = await TTS.Tts.speechToBlob(speech);
-    const audioBuffer = Buffer.from(audioData, 'base64');
-    await RNFS.writeFile(filePath, audioBuffer);
+    await TTS.synthesizeToFile(speech, filePath, {
+      language: 'vi-VN',
+      pitch: 1.0,
+      rate: 0.85,
+    });
+   /* const audioBuffer = Buffer.from(audioData, 'base64');
+    await RNFS.writeFile(filePath, audioBuffer);*/
     console.log(`Speech saved to ${filePath}`);
   } catch (error) {
     console.log('Error saving speech:', error);
@@ -93,8 +96,8 @@ const Sentence = (props) => {
 const styles = StyleSheet.create({
   text: {
     color: COLOR.TEXT,
-    fontSize: 15,
-  },
+    fontSize: 15
+  }
 });
 
 export default Sentence;

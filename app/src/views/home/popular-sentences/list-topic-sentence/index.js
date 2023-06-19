@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, {useCallback, useState } from 'react';
+import React, {useCallback, useState, useEffect } from 'react';
 import {
 	ScrollView,
 	StyleSheet,
@@ -29,11 +29,25 @@ import { settingsIcon } from '../../../../components/icons/settings-icon';
 import { sortOptionHeader } from '../../../../components/common/settings-overlay/template-options-header';
 import SettingsOverlay from '../../../../components/common/settings-overlay';
 import STYLES from '../../../../constants/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const dataList = [sortOptionHeader];
 
 export default function ListTopicSentence({ route, navigation }) {
 	const { sentences = [] } = route.params ?? {};
+	const [darkMode, setDarkMode] = useState(null);
+
+
+	useEffect(() => {
+		AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+		  if (storedDarkMode !== null) {
+			setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+		  }
+		});
+		console.log("history screen" + darkMode);
+	  }, []);
+	
 
 	const [searchText, setSearchText] = useState('');
 	const handleSearch = (text) => {
@@ -105,9 +119,9 @@ export default function ListTopicSentence({ route, navigation }) {
 
 
 	return (
-		<View style={STYLES.container}>
+		<View style={[STYLES.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 			<View
-				style={{width: '100%', height: '100%', alignItems: 'center'}}
+				style={{width: '100%', height: '100%', alignItems: 'center', backgroundColor: darkMode === true ? 'black' : 'white'}}
 				onLayout={(event) => {setDistanceToTop(event.nativeEvent.layout.height);}}
 			>
 				<ScreenHeader
@@ -116,7 +130,7 @@ export default function ListTopicSentence({ route, navigation }) {
 					rightItem={settingsButton}
 				/>
 				<SearchBar containerStyle={{marginTop: 5}}/>
-				<View style={styles.contentContainer}>
+				<View style={[styles.contentContainer, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 					<ScrollView style={styles.scroll}>
 					{
 						topicList.map((topic) => (

@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	StyleSheet,
 	View,
@@ -28,10 +28,22 @@ import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function EditTopic(props) {
 	const navigation = useNavigation();
+
+	const [darkMode, setDarkMode] = useState(null);
+
+  useEffect(() => {
+    AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+      if (storedDarkMode !== null) {
+        setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+      }
+    });
+    console.log("history screen" + darkMode);
+  }, []);
 
 	const [topic, setTopic] = useState('');
 	const [description, setDescription] = useState('');
@@ -61,13 +73,13 @@ export default function EditTopic(props) {
 		</TouchableOpacity>
 	);
 	return (
-		<View style={STYLES.container}>
+		<View style={[STYLES.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
             <ScreenHeader
                 leftItem={backButton}
                 title={'Sửa chủ đề'}
             />
-			<ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: "center" }} style={styles.container}>
-				<View style={styles.contentContainer}>
+			<ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: "center", backgroundColor: darkMode === true ? 'black' : 'white' }} style={styles.container}>
+				<View style={[styles.contentContainer, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 					<BaseFrame itemList={[
 					<TouchableOpacity onPress={handleClearTopic}>
 						<Icon icon={binIcon}/>

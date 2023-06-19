@@ -1,23 +1,28 @@
-import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
+import styles from './style';
+import Task from './Task';
+import Header from './Header';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import styles from './style'
-import Task from './Task'
-import Header from './Header'
+const History = () => {
+  const [darkMode, setDarkMode] = useState(null);
 
-export class History extends Component {
-  render() {
-    return (
-        <View style={styles.container}>
-            <Header>
+  useEffect(() => {
+    AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+      if (storedDarkMode !== null) {
+        setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+      }
+    });
+    console.log("history screen" + darkMode);
+  }, []);
 
-            </Header>
-            <Task>
-
-            </Task>
-        </View>
-    )
-  }
-}
+  return (
+    <View style={[styles.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
+      <Header />
+      <Task />
+    </View>
+  );
+};
 
 export default History;

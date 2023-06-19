@@ -5,7 +5,7 @@ Sample React Native App
 https://github.com/facebook/react-native
 @format
 */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
     ScrollView,
     StyleSheet,
@@ -25,8 +25,22 @@ import { log } from '../../../utils/logger';
 import SearchBar from '../../../components/common/search-bar';
 import { TouchableWithoutFeedback } from 'react-native';
 import { SCREEN } from '../../../constants/screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 export default function TopicScreen({ props, navigation }) {
+
+	const [darkMode, setDarkMode] = useState(null);
+
+  useEffect(() => {
+    AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+      if (storedDarkMode !== null) {
+        setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+      }
+    });
+    console.log("history screen" + darkMode);
+  }, []);
 
 	const [searchText, setSearchText] = useState('');
 	const handleSearch = (text) => {
@@ -97,7 +111,7 @@ export default function TopicScreen({ props, navigation }) {
 	};
 
 	return (
-		<View style={styles.container}>
+		<View style={[styles.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 			<View
 				style={{ width: '100%', height: '100%', alignItems: 'center' }}
 				onLayout={(event) => { setDistanceToTop(event.nativeEvent.layout.height); }}
@@ -108,7 +122,7 @@ export default function TopicScreen({ props, navigation }) {
 					rightItem={settingsButton}
 				/>
 				<SearchBar containerStyle={{marginTop: 5}}/>
-				<View style={styles.contentContainer}>
+				<View style={[styles.contentContainer, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 					{topicList.map(topic => {
 						// log.debug(topic);
 						return (

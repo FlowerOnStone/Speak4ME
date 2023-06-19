@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
 	ScrollView,
 	StyleSheet,
@@ -22,8 +22,21 @@ import SettingsOverlay from '../../../components/common/settings-overlay';
 import ScreenHeader from '../../../components/common/screen-header';
 import SearchBar from '../../../components/common/search-bar';
 import STYLES from '../../../constants/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function History({ route, navigation }) {
+
+	const [darkMode, setDarkMode] = useState(null);
+
+  useEffect(() => {
+    AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+      if (storedDarkMode !== null) {
+        setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+      }
+    });
+    console.log("history screen" + darkMode);
+  }, []);
 
 	const { sentences = [] } = route.params ?? {};
 
@@ -54,9 +67,9 @@ export default function History({ route, navigation }) {
 
 
 	return (
-		<View style={STYLES.container}>
+		<View style={[STYLES.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 			<View
-				style={{ width: '100%', height: '100%', alignItems: 'center' }}
+				style={{ width: '100%', height: '100%', alignItems: 'center', backgroundColor: darkMode === true ? 'black' : 'white' }}
 				onLayout={(event) => { setDistanceToTop(event.nativeEvent.layout.height); }}
 			>
 				<ScreenHeader
@@ -65,10 +78,10 @@ export default function History({ route, navigation }) {
 					rightItem={settingsButton}
 				/>
 				<SearchBar containerStyle={{marginTop: 5}}/>
-				<ScrollView style={styles.scroll}>
+				<ScrollView style={[styles.scroll, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 					{
 					sentences.length > 0 && sentences.map((sentence, index) => (
-						<HistorySentence key={index} text={sentence} />
+						<HistorySentence key={index} text={sentence} darkMode={darkMode} />
 					))}
 				</ScrollView>
 			</View>

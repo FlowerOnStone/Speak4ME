@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
 	StyleSheet,
 	View,
@@ -31,12 +31,25 @@ import ScreenHeader from '../../../components/common/screen-header';
 import { SCREEN } from '../../../constants/screen';
 import { Text } from 'react-native-svg';
 import STYLES from '../../../constants/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Editor(props) {
 
 	const navigation = useNavigation();
 	const [sentences, setSentences] = useState([]);
 	const [sentence, setSentence] = useState('');
+	const [darkMode, setDarkMode] = useState(null);
+
+	useEffect(() => {
+	  AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+		if (storedDarkMode !== null) {
+		  setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+		}
+	  });
+	  console.log("editor screen" + darkMode);
+	}, []);
+
 
 	/// Header
 	const [settingsButton] = useState(
@@ -78,7 +91,7 @@ export default function Editor(props) {
 	return (
 		<View style={STYLES.container}>
 			<View
-				style={{ width: '100%', height: '100%', alignItems: 'center' }}
+				style={{ width: '100%', height: '100%', alignItems: 'center', backgroundColor: darkMode === true ? 'black' : 'white'}}
 				onLayout={(event) => { setDistanceToTop(event.nativeEvent.layout.height); }}
 			>
 				<ScreenHeader
@@ -86,7 +99,7 @@ export default function Editor(props) {
 					title={'Soạn thảo'}
 					rightItem={settingsButton}
 				/>
-				<View style={styles.contentContainer}>
+				<View style={[styles.contentContainer, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 					<BaseFrame itemList={[<TouchableOpacity onPress={handleViewPopularSentences}>
 						<Icon icon={popularSentencesIcon} />
 					</TouchableOpacity>, <TouchableOpacity onPress={handleViewHistory}>

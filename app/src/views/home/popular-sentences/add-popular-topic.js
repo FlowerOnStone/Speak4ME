@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	StyleSheet,
 	View,
@@ -26,9 +26,21 @@ import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function AddPopularTopic({ props, navigation }) {
 
+	const [darkMode, setDarkMode] = useState(null);
+
+  useEffect(() => {
+    AsyncStorage.getItem('darkMode').then(storedDarkMode => {
+      if (storedDarkMode !== null) {
+        setDarkMode(JSON.parse(storedDarkMode)); // Chuyển đổi giá trị string sang boolean
+      }
+    });
+    console.log("history screen" + darkMode);
+  }, []);
 
 	const [topic, setTopic] = useState('');
 	const handleChangeTopic = (newTopic) => {
@@ -51,12 +63,12 @@ export default function AddPopularTopic({ props, navigation }) {
     );
 
     return (
-        <View styles={STYLES.container}>
+        <View styles={[STYLES.container, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
             <ScreenHeader
                 leftItem={backButton}
                 title={'Thêm chủ đề thông dụng'}
             />
-			<View style={styles.contentContainer}>
+			<View style={[styles.contentContainer, {backgroundColor: darkMode === true ? 'black' : 'white'}]}>
 				<BaseFrame itemList={[
 					<TouchableOpacity onPress={handleClear}>
 						<Icon icon={binIcon} />
