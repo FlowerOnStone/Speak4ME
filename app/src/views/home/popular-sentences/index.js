@@ -73,16 +73,16 @@ export default function PopularSentences({ route, navigation }) {
 	const handleAddSentence = (topicId, topicTitle) => {
 		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE_NAVIGATOR, {
 			screen: SCREEN.ADD_SENTENCE,
-			params: { type: "popular_topic", id: topicId, title: topicTitle},
-		} )
+			params: { type: "popular_topic", id: topicId, title: topicTitle },
+		});
 	}
-	const handleViewTopic = (id, title, content) => {
+	const handleViewTopic = (topicId) => {
 		// console.log(content);
 		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE_NAVIGATOR, {
 			screen: SCREEN.LIST_TOPIC_SENTENCE,
 			params: {
-				name: title,
-				sentences: content,
+				type: "popular_topic",
+				id: topicId
 			},
 		});
 	};
@@ -116,11 +116,11 @@ export default function PopularSentences({ route, navigation }) {
 		<TouchableWithoutFeedback key={item.id} style={popularStyles.topicContainer}>
 			<PopularTopic
 				title={item.title}
-				sentences={item.content}
+				sentences={item.sentences}
 				onDelete={() => handleDeleteTopic(item.id)}
 				onTitleBlur={(newTitle) => handleTitleBlur(item.id, newTitle)}
 				onAddSentence={() => handleAddSentence(item.id, item.title)}
-				onTouch={() => handleViewTopic(item.id, item.title, item.content)}
+				onTouch={() => handleViewTopic(item.id)}
 			/>
 		</TouchableWithoutFeedback>
   	);

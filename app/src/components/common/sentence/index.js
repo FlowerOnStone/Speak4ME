@@ -11,6 +11,7 @@ import TTS from '../../../utils/TTS';
 import BaseFrame from '../base-frame';
 import editIcon from '../../icons/edit-icon';
 import COLOR from '../../../constants/color';
+import binIcon from '../../icons/bin-icon';
 
 const Sentence = (props) => {
 
@@ -28,13 +29,16 @@ const Sentence = (props) => {
 
     return (
         <BaseFrame itemList={[
+            <TouchableOpacity style={styles.iconBox} onPress={props.onDelete}>
+                <Icon icon={binIcon} />
+            </TouchableOpacity>,
             <TouchableOpacity style={styles.iconBox} onPress={handleCopyClick}>
                 <Icon icon={copyIcon} />
             </TouchableOpacity>,
             <TouchableOpacity style={styles.iconBox} onPress={props.onEdit}>
                 <Icon icon={editIcon} />
             </TouchableOpacity>,
-            <TouchableOpacity style={styles.iconBox} onPress={() => handleSpeakButtonClick()}>
+            <TouchableOpacity style={styles.iconBox} onPress={props.onSpeak}>
                 <Icon icon={speakIcon} />
             </TouchableOpacity>
         ]}><Text style={styles.text}>{props.text}</Text></BaseFrame>

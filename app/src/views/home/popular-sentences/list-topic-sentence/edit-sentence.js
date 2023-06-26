@@ -29,6 +29,8 @@ import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from ',,/../../../components/common/screen-header';
 import THEME from '../../../../constants/theme';
 import STYLES from '../../../../constants/styles';
+import TTS from '../../../../utils/TTS';
+import { changePopularSentence } from '../../Data/popular-topic-data';
 
 export default function EditSentence(props) {
 	const navigation = useNavigation();
@@ -38,29 +40,29 @@ export default function EditSentence(props) {
 			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
 		</TouchableOpacity>
 	);
-	const [sentences, setSentences] = useState([]);
 
-	const [sentence, setSentence] = useState('');
+	const [sentence, setSentence] = useState(route.params.content);
 
 	const handleChangeSentence = (newSentence) => {
 		setSentence(newSentence);
-		//   console.log(newSentence);
 	};
 
 	const handleSave = () => {
-		// Nếu câu hiện tại không rỗng, thêm câu hiện tại vào mảng sentences
-		if (sentence !== '') {
-			setSentences([sentence, ...sentences]);
+		if (route.params.type == "popular_topic") {
+			changePopularSentence(route.params.topicId, route.params.sentenceId, sentence);
 		}
-		// console.log(sentence);
-	};
-	const handleViewHistory = () => {
-		navigation.navigate(SCREEN.HISTORY, { sentences });
+		navigation.goBack();
 	};
 
-	const handleViewPopularSentences = () => {
-		navigation.navigate(SCREEN.POPULAR_SENTENCES);
+	const handleSpeak = () => {
+		TTS.Tts.speak(sentence);
 	};
+
+	const handleDelete = () => {
+		setSentence("");
+	};
+
+	
 
 	return (
 		<View style={STYLES.container}>
@@ -70,13 +72,13 @@ export default function EditSentence(props) {
 			/>
 			<View style={styles.contentContainer}>
 				<BaseFrame itemList={[
-					<TouchableOpacity onPress={handleViewPopularSentences}>
+					<TouchableOpacity onPress={handleDelete}>
 						<Icon icon={binIcon} />
 					</TouchableOpacity>,
-					<TouchableOpacity onPress={handleViewHistory}>
+					<TouchableOpacity onPress={handleSave}>
 						<Icon icon={saveIcon} />
 					</TouchableOpacity>,
-					<TouchableOpacity onPress={handleSave}>
+					<TouchableOpacity onPress={handleSpeak}>
 						<Icon icon={speakIcon} />
 					</TouchableOpacity>]}>
 					<TextInput

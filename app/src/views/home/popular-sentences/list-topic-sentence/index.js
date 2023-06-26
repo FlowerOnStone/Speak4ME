@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, {useCallback, useState } from 'react';
+import React, {useCallback, useState, useEffect } from 'react';
 import {
 	ScrollView,
 	StyleSheet,
@@ -28,11 +28,21 @@ import { settingsIcon } from '../../../../components/icons/settings-icon';
 import { sortOptionHeader } from '../../../../components/common/settings-overlay/template-options-header';
 import SettingsOverlay from '../../../../components/common/settings-overlay';
 import STYLES from '../../../../constants/styles';
+import { deletePopularSentence, getPopularTopic, usePopularSentence } from '../../Data/popular-topic-data';
+import TTS from '../../../../utils/TTS';
 
 const dataList = [sortOptionHeader];
 
 export default function ListTopicSentence({ route, navigation }) {
-	const { sentences = [] } = route.params ?? {};
+	useEffect(() => {
+        TTS.initTTS();
+    }, []);
+
+	let topic = [];
+	if (route.params.type == "popular_topic") {
+		topic = getPopularTopic(route.params.id);
+	}
+	const sentences  = topic.sentences;
 
 	const [searchText, setSearchText] = useState('');
 	const handleSearch = (text) => {
@@ -46,8 +56,6 @@ export default function ListTopicSentence({ route, navigation }) {
 			content: ['Xin chào', 'Tạm biệt', 'Hẹn gặp lại'],
 		},
 	]);
-	const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');
-	const [isEditing, setIsEditing] = useState(false);
 	const [settingsOverlayVisible, setSettingsOverlayVisible] = useState(false);
 	const [settingsButton] = useState(
 		<TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
@@ -63,41 +71,43 @@ export default function ListTopicSentence({ route, navigation }) {
 
 	const handleBackdropPress = useCallback(() => {
 		setSettingsOverlayVisible(false);
-	},[]);
-
-	const handleAddTopic = () => {
-		navigation.navigate(SCREEN.ADD_POPULAR_TOPIC);
-	};
-
-	const handleDeleteTopic = (id) => {
-		setTopicList(topicList.filter(topic => topic.id !== id));
-	};
-	const handleViewTopic = (id, title, content) => {
-		// console.log(content);
-		navigation.push(SCREEN.LIST_TOPIC_SENTENCE, { name: title, sentences: content });
-	};
-
-	const handleTitleBlur = (targetId, newTitle) => {
-
-		const updatedList = topicList.map((topic) => {
-			if (topic.id === targetId) {
-				return { ...topic, title: newTitle };
-			} else {
-				return topic;
-			}
-		});
-
-		setIsEditing(false);
-		setTopicList(updatedList);
-	};
+	}, []);
+	const [, updateState] = React.useState();
+	const forceUpdate = React.useCallback(() => updateState({}), []);
+	const handleDeleteSentence = (sentenceId) => {
+		if (route.params.type == "popular_topic") {
+			console.log(sentenceId);
+			deletePopularSentence(topic.id, sentenceId);
+		};
+		forceUpdate();
+	}
 
 	const handleAddSentence = () => {
-		navigation.navigate(SCREEN.ADD_SENTENCE, { type: "popular_topic", id: route.params.id, title: route.params.name});
+		navigation.navigate(SCREEN.ADD_SENTENCE, {
+			type: route.params.type,
+			topicId: topic.id,
+			title: topic.title
+		});
+	};
+
+	const handleEditSentence = (sentence) => {
+		navigation.navigate(SCREEN.EDIT_SENTENCE, {
+			type: route.params.type,
+			topicId: topic.id,
+			title: topic.title,
+			content: sentence.content,
+			sentenceId: sentence.id,
+		});
+	};
+
+	const handleSpeakSentence = (sentence) => {
+		TTS.Tts.speak(sentence.content);
+		if (route.params.type == "popular_topic") {
+			usePopularSentence(topic.id, sentence.id);
+		};	
+		forceUpdate();
 	}
 
-	const handleEditSentence = () => {
-		navigation.navigate(SCREEN.EDIT_SENTENCE);
-	}
 
 
 	return (
@@ -108,7 +118,7 @@ export default function ListTopicSentence({ route, navigation }) {
 			>
 				<ScreenHeader
 					leftItem={backButton}
-					title={route.params.name}
+					title={topic.title}
 					rightItem={settingsButton}
 				/>
 				<SearchBar containerStyle={{marginTop: 5}}/>
@@ -116,7 +126,12 @@ export default function ListTopicSentence({ route, navigation }) {
 					<ScrollView style={styles.scroll}>
 					{
 						sentences.length > 0 && sentences.map((sentence, index) => (
-						<Sentence key={randomId()} onEdit={handleEditSentence} text={sentence} />
+							<Sentence
+								onDelete={() => handleDeleteSentence(sentence.id)}
+								onSpeak={() => handleSpeakSentence(sentence)}
+								onEdit={() => handleEditSentence(sentence)}
+								text={sentence.content}
+							/>
 						))
 					}
 					</ScrollView>

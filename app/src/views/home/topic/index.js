@@ -31,25 +31,22 @@ import styles from '../../../components/common/search-bar/styles';
 import { SearchBar as TempSearchBar } from '@rneui/themed';
 import SearchIcon from '../../../components/icons/search-icon';
 import parseColor from 'parse-color';
+import { getTopics, deleteTopic } from '../Data/topic-data';
 
 export default function TopicScreen({ route, navigation }) {
+
+	const [, updateState] = React.useState();
+	const forceUpdate = React.useCallback(() => updateState({}), []);
 
 	const [searchText, setSearchText] = useState('');
 	const handleSearch = (text) => {
 		setSearchText(text);
 	};
 
-	const [topicList, setTopicList] = useState([
-		{
-			id: 1,
-			title: 'Chủ đề 1',
-			description: 'Đây là chủ đề 1',
-			content: ['Bình yên nằm trong tâm trí, vậy mà người người không biết cứ sốt sắng tìm kiếm từ bên ngoài.', 'Có một nơi để về, đó là nhà. Có những người để yêu thương, đó là gia đình. Có được cả hai, đó là hạnh phúc. Một cuộc đời hạnh phúc cần có sự bình yên tâm hồn.', 'Chỉ đến khi chấp nhận mình khiếm khuyết rồi tìm cách bù đắp lại lỗ hỏng, con người mới mong có ngày bình yên.', 'Bình yên là khi ngoảnh lại những năm tháng đã qua, thấy gập ghềnh chông gai lởm chởm. Thế mà mình vẫn còn ngồi đây với một vài vết xước nhỏ đã phai màu.', 'Hai chữ bình yên viết ra dễ dàng lắm, vậy mà mất cả đời để cảm nhận bình yên là chi.'],
-		},
-	]);
+	let topicList = getTopics();
 	const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');
 	const [isEditing, setIsEditing] = useState(false);
-	/// Header
+
 	const [settingsButton] = useState(
 		<TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
 			<Icon icon={settingsIcon} iconStyle={{ scale: 0.8 }} />
@@ -72,13 +69,17 @@ export default function TopicScreen({ route, navigation }) {
 	};
 
 	const handleDeleteTopic = (id) => {
-		setTopicList(topicList.filter(topic => topic.id !== id));
+		deleteTopic(id);
 	};
-	const handleEditTopic = (id) => {
-		navigation.navigate(SCREEN.EDIT_TOPIC);
+	const handleEditTopic = (topic) => {
+		navigation.navigate(SCREEN.EDIT_TOPIC, {
+			id: topic.id,
+			title: topic.title,
+			description: topic.description,
+		});
+		forceUpdate();
 	};
 	const handleViewTopic = (id, title, content) => {
-		// console.log(content);
 		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE_NAVIGATOR, {
 			screen: SCREEN.LIST_TOPIC_SENTENCE,
 			params: {
@@ -124,16 +125,15 @@ export default function TopicScreen({ route, navigation }) {
 
 	const renderItem = ({ item }) => (
 		topicList.map(item => {
-			// log.debug(topic);
 			return (
 				<TouchableWithoutFeedback key={item.id} >
 					<Topic
 						title={item.title}
 						description={item.description}
 						onDelete={() => handleDeleteTopic(item.id)}
-						onEdit={() => handleEditTopic(item.id)}
+						onEdit={() => handleEditTopic(item)}
 						onTitleBlur={(newTitle) => handleTitleBlur(item.id, newTitle)}
-						onTouch={() => handleViewTopic(item.id, item.title, item.content)}
+						onTouch={() => handleViewTopic(item)}
 					/>
 				</TouchableWithoutFeedback>
 			);

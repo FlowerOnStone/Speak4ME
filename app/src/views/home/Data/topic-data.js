@@ -1,53 +1,65 @@
 let topicList = [
     {
         id: 1,
-        title: 'Chào hỏi',
+		title: 'Cuộc sống',
+		description: 'Các câu nói về cuộc sống',
         sentences: [
             {
                 id: 1,
-                content: 'Xin chào',
+                content: 'Bình yên nằm trong tâm trí, vậy mà người người không biết cứ sốt sắng tìm kiếm từ bên ngoài.',
                 numberOfUses: 0,
                 lastUses: new Date(),
             },
             {
                 id: 2,
-                content: 'Tạm biệt',
+                content: 'Có một nơi để về, đó là nhà. Có những người để yêu thương, đó là gia đình. Có được cả hai, đó là hạnh phúc. Một cuộc đời hạnh phúc cần có sự bình yên tâm hồn.',
                 numberOfUses: 0,
                 lastUses: new Date(),
             },
             {
                 id: 3,
-                content: 'Hẹn gặp lại',
+                content: 'Chỉ đến khi chấp nhận mình khiếm khuyết rồi tìm cách bù đắp lại lỗ hỏng, con người mới mong có ngày bình yên.',
+                numberOfUses: 0,
+                lastUses: new Date(),
+            },
+            {
+                id: 4,
+                content: 'Bình yên là khi ngoảnh lại những năm tháng đã qua, thấy gập ghềnh chông gai lởm chởm. Thế mà mình vẫn còn ngồi đây với một vài vết xước nhỏ đã phai màu.',
+                numberOfUses: 0,
+                lastUses: new Date(),
+            },
+            {
+                id: 5,
+                content: 'Hai chữ bình yên viết ra dễ dàng lắm, vậy mà mất cả đời để cảm nhận bình yên là chi.',
                 numberOfUses: 0,
                 lastUses: new Date(),
             },
         ],
-        currentId: 3,
+        currentId: 5,
     },
 ];
 
 let currentTopicId = 1;
 
-export function getPopularTopics() {
+export function getTopics() {
     return topicList;
 };
 
-export function getPopularTopic(id) {
+export function getTopic(id) {
     return topicList.filter(topic => topic.id == id)[0];
 }
 
-export function deletePopularTopic(id) {
-    console.log(id, topicList);
+export function deleteTopic(id) {
     topicList = topicList.filter(topic => topic.id !== id);
-    console.log(id, topicList);
 };
 
-export function addPopularTopic(newTopicTitle) {
+export function addPopularTopic(topicTitle, topicDescription) {
     currentTopicId = currentTopicId + 1;
     topicList.push(
         {
             id: currentTopicId,
-            title: newTopicTitle,
+            title: topicTitle,
+            description: topicDescription,
             content: [],
             currentId: 0,
         }
@@ -55,15 +67,17 @@ export function addPopularTopic(newTopicTitle) {
     console.log(topicList);
 }
 
-export function changePopularTopicTitle(topicId, newTitle) {
+export function changeTopic(topicId, newTitle, newTopicDescription) {
     for (let i = 0; i < topicList.length; i++) {
         if (topicList[i].id == topicId) {
-            topicList[i] = { ...topicList[i], title: newTitle };
+            console.log(topicId, newTitle, newTopicDescription);
+
+            topicList[i] = { ...topicList[i], title: newTitle, description: newTopicDescription };
         }
     }
 };
 
-export function addPopularSentence(topicId, sentence) { 
+export function addSentence(topicId, sentence) { 
     for (let i = 0; i < topicList.length; i++) {
         if (topicList[i].id == topicId) {
             topicList[i] = {
@@ -80,7 +94,7 @@ export function addPopularSentence(topicId, sentence) {
     }
 };
 
-export function changePopularSentence(topicId, sentenceId, newContent) {
+export function changeSentence(topicId, sentenceId, newContent) {
     for (let i = 0; i < topicList.length; i++) {
         if (topicList[i].id == topicId) {
             for (let j = 0; j < topicList[i].sentences.length; j++){
@@ -97,7 +111,7 @@ export function changePopularSentence(topicId, sentenceId, newContent) {
     }
 };
 
-export function usePopularSentence(topicId, sentenceId) {
+export function useSentence(topicId, sentenceId) {
     for (let i = 0; i < topicList.length; i++) {
         if (topicList[i].id == topicId) {
             for (let j = 0; j < topicList[i].sentences.length; j++) {
@@ -113,7 +127,7 @@ export function usePopularSentence(topicId, sentenceId) {
     } 
 };
 
-export function deletePopularSentence(topicId, sentenceId) {
+export function deleteSentence(topicId, sentenceId) {
     for (let i = 0; i < topicList.length; i++) {
         if (topicList[i].id == topicId) {
             topicList[i].sentences = topicList[i].sentences.filter(sentence => sentence.id != sentenceId);

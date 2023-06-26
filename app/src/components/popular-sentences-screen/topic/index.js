@@ -88,9 +88,9 @@ const PopularTopic = (props) => {
         {sentences && sentences.map((sentence, index) => (
             <View style={styles.sentenceContainer} key={index}>
               <View style={[styles.sentence, {paddingLeft: padding}]}>
-                <Text style={styles.sentenceText}>{sentence}</Text>
+                <Text style={styles.sentenceText}>{sentence.content}</Text>
               </View>
-              <TouchableOpacity style={{paddingRight: 15}} onPress={() => handleSpeakButtonClick(sentence)}>
+              <TouchableOpacity style={{paddingRight: 15}} onPress={() => handleSpeakButtonClick(sentence.content)}>
                 <Icon icon={speakIcon} iconStyle={{scale: 0.85}}/>
               </TouchableOpacity>
               <TouchableOpacity style={[{paddingRight: padding}]} onPress={handleCopyClick}>

@@ -118,12 +118,10 @@ export default function Editor() {
 	};
 
 	const handleSave = () => {
-		// Nếu câu hiện tại không rỗng, thêm câu hiện tại vào mảng sentences
 		if (sentence !== '') {
 			addText(sentence)
 		}
 		TTS.Tts.speak(sentence);
-		// console.log(sentence);
 	};
 	const handleViewHistory = () => {
 		navigation.navigate(SCREEN.HISTORY);
