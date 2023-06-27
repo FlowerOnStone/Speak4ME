@@ -26,6 +26,7 @@ import ScreenHeader from ',,/../../../components/common/screen-header';
 import THEME from '../../../../constants/theme';
 import STYLES from '../../../../constants/styles';
 import { addPopularSentence } from '../../Data/popular-topic-data';
+import { addSentence } from '../../Data/topic-data';
 import TTS from '../../../../utils/TTS';
 
 export default function AddSentence({ route, navigation }) {
@@ -44,6 +45,8 @@ export default function AddSentence({ route, navigation }) {
 	const handleSave = () => {
 		if (route.params.type == "popular_topic") {
 			addPopularSentence(route.params.topicId, sentence);
+		} else {
+			addSentence(route.params.topicId, sentence);
 		}
 		navigation.goBack();
 	};

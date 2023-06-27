@@ -31,6 +31,7 @@ import THEME from '../../../../constants/theme';
 import STYLES from '../../../../constants/styles';
 import TTS from '../../../../utils/TTS';
 import { changePopularSentence } from '../../Data/popular-topic-data';
+import { changeSentence } from '../../Data/topic-data';
 
 export default function EditSentence(props) {
 	const navigation = useNavigation();
@@ -50,6 +51,8 @@ export default function EditSentence(props) {
 	const handleSave = () => {
 		if (route.params.type == "popular_topic") {
 			changePopularSentence(route.params.topicId, route.params.sentenceId, sentence);
+		} else {
+			changeSentence(route.params.topicId, route.params.sentenceId, sentence);
 		}
 		navigation.goBack();
 	};

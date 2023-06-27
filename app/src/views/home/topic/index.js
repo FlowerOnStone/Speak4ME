@@ -5,7 +5,7 @@ Sample React Native App
 https://github.com/facebook/react-native
 @format
 */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
     ScrollView,
     StyleSheet,
@@ -34,7 +34,6 @@ import parseColor from 'parse-color';
 import { getTopics, deleteTopic } from '../Data/topic-data';
 
 export default function TopicScreen({ route, navigation }) {
-
 	const [, updateState] = React.useState();
 	const forceUpdate = React.useCallback(() => updateState({}), []);
 
@@ -44,8 +43,14 @@ export default function TopicScreen({ route, navigation }) {
 	};
 
 	let topicList = getTopics();
-	const [newTopicTitle, setNewTopicTitle] = useState('Chủ đề mới');
-	const [isEditing, setIsEditing] = useState(false);
+
+
+    React.useEffect(() => {
+		const focusHandler = navigation.addListener('focus', () => {
+			forceUpdate();
+        });
+        return focusHandler;
+    }, [navigation]);
 
 	const [settingsButton] = useState(
 		<TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
@@ -70,39 +75,28 @@ export default function TopicScreen({ route, navigation }) {
 
 	const handleDeleteTopic = (id) => {
 		deleteTopic(id);
+		forceUpdate();
 	};
+
 	const handleEditTopic = (topic) => {
 		navigation.navigate(SCREEN.EDIT_TOPIC, {
 			id: topic.id,
 			title: topic.title,
 			description: topic.description,
 		});
-		forceUpdate();
 	};
-	const handleViewTopic = (id, title, content) => {
+	
+	const handleViewTopic = (topicId) => {
 		navigation.navigate(SCREEN.LIST_TOPIC_SENTENCE_NAVIGATOR, {
 			screen: SCREEN.LIST_TOPIC_SENTENCE,
 			params: {
-				name: title,
-				sentences: content,
+				type: "topic",
+				id: topicId
 			},
 		});
+		
 	};
-
-	const handleTitleBlur = (targetId, newTitle) => {
-
-		const updatedList = topicList.map((topic) => {
-			if (topic.id === targetId) {
-				return { ...topic, title: newTitle };
-			} else {
-				return topic;
-			}
-		});
-
-		setIsEditing(false);
-		setTopicList(updatedList);
-	};
-
+	
 	const clearIcon = {
 		size: THEME.FONT_SIZE_SMALL,
 	};
@@ -124,20 +118,15 @@ export default function TopicScreen({ route, navigation }) {
 	};
 
 	const renderItem = ({ item }) => (
-		topicList.map(item => {
-			return (
-				<TouchableWithoutFeedback key={item.id} >
-					<Topic
-						title={item.title}
-						description={item.description}
-						onDelete={() => handleDeleteTopic(item.id)}
-						onEdit={() => handleEditTopic(item)}
-						onTitleBlur={(newTitle) => handleTitleBlur(item.id, newTitle)}
-						onTouch={() => handleViewTopic(item)}
-					/>
-				</TouchableWithoutFeedback>
-			);
-		})
+		<TouchableWithoutFeedback key={item.id} >
+			<Topic
+				title={item.title}
+				description={item.description}
+				onDelete={() => handleDeleteTopic(item.id)}
+				onEdit={() => handleEditTopic(item)}
+				onTouch={() => handleViewTopic(item.id)}
+			/>
+		</TouchableWithoutFeedback>
   	);
 
   	const filteredData = topicList.filter(item =>

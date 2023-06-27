@@ -25,11 +25,12 @@ import RNVIcon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
+import { addTopic } from '../Data/topic-data';
 
 export default function AddTopic({ route, navigation }) {
 
 
-	const [topic, setTopic] = useState('');
+	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
@@ -37,21 +38,20 @@ export default function AddTopic({ route, navigation }) {
 		</TouchableOpacity>
 	);
 
-	const handleChangeTopic = (newTopic) => {
-		setTopic(newTopic);
-		// console.log(newTopic);
+	const handleChangeTitle = (newTitle) => {
+		setTitle(newTitle);
 	};
 	const handleChangeDescription = (newDescription) => {
 		setDescription(newDescription);
-		// console.log(newDescription);
 	};
 
 	const handleSave = () => {
-		// console.log(topic);
+		addTopic(title, description);
+		navigation.goBack();
 	};
 
 	const handleClearTopic = () => {
-		setTopic('');
+		setTitle('');
 	};
 	const handleClearDescription = () => {
 		setDescription('');
@@ -69,8 +69,8 @@ export default function AddTopic({ route, navigation }) {
 							<Icon icon={binIcon} />
 						</TouchableOpacity>]}>
 						<TextInput
-							onChangeText={handleChangeTopic}
-							value={topic}
+							onChangeText={handleChangeTitle}
+							value={title}
 							multiline={true}
 							numberOfLines={2}
 							style={styles.textInput}
@@ -90,7 +90,6 @@ export default function AddTopic({ route, navigation }) {
 							placeholder="Bạn hãy nhập mô tả về chủ đề..."
 						/>
 					</BaseFrame>
-					<SuggestionBox />
 					<View style={styles.addButton}>
 						<TouchableOpacity onPress={handleSave}>
 							<Icon icon={plusIcon} iconStyle={{ scale: 2, }}/>

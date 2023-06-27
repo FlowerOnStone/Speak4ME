@@ -53,7 +53,7 @@ export function deleteTopic(id) {
     topicList = topicList.filter(topic => topic.id !== id);
 };
 
-export function addPopularTopic(topicTitle, topicDescription) {
+export function addTopic(topicTitle, topicDescription) {
     currentTopicId = currentTopicId + 1;
     topicList.push(
         {
@@ -83,7 +83,7 @@ export function addSentence(topicId, sentence) {
             topicList[i] = {
                 ...topicList[i],
                 sentences: [...topicList[i].sentences, {
-                    id: topic.currentId + 1,
+                    id: topicList[i].currentId + 1,
                     content: sentence,
                     numberOfUses: 0,
                     lastUses: new Date()

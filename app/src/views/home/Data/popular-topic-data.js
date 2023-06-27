@@ -69,7 +69,7 @@ export function addPopularSentence(topicId, sentence) {
             topicList[i] = {
                 ...topicList[i],
                 sentences: [...topicList[i].sentences, {
-                    id: topic.currentId + 1,
+                    id: topicList[i].currentId + 1,
                     content: sentence,
                     numberOfUses: 0,
                     lastUses: new Date()

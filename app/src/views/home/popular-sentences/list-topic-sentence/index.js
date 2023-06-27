@@ -30,6 +30,7 @@ import SettingsOverlay from '../../../../components/common/settings-overlay';
 import STYLES from '../../../../constants/styles';
 import { deletePopularSentence, getPopularTopic, usePopularSentence } from '../../Data/popular-topic-data';
 import TTS from '../../../../utils/TTS';
+import { deleteSentence, getTopic, useSentence } from '../../Data/topic-data';
 
 const dataList = [sortOptionHeader];
 
@@ -41,6 +42,8 @@ export default function ListTopicSentence({ route, navigation }) {
 	let topic = [];
 	if (route.params.type == "popular_topic") {
 		topic = getPopularTopic(route.params.id);
+	} else {
+		topic = getTopic(route.params.id);
 	}
 	const sentences  = topic.sentences;
 
@@ -76,9 +79,10 @@ export default function ListTopicSentence({ route, navigation }) {
 	const forceUpdate = React.useCallback(() => updateState({}), []);
 	const handleDeleteSentence = (sentenceId) => {
 		if (route.params.type == "popular_topic") {
-			console.log(sentenceId);
 			deletePopularSentence(topic.id, sentenceId);
-		};
+		} else {
+			deleteSentence(topic.id, sentenceId);
+		}
 		forceUpdate();
 	}
 
@@ -104,10 +108,11 @@ export default function ListTopicSentence({ route, navigation }) {
 		TTS.Tts.speak(sentence.content);
 		if (route.params.type == "popular_topic") {
 			usePopularSentence(topic.id, sentence.id);
-		};	
+		} else {
+			useSentence(topic.id, sentence.id);
+		}
 		forceUpdate();
-	}
-
+	};
 
 
 	return (
