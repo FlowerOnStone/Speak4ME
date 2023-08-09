@@ -16,12 +16,8 @@ import {
 import BaseFrame from '../../../../components/common/base-frame';
 import SuggestionBox from '../../../../components/editor-screen/suggestionbox';
 
-import Icon from '../../../../components/icons/icon-tag';
-import speakIcon from '../../../../components/icons/speak-icon';
-import plusIcon from '../../../../components/icons/plus-icon';
-import binIcon from '../../../../components/icons/bin-icon';
-import { SCREEN } from '../../../../constants/screen';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { ICON_CONSTANTS } from '../../../../constants/icon-constants';
 import ScreenHeader from ',,/../../../components/common/screen-header';
 import THEME from '../../../../constants/theme';
 import STYLES from '../../../../constants/styles';
@@ -34,7 +30,7 @@ export default function AddSentence({ route, navigation }) {
 
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
+			<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 		</TouchableOpacity>
 	);
 	const [sentence, setSentence] = useState('');
@@ -66,13 +62,13 @@ export default function AddSentence({ route, navigation }) {
 				<BaseFrame
 				itemList={[
 					<TouchableOpacity onPress={handleClear}>
-						<Icon icon={binIcon} />
+						<Icon name="trash" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 					</TouchableOpacity>,
 					<TouchableOpacity onPress={handleSave}>
-						<Icon icon={plusIcon} />
+						<Icon name="plus-circle" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 					</TouchableOpacity>,
 					<TouchableOpacity onPress={handleSpeak}>
-						<Icon icon={speakIcon} />
+						<Icon name="volume-up" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 					</TouchableOpacity>,
 				]}
 				>

@@ -7,30 +7,22 @@
 
 import React, { useState, useCallback } from 'react';
 import {
-	ScrollView,
-	TextInput,
-	Text,
 	StyleSheet,
 	View,
 	TouchableOpacity,
 	FlatList
 } from 'react-native';
-import SearchIcon from '../../../components/icons/search-icon';
 import { useNavigation } from '@react-navigation/native';
 import parseColor from 'parse-color';
-import COLOR from '../../../constants/color';
 import HistorySentence from '../../../components/common/historySentence';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
-import Icon from '../../../components/icons/icon-tag';
-import { settingsIcon } from '../../../components/icons/settings-icon';
-import THEME from '../../../constants/theme';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import SettingsOverlay from '../../../components/common/settings-overlay';
 import ScreenHeader from '../../../components/common/screen-header';
-// import SearchBar from '../../../components/common/search-bar';
 import { SearchBar as TempSearchBar } from '@rneui/themed';
 import STYLES from '../../../constants/styles';
 import styles from '../../../components/common/search-bar/styles';
-import { addText, getTexts } from '../Data/history-data';
+import { getTexts } from '../Data/history-data';
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
 
 export default function History() {
 
@@ -45,18 +37,6 @@ export default function History() {
 		'shadowOpacity': 0.2,
 	};
 
-	const clearIcon = {
-		size: THEME.FONT_SIZE_SMALL,
-	};
-	
-	const cancelIcon = {
-		type: 'font-awesome',
-		size: THEME.FONT_SIZE_SMALL,
-		name: 'angle-left',
-	};
-
-	// const { sentences = [] } = route.params ?? {};
-	// console.log(route.params);
 	const [searchText, setSearchText] = useState("");
 
   	const renderItem = ({ item }) => (
@@ -68,17 +48,16 @@ export default function History() {
     	item.toLowerCase().includes(searchText.toLowerCase())
   	);
 
-
 	/// Header
 	const [settingsButton] = useState(
 		<TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
-		<Icon icon={settingsIcon} iconStyle={{ scale: 0.8 }} />
+			<Icon name="cog" size={ICON_CONSTANTS.MEDIUM_SIZE} color='black' solid/>
 		</TouchableOpacity>
 	);
 	const [backButton] = useState(
 		// console.log("Value of temp is now: " + getTexts().length),
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-		<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
+			<Icon name="angle-left" size={ICON_CONSTANTS.MEDIUM_SIZE} color='black' solid/>
 		</TouchableOpacity>
 	);
 	/// Settings Overlay
@@ -111,11 +90,10 @@ export default function History() {
 						<View style={{borderRadius: 25}}>
 							<TempSearchBar
 								// placeholder="Tìm kiếm"
-								searchIcon={<Icon icon={SearchIcon}/>}
-								clearIcon={clearIcon}
-								cancelIcon={cancelIcon}
+								searchIcon={<Icon name="search" size={ICON_CONSTANTS.NORMAL_SIZE} color='black' solid/>}
+								clearIcon={<Icon name="times" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
+								cancelIcon={<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
 								platform="android"
-								// onChangeText={updateSearch}
 								value={searchText}
 								onChangeText={(text) => setSearchText(text)}
 								placeholder="Tìm kiếm"
@@ -125,25 +103,20 @@ export default function History() {
 								leftIconContainerStyle={styles.leftIconContainerStyle}
 								inputStyle={styles.inputStyle}
 								rightIconContainerStyle={styles.rightIconContainerStyle}
-								// {...props}
 							/>
 						</View>
-					{/* </DropShadow> */}
        			</View>
-				{/* <ScrollView style={historyStyles.scroll}> */}
-					<FlatList
-						style={historyStyles.scroll}
-						data={filteredData}
-						renderItem={renderItem}
-						keyExtractor={item => item}
-					/>
-				{/* </ScrollView> */}
+				<FlatList
+					style={historyStyles.scroll}
+					data={filteredData}
+					renderItem={renderItem}
+					keyExtractor={item => item}
+				/>
 			</View>
 			<SettingsOverlay.SlideInDown
 				isVisible={settingsOverlayVisible}
 				distanceToTop={distanceToTop}
 				onBackdropPress={handleBackdropPress}
-				// defaultFocusedId={sortOptionHeader.id}
 				optionsHeaderList={[]}
 			/>
 		</View>

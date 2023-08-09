@@ -15,32 +15,24 @@ import {
 } from 'react-native';
 
 
-import COLOR from '../../../constants/color';
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
 import BaseFrame from '../../../components/common/base-frame';
 import SuggestionBox from '../../../components/editor-screen/suggestionbox';
 
 import { useNavigation } from '@react-navigation/native';
-import Icon from '../../../components/icons/icon-tag';
-import speakIcon from '../../../components/icons/speak-icon';
-import historyIcon from '../../../components/icons/history-icon';
-import popularSentencesIcon from '../../../components/icons/popular-sentences-icon';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { settingsIcon } from '../../../components/icons/settings-icon';
 import THEME from '../../../constants/theme';
 import SettingsOverlay from '../../../components/common/settings-overlay';
 import ScreenHeader from '../../../components/common/screen-header';
 import { SCREEN } from '../../../constants/screen';
 import TTS from '../../../utils/TTS';
-import { textOptionHeader } from '../../../components/common/settings-overlay/template-options-header';
-import { shouldUseActivityState } from 'react-native-screens';
 import STYLES from '../../../constants/styles';
-import { addText, getTexts } from '../Data/history-data';
+import { addText } from '../Data/history-data';
 
 export default function Editor() {
 
 	const navigation = useNavigation();
-	// const [sentences, setSentences] = useState([]);
-	// const { sentences = [] } = route.params ?? {};
 	const [sentence, setSentence] = useState('');
 	const [fontSize, setFontSize] = useState(THEME.FONT_SIZE_SMALL);
 	const [fontSizeValue, setFontSizeValue] = useState('' + fontSize);
@@ -97,12 +89,12 @@ export default function Editor() {
 	/// Header
 	const [settingsButton] = useState(
 		<TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
-			<Icon icon={settingsIcon} iconStyle={{ scale: 0.8 }} />
+			<Icon name="cog" size={ICON_CONSTANTS.MEDIUM_SIZE} color={ICON_CONSTANTS.BLACK_COLOR} solid/>
 		</TouchableOpacity>
 	);
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color="black" />
+			<Icon name="angle-left" size={ICON_CONSTANTS.MEDIUM_SIZE} color={ICON_CONSTANTS.BLACK_COLOR} solid/>
 		</TouchableOpacity>
 	);
 	/// Settings Overlay
@@ -145,13 +137,13 @@ export default function Editor() {
 					<BaseFrame
 					itemList={[
 						<TouchableOpacity onPress={handleViewPopularSentences}>
-							<Icon icon={popularSentencesIcon} />
+							<Icon name="comments" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 						</TouchableOpacity>,
 						<TouchableOpacity onPress={handleViewHistory}>
-							<Icon icon={historyIcon} />
+							<Icon name="history" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 						</TouchableOpacity>,
 						<TouchableOpacity onPress={handleSave}>
-							<Icon icon={speakIcon} />
+							<Icon name="volume-up" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 						</TouchableOpacity>]}
 					>
 						<TextInput

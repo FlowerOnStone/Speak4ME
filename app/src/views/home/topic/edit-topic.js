@@ -18,15 +18,9 @@ import {
 
 import COLOR from '../../../constants/color';
 import BaseFrame from '../../../components/common/base-frame';
-import SuggestionBox from '../../../components/editor-screen/suggestionbox';
-
-import { useNavigation } from '@react-navigation/native';
-import Icon from '../../../components/icons/icon-tag';
-import binIcon from '../../../components/icons/bin-icon';
-import saveIcon from '../../../components/icons/save-icon';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
-import THEME from '../../../constants/theme';
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
 import STYLES from '../../../constants/styles';
 import { changeTopic } from '../Data/topic-data';
 
@@ -55,7 +49,7 @@ export default function EditTopic({route, navigation}) {
 	}
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
+			<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 		</TouchableOpacity>
 	);
 	return (
@@ -68,7 +62,7 @@ export default function EditTopic({route, navigation}) {
 				<View style={styles.contentContainer}>
 					<BaseFrame itemList={[
 					<TouchableOpacity onPress={handleClearTopic}>
-						<Icon icon={binIcon}/>
+						<Icon name="trash" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 					</TouchableOpacity>]}>
 					<TextInput
 						onChangeText={handleChangeTitle}
@@ -81,7 +75,7 @@ export default function EditTopic({route, navigation}) {
 					</BaseFrame>
 					<BaseFrame itemList={[
 					<TouchableOpacity onPress={handleClearDescription}>
-						<Icon icon={binIcon}/>
+						<Icon name="trash" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 					</TouchableOpacity>]}>
 					<TextInput
 						onChangeText={handleChangeDescription}
@@ -95,7 +89,7 @@ export default function EditTopic({route, navigation}) {
 					<View style={styles.addButton}>
 						<View style={{ marginRight: 10, marginLeft: 10 }}>
 							<TouchableOpacity onPress={handleSave}>
-								<Icon icon={saveIcon}  iconStyle={{ scale: 2, }} />
+								<Icon name="save" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 							</TouchableOpacity>
 						</View>
 					</View>

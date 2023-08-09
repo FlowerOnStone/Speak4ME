@@ -15,23 +15,21 @@ import {
 } from 'react-native';
 
 import COLOR from '../../../../constants/color';
-import plusIcon from '../../../../components/icons/plus-icon';
-import Icon from '../../../../components/icons/icon-tag';
-import { randomId } from '../../../../utils/random-id';
 import SearchBar from '../../../../components/common/search-bar';
 import { SCREEN } from '../../../../constants/screen';
 import Sentence from '../../../../components/common/sentence';
 import ScreenHeader from '../../../../components/common/screen-header';
 import THEME from '../../../../constants/theme';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
-import { settingsIcon } from '../../../../components/icons/settings-icon';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { sortOptionHeader } from '../../../../components/common/settings-overlay/template-options-header';
 import SettingsOverlay from '../../../../components/common/settings-overlay';
 import STYLES from '../../../../constants/styles';
 import { deletePopularSentence, getPopularTopic, usePopularSentence } from '../../Data/popular-topic-data';
+import parseColor from 'parse-color';
 import TTS from '../../../../utils/TTS';
 import { deleteSentence, getTopic, useSentence } from '../../Data/topic-data';
-
+import { ICON_CONSTANTS } from '../../../../constants/icon-constants';
+import styles from '../../../../components/common/search-bar/styles';
 const dataList = [sortOptionHeader];
 
 export default function ListTopicSentence({ route, navigation }) {
@@ -62,12 +60,12 @@ export default function ListTopicSentence({ route, navigation }) {
 	const [settingsOverlayVisible, setSettingsOverlayVisible] = useState(false);
 	const [settingsButton] = useState(
 		<TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
-			<Icon icon={settingsIcon} iconStyle={{scale: 0.8}}/>
+			<Icon name="cog" size={ICON_CONSTANTS.MEDIUM_SIZE} color='black' solid/>
 		</TouchableOpacity>
 	);
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black'/>
+			<Icon name="angle-left" size={ICON_CONSTANTS.MEDIUM_SIZE} color='black' solid/>
 		</TouchableOpacity>
 	);
 	const [distanceToTop, setDistanceToTop] = useState(0);
@@ -113,6 +111,15 @@ export default function ListTopicSentence({ route, navigation }) {
 		}
 		forceUpdate();
 	};
+	const dropShadowProps = {
+		'shadowOffset': {
+			'width': 0,
+			'height': 3,
+		},
+		'shadowRadius': 2,
+		'shadowColor': parseInt(parseColor('rgba(0, 0, 0, 0.25)').hex.substring(1), 16),
+		'shadowOpacity': 0.2,
+	};
 
 
 	return (
@@ -126,9 +133,29 @@ export default function ListTopicSentence({ route, navigation }) {
 					title={topic.title}
 					rightItem={settingsButton}
 				/>
-				<SearchBar containerStyle={{marginTop: 5}}/>
-				<View style={styles.contentContainer}>
-					<ScrollView style={styles.scroll}>
+				<View style={[{ width: '90%' }, containerStyle = { marginTop: 18 }]}>
+					<View style={{borderRadius: 25}}>
+						<SearchBar
+							// placeholder="Tìm kiếm"
+							searchIcon={<Icon name="search" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
+							clearIcon={<Icon name="times" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
+							cancelIcon={<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
+							platform="android"
+							value={searchText}
+							onChangeText={(text) => setSearchText(text)}
+							placeholder="Tìm kiếm"
+							dropShadow={dropShadowProps}
+							containerStyle={styles.containerStyle}
+							inputContainerStyle={styles.inputContainerStyle}
+							leftIconContainerStyle={styles.leftIconContainerStyle}
+							inputStyle={styles.inputStyle}
+							rightIconContainerStyle={styles.rightIconContainerStyle}
+						/>
+					</View>
+       			</View>
+
+				<View style={popularStyles.contentContainer}>
+					<ScrollView style={popularStyles.scroll}>
 					{
 						sentences.length > 0 && sentences.map((sentence, index) => (
 							<Sentence
@@ -141,9 +168,9 @@ export default function ListTopicSentence({ route, navigation }) {
 					}
 					</ScrollView>
 				</View>
-				<View style={styles.addBox}>
-					<TouchableOpacity style={styles.iconBox} onPress={handleAddSentence}>
-						<Icon icon={plusIcon} iconStyle={{scale: 2, color: COLOR.TITLE}} />
+				<View style={popularStyles.addBox}>
+					<TouchableOpacity onPress={handleAddSentence}>
+						<Icon name="plus-circle" color={THEME.TITLE_COLOR} size={ICON_CONSTANTS.LARGE_SIZE} solid/>
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -160,7 +187,7 @@ export default function ListTopicSentence({ route, navigation }) {
 
 
 
-const styles = StyleSheet.create({
+const popularStyles = StyleSheet.create({
 	contentContainer: {
 		...STYLES.contentContainer,
 		height: '80%',
@@ -173,33 +200,10 @@ const styles = StyleSheet.create({
 		width: '90%',
 	},
 
-	searchBar: {
-		backgroundColor: '#fff', // Màu nền của thanh tìm kiếm
-		width: "90%",
-		borderRadius: 35,
-		borderWidth: 2,
-		margin: 10
-	},
-
-	searchBarInput: {
-		backgroundColor: '#f2f2f2', // Màu nền của input trong thanh tìm kiếm
-		borderRadius: 30,
-	},
-
-	searchBarTextInput: {
-		fontSize: 16, // Kích thước chữ trong input của thanh tìm kiếm
-	},
-
 	addBox: {
 		borderColor: COLOR.TITLE,
 		position: "absolute",
 		bottom: 30,
 		right: 30
-	},
-
-	iconBox: {
-		flex: 1,
-		paddingLeft: 15,
-		justifyContent: 'flex-end',
 	},
 });

@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 
 import { SCREEN } from '../../constants/screen';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../components/common/screen-header';
-import THEME from '../../constants/theme';
+import { ICON_CONSTANTS } from '../../constants/icon-constants';
 import STYLES from '../../constants/styles';
 
 export default function LoginScreen({ route, navigation }) {
@@ -33,7 +33,7 @@ export default function LoginScreen({ route, navigation }) {
 
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color="black" />
+			<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 		</TouchableOpacity>
 	);
 

@@ -20,14 +20,9 @@ import BaseFrame from '../../../../components/common/base-frame';
 import SuggestionBox from '../../../../components/editor-screen/suggestionbox';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
-import Icon from '../../../../components/icons/icon-tag';
-import speakIcon from '../../../../components/icons/speak-icon';
-import saveIcon from '../../../../components/icons/save-icon';
-import binIcon from '../../../../components/icons/bin-icon';
-import { SCREEN } from '../../../../constants/screen';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from ',,/../../../components/common/screen-header';
-import THEME from '../../../../constants/theme';
+import { ICON_CONSTANTS } from '../../../../constants/icon-constants';
 import STYLES from '../../../../constants/styles';
 import TTS from '../../../../utils/TTS';
 import { changePopularSentence } from '../../Data/popular-topic-data';
@@ -38,7 +33,7 @@ export default function EditSentence(props) {
 	const route = useRoute();
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
+			<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 		</TouchableOpacity>
 	);
 
@@ -76,13 +71,13 @@ export default function EditSentence(props) {
 			<View style={styles.contentContainer}>
 				<BaseFrame itemList={[
 					<TouchableOpacity onPress={handleDelete}>
-						<Icon icon={binIcon} />
+						<Icon name="trash" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 					</TouchableOpacity>,
 					<TouchableOpacity onPress={handleSave}>
-						<Icon icon={saveIcon} />
+						<Icon name="save" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 					</TouchableOpacity>,
 					<TouchableOpacity onPress={handleSpeak}>
-						<Icon icon={speakIcon} />
+						<Icon name="volume-up" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 					</TouchableOpacity>]}>
 					<TextInput
 						onChangeText={handleChangeSentence}

@@ -1,19 +1,11 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import Icon from '../../../components/icons/icon-tag';
-import EditInfoIcon from '../../../components/icons/edit-info-icon';
 import COLOR from '../../../constants/color';
-import PhoneIcon from '../../../components/icons/phone-icon';
-import EmailIcon from '../../../components/icons/email-icon';
-import DarkModeIcon from '../../../components/icons/dark-mode-icon';
-import speakIcon from '../../../components/icons/speak-icon';
-import ChangePasswordIcon from '../../../components/icons/change-password-icon';
-import LogoutIcon from '../../../components/icons/logout-icon';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
-import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
 import { SCREEN } from '../../../constants/screen';
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
 
 
 export default function AccountInfoScreen({ route, navigation }) {
@@ -29,7 +21,7 @@ export default function AccountInfoScreen({ route, navigation }) {
     };
     const [backButton] = useState(
         <TouchableOpacity onPress={() => navigation.goBack()}>
-            <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color="black" />
+			<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
         </TouchableOpacity>
     );
     return (
@@ -47,19 +39,19 @@ export default function AccountInfoScreen({ route, navigation }) {
                         </Text>
                         <View  style={styles.editAccount}>
                             <TouchableOpacity  onPress={handleChangeInfo}>
-                                <Icon icon={EditInfoIcon} />
+                    			<Icon name="user-edit" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.SMALL_SIZE} solid/>
                             </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.contactInfo}>
-                        <Icon icon={PhoneIcon} containerStyle={styles.contactInfoIconContainer} />
-                        <Text style={styles.contactInfoText}>
+                        <Icon name="phone" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.SMALL_SIZE} solid/>
+                        <Text style={styles.settingText}>
                             0123456789
                         </Text>
                     </View>
                     <View style={styles.contactInfo}>
-                        <Icon icon={EmailIcon} containerStyle={styles.contactInfoIconContainer} />
-                        <Text style={styles.contactInfoText}>
+                        <Icon name="envelope" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.SMALL_SIZE} solid/>
+                        <Text style={styles.settingText}>
                             thuanbn03@gmail.com
                         </Text>
                     </View>
@@ -67,7 +59,7 @@ export default function AccountInfoScreen({ route, navigation }) {
                 <View style={styles.settingContainer}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.button}>
-                            <Icon icon={DarkModeIcon} containerStyle={styles.settingIconContainer} iconStyle={styles.settingIcon} />
+                        <Icon name="moon" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.SMALL_SIZE} solid/>
                             <Text style={styles.settingText}>
                                 Chế độ tối
                             </Text>
@@ -75,7 +67,7 @@ export default function AccountInfoScreen({ route, navigation }) {
                     </View>
                     <View  style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.button}>
-                            <Icon icon={speakIcon} containerStyle={styles.settingIconContainer} iconStyle={styles.settingIcon} />
+                        <Icon name="volume-up" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.SMALL_SIZE} solid/>
                             <Text style={styles.settingText}>
                                 Âm lượng
                             </Text>
@@ -83,7 +75,7 @@ export default function AccountInfoScreen({ route, navigation }) {
                     </View>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.button} onPress={handleChangePassword}>
-                            <Icon icon={ChangePasswordIcon} containerStyle={styles.settingIconContainer} iconStyle={styles.settingIcon} />
+                        <Icon name="lock" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.SMALL_SIZE} solid/>
                             <Text style={styles.settingText}>
                                 Đổi mật khẩu
                             </Text>
@@ -93,7 +85,7 @@ export default function AccountInfoScreen({ route, navigation }) {
                 <View style={styles.logoutContainer}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.button} onPress={handleLogout}>
-                            <Icon icon={LogoutIcon} containerStyle={styles.settingIconContainer}/>
+                        <Icon name="sign-out-alt" color={ICON_CONSTANTS.RED_COLOR} size={ICON_CONSTANTS.SMALL_SIZE} solid/>
                             <Text style={styles.logoutText}>
                                 Đăng xuất
                             </Text>
@@ -147,11 +139,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         marginVertical: 5,
     },
-    contactInfoText: {
-        fontSize: 16,
-        textAlignVertical: 'center',
-        color: 'black',
-    },
     settingContainer: {
         padding: 15,
         borderBottomWidth: 1,
@@ -177,6 +164,7 @@ const styles = StyleSheet.create({
     settingText: {
         color: 'black',
         fontSize: 18,
+        paddingLeft: 10,
     },
     logoutContainer: {
         padding: 15,
@@ -186,5 +174,6 @@ const styles = StyleSheet.create({
     logoutText: {
         color: 'red',
         fontSize: 18,
+        paddingLeft: 10,
     },
 });

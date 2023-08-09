@@ -7,15 +7,13 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 
-import color from '../../../constants/color';
 import { SCREEN } from '../../../constants/screen';
-import GoogleIcon from '../../../components/icons/google-icon';
-import Icon from '../../../components/icons/icon-tag';
 import CodeInput from 'react-native-confirmation-code-input';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
 
 export default function VerificationForgotPasswordScreen({ route, navigation }) {
 	const [username, setUsername] = useState('');
@@ -26,7 +24,7 @@ export default function VerificationForgotPasswordScreen({ route, navigation }) 
 	};
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color="black" />
+			<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 		</TouchableOpacity>
 	);
 

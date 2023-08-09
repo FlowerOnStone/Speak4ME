@@ -2,14 +2,11 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 
 import { SCREEN } from '../../../constants/screen';
-import GoogleIcon from '../../../components/icons/google-icon';
-import Icon from '../../../components/icons/icon-tag';
-import CameraIcon from '../../../components/icons/camera-icon';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
-import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
 import SelectDropdown from 'react-native-select-dropdown'
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
 
 export default function ChangeInfoScreen({ route, navigation }) {
     const [name, setName] = useState('Nguyễn Đức Thuận');
@@ -150,7 +147,7 @@ export default function ChangeInfoScreen({ route, navigation }) {
 
     const [backButton] = useState(
         <TouchableOpacity onPress={() => navigation.goBack()}>
-            <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
+			<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
         </TouchableOpacity>
     );
 
@@ -175,7 +172,7 @@ export default function ChangeInfoScreen({ route, navigation }) {
                         <View style={styles.avatar}>
                         </View>
                         <TouchableOpacity style={styles.changeAvatar}>
-                            <Icon icon={CameraIcon} />
+                			<Icon name="camera" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.SMALL_SIZE} solid/>
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.name}>

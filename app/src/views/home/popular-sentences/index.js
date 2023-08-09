@@ -14,12 +14,9 @@ import {
 	KeyboardAvoidingView,
 	FlatList
 } from 'react-native';
-import Icon from '../../../components/icons/icon-tag';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import COLOR from '../../../constants/color';
 import PopularTopic from '../../../components/popular-sentences-screen/topic';
-import SearchBar from '../../../components/common/search-bar';
-import plusIcon from '../../../components/icons/plus-icon';
-import { settingsIcon } from '../../../components/icons/settings-icon';
 import { sortOptionHeader } from '../../../components/common/settings-overlay/template-options-header';
 import SettingsOverlay from '../../../components/common/settings-overlay';
 import ScreenHeader from '../../../components/common/screen-header';
@@ -30,9 +27,9 @@ import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
 import styles from '../../../components/common/search-bar/styles';
 import { SearchBar as TempSearchBar } from '@rneui/themed';
-import SearchIcon from '../../../components/icons/search-icon';
 import parseColor from 'parse-color';
 import { getPopularTopics, deletePopularTopic, changePopularTopicTitle } from '../Data/popular-topic-data';
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
 
 const dataList = [sortOptionHeader];
 
@@ -47,12 +44,12 @@ export default function PopularSentences({ route, navigation }) {
 	const [settingsOverlayVisible, setSettingsOverlayVisible] = useState(false);
 	const [settingsButton] = useState(
 		<TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
-			<Icon icon={settingsIcon} iconStyle={{ scale: 0.8 }} />
+			<Icon name="cog" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 		</TouchableOpacity>
 	);
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color="black" />
+			<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 		</TouchableOpacity>
 	);
 	const [distanceToTop, setDistanceToTop] = useState(0);
@@ -140,30 +137,27 @@ export default function PopularSentences({ route, navigation }) {
 					title={'Thông dụng'}
 					rightItem={settingsButton}
 				/>
-				{/* <SearchBar containerStyle={{ marginTop: 5 }} /> */}
 				<View style={[{width: '90%'}, containerStyle={marginTop: 18}]}>
-					{/* <DropShadow style={dropShadowProps}> */}
-						<View style={{borderRadius: 25}}>
-							<TempSearchBar
-								// placeholder="Tìm kiếm"
-								searchIcon={<Icon icon={SearchIcon}/>}
-								clearIcon={clearIcon}
-								cancelIcon={cancelIcon}
-								platform="android"
-								// onChangeText={updateSearch}
-								value={searchText}
-								onChangeText={(text) => setSearchText(text)}
-								placeholder="Tìm kiếm"
-								dropShadow={dropShadowProps}
-								containerStyle={styles.containerStyle}
-								inputContainerStyle={styles.inputContainerStyle}
-								leftIconContainerStyle={styles.leftIconContainerStyle}
-								inputStyle={styles.inputStyle}
-								rightIconContainerStyle={styles.rightIconContainerStyle}
-								// {...props}
-							/>
-						</View>
-					{/* </DropShadow> */}
+					<View style={{borderRadius: 25}}>
+						<TempSearchBar
+							// placeholder="Tìm kiếm"
+							searchIcon={<Icon name="search" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
+							clearIcon={<Icon name="times" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
+							cancelIcon={<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
+							platform="android"
+							// onChangeText={updateSearch}
+							value={searchText}
+							onChangeText={(text) => setSearchText(text)}
+							placeholder="Tìm kiếm"
+							dropShadow={dropShadowProps}
+							containerStyle={styles.containerStyle}
+							inputContainerStyle={styles.inputContainerStyle}
+							leftIconContainerStyle={styles.leftIconContainerStyle}
+							inputStyle={styles.inputStyle}
+							rightIconContainerStyle={styles.rightIconContainerStyle}
+							// {...props}
+						/>
+					</View>
        			</View>
 				<FlatList
 						style={popularStyles.contentContainer}
@@ -172,8 +166,8 @@ export default function PopularSentences({ route, navigation }) {
 						keyExtractor={item => item}
 				/>
 				<View style={popularStyles.addBox}>
-					<TouchableOpacity style={popularStyles.iconBox} onPress={handleAddTopic}>
-						<Icon icon={plusIcon} iconStyle={{ scale: 2, color: COLOR.TITLE }} />
+					<TouchableOpacity onPress={handleAddTopic}>
+						<Icon name="plus-circle" color={THEME.TITLE_COLOR} size={ICON_CONSTANTS.LARGE_SIZE} solid/>
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -221,15 +215,8 @@ const popularStyles = StyleSheet.create({
 	},
 
 	addBox: {
-		borderColor: COLOR.TITLE,
 		position: 'absolute',
 		bottom: 30,
 		right: 30,
-	},
-
-	iconBox: {
-		flex: 1,
-		paddingLeft: 15,
-		justifyContent: 'flex-end',
 	},
 });

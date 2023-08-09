@@ -16,16 +16,12 @@ import {
 } from 'react-native';
 import COLOR from '../../../constants/color';
 import BaseFrame from '../../../components/common/base-frame';
-import SuggestionBox from '../../../components/editor-screen/suggestionbox';
-
-import Icon from '../../../components/icons/icon-tag';
-import binIcon from '../../../components/icons/bin-icon';
-import plusIcon from '../../../components/icons/plus-icon';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
 import { addTopic } from '../Data/topic-data';
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
 
 export default function AddTopic({ route, navigation }) {
 
@@ -34,7 +30,7 @@ export default function AddTopic({ route, navigation }) {
 	const [description, setDescription] = useState('');
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black' />
+			<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 		</TouchableOpacity>
 	);
 
@@ -66,7 +62,7 @@ export default function AddTopic({ route, navigation }) {
 				<View style={styles.contentContainer}>
 					<BaseFrame itemList={[
 						<TouchableOpacity onPress={handleClearTopic}>
-							<Icon icon={binIcon} />
+							<Icon name="trash" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 						</TouchableOpacity>]}>
 						<TextInput
 							onChangeText={handleChangeTitle}
@@ -79,7 +75,7 @@ export default function AddTopic({ route, navigation }) {
 					</BaseFrame>
 					<BaseFrame itemList={[
 						<TouchableOpacity onPress={handleClearDescription}>
-							<Icon icon={binIcon} />
+							<Icon name="trash" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 						</TouchableOpacity>]}>
 						<TextInput
 							onChangeText={handleChangeDescription}
@@ -92,7 +88,7 @@ export default function AddTopic({ route, navigation }) {
 					</BaseFrame>
 					<View style={styles.addButton}>
 						<TouchableOpacity onPress={handleSave}>
-							<Icon icon={plusIcon} iconStyle={{ scale: 2, }}/>
+							<Icon name="plus-circle" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
 						</TouchableOpacity>
 					</View>
 				</View>

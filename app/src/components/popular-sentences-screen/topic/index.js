@@ -5,17 +5,10 @@ import { Clipboard, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
 import styles from './style';
-import Icon from '../../icons/icon-tag';
-import editIcon from '../../icons/edit-icon';
-import copyIcon from '../../icons/copy-icon';
-import speakIcon from '../../icons/speak-icon';
-import binIcon from '../../icons/bin-icon';
-import plusIcon from '../../icons/plus-icon';
-import moreOptionsIcon from '../../icons/more-options-icon';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
 import TTS from '../../../utils/TTS';
 import BaseFrame from '../../common/base-frame';
-import { log } from '../../../utils/logger';
-import { TouchableWithoutFeedback } from 'react-native';
 
 const padding = 20;
 
@@ -58,10 +51,10 @@ const PopularTopic = (props) => {
   return (
     <BaseFrame itemList={[
       <TouchableOpacity style={styles.iconBox} onPress={props.onDelete}>
-        <Icon icon={binIcon} />
+        <Icon name="trash" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
       </TouchableOpacity>,
       <TouchableOpacity style={styles.iconBox} onPress={props.onAddSentence}>
-        <Icon icon={plusIcon} />
+        <Icon name="plus-circle" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
       </TouchableOpacity>
     ]}
       topBoxStyle={{padding: 0}}
@@ -81,7 +74,7 @@ const PopularTopic = (props) => {
           )}
           {!isEditing && (
             <TouchableOpacity style={styles.iconBox} onPress={handleEdit}>
-              <Icon icon={editIcon} iconStyle={{scale: 0.8}}/>
+              <Icon name="edit" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
             </TouchableOpacity>
           )}
         </View>
@@ -91,10 +84,10 @@ const PopularTopic = (props) => {
                 <Text style={styles.sentenceText}>{sentence.content}</Text>
               </View>
               <TouchableOpacity style={{paddingRight: 15}} onPress={() => handleSpeakButtonClick(sentence.content)}>
-                <Icon icon={speakIcon} iconStyle={{scale: 0.85}}/>
+        				<Icon name="volume-up" color={ICON_CONSTANTS.BLACK_COLOR}  size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
               </TouchableOpacity>
               <TouchableOpacity style={[{paddingRight: padding}]} onPress={handleCopyClick}>
-                <Icon icon={copyIcon} iconStyle={{scale: 0.85}}/>
+  	      			<Icon name="copy" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>
               </TouchableOpacity>
             </View>
         ))}

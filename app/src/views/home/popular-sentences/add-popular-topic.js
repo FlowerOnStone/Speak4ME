@@ -19,21 +19,19 @@ import COLOR from '../../../constants/color';
 import BaseFrame from '../../../components/common/base-frame';
 import SuggestionBox from '../../../components/editor-screen/suggestionbox';
 
-import Icon from '../../../components/icons/icon-tag';
-import saveIcon from '../../../components/icons/save-icon';
-import binIcon from '../../../components/icons/bin-icon';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import ScreenHeader from '../../../components/common/screen-header';
 import THEME from '../../../constants/theme';
 import STYLES from '../../../constants/styles';
 import { addPopularTopic } from '../Data/popular-topic-data';
 import { SCREEN } from '../../../constants/screen';
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
 
 export default function AddPopularTopic({ route, navigation }) {
 
     const [backButton] = useState(
         <TouchableOpacity onPress={() => navigation.goBack()}>
-            <RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color='black'/>
+            <Icon name="angle-left" size={ICON_CONSTANTS.MEDIUM_SIZE} color={ICON_CONSTANTS.BLACK_COLOR} solid/>
         </TouchableOpacity>
     );
 	const [topic, setTopic] = useState('');
@@ -60,10 +58,10 @@ export default function AddPopularTopic({ route, navigation }) {
 			<View style={styles.contentContainer}>
 				<BaseFrame itemList={[
 					<TouchableOpacity onPress={handleClear}>
-						<Icon icon={binIcon} />
+        			    <Icon name="trash" size={ICON_CONSTANTS.NORMAL_SIZE} color={ICON_CONSTANTS.BLACK_COLOR} solid/>
 					</TouchableOpacity>,
 					<TouchableOpacity onPress={handleSave}>
-						<Icon icon={saveIcon} />
+		            	<Icon name="save" size={ICON_CONSTANTS.NORMAL_SIZE} color={ICON_CONSTANTS.BLACK_COLOR} solid/>
 					</TouchableOpacity>]}>
 					<TextInput
 						onChangeText={handleChangeTopic}

@@ -15,21 +15,16 @@ import {
 	FlatList
 } from 'react-native';
 import COLOR from '../../../constants/color';
-import plusIcon from '../../../components/icons/plus-icon';
 import Topic from '../../../components/topic';
-import RNVIcon from 'react-native-vector-icons/FontAwesome5';
-import Icon from '../../../components/icons/icon-tag';
-import { settingsIcon } from '../../../components/icons/settings-icon';
+import { ICON_CONSTANTS } from '../../../constants/icon-constants';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import THEME from '../../../constants/theme';
 import SettingsOverlay from '../../../components/common/settings-overlay';
 import ScreenHeader from '../../../components/common/screen-header';
-import { log } from '../../../utils/logger';
-import SearchBar from '../../../components/common/search-bar';
 import { TouchableWithoutFeedback } from 'react-native';
 import { SCREEN } from '../../../constants/screen';
 import styles from '../../../components/common/search-bar/styles';
 import { SearchBar as TempSearchBar } from '@rneui/themed';
-import SearchIcon from '../../../components/icons/search-icon';
 import parseColor from 'parse-color';
 import { getTopics, deleteTopic } from '../Data/topic-data';
 
@@ -54,12 +49,12 @@ export default function TopicScreen({ route, navigation }) {
 
 	const [settingsButton] = useState(
 		<TouchableOpacity onPress={() => setSettingsOverlayVisible(true)}>
-			<Icon icon={settingsIcon} iconStyle={{ scale: 0.8 }} />
+			<Icon name="cog" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 		</TouchableOpacity>
 	);
 	const [backButton] = useState(
 		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<RNVIcon name="angle-left" size={THEME.FONT_SIZE_EXTRA_LARGE} color="black" />
+			<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.MEDIUM_SIZE} solid/>
 		</TouchableOpacity>
 	);
 	/// Settings Overlay
@@ -95,16 +90,6 @@ export default function TopicScreen({ route, navigation }) {
 			},
 		});
 		
-	};
-	
-	const clearIcon = {
-		size: THEME.FONT_SIZE_SMALL,
-	};
-	
-	const cancelIcon = {
-		type: 'font-awesome',
-		size: THEME.FONT_SIZE_SMALL,
-		name: 'angle-left',
 	};
 
 	const dropShadowProps = {
@@ -144,30 +129,25 @@ export default function TopicScreen({ route, navigation }) {
 					title={'Chuẩn bị trước'}
 					rightItem={settingsButton}
 				/>
-				{/* <SearchBar containerStyle={{marginTop: 5}}/> */}
 				<View style={[{width: '90%'}, containerStyle={marginTop: 18}]}>
-					{/* <DropShadow style={dropShadowProps}> */}
-						<View style={{borderRadius: 25}}>
-							<TempSearchBar
-								// placeholder="Tìm kiếm"
-								searchIcon={<Icon icon={SearchIcon}/>}
-								clearIcon={clearIcon}
-								cancelIcon={cancelIcon}
-								platform="android"
-								// onChangeText={updateSearch}
-								value={searchText}
-								onChangeText={(text) => setSearchText(text)}
-								placeholder="Tìm kiếm"
-								dropShadow={dropShadowProps}
-								containerStyle={styles.containerStyle}
-								inputContainerStyle={styles.inputContainerStyle}
-								leftIconContainerStyle={styles.leftIconContainerStyle}
-								inputStyle={styles.inputStyle}
-								rightIconContainerStyle={styles.rightIconContainerStyle}
-								// {...props}
-							/>
-						</View>
-					{/* </DropShadow> */}
+					<View style={{borderRadius: 25}}>
+						<TempSearchBar
+							// placeholder="Tìm kiếm"
+							searchIcon={<Icon name="search" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
+							clearIcon={<Icon name="times" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
+							cancelIcon={<Icon name="angle-left" color={ICON_CONSTANTS.BLACK_COLOR} size={ICON_CONSTANTS.NORMAL_SIZE} solid/>}
+							platform="android"
+							value={searchText}
+							onChangeText={(text) => setSearchText(text)}
+							placeholder="Tìm kiếm"
+							dropShadow={dropShadowProps}
+							containerStyle={styles.containerStyle}
+							inputContainerStyle={styles.inputContainerStyle}
+							leftIconContainerStyle={styles.leftIconContainerStyle}
+							inputStyle={styles.inputStyle}
+							rightIconContainerStyle={styles.rightIconContainerStyle}
+						/>
+					</View>
        			</View>
 				<FlatList
 						style={prepareStyles.contentContainer}
@@ -176,8 +156,8 @@ export default function TopicScreen({ route, navigation }) {
 						keyExtractor={item => item}
 				/>
 				<View style={prepareStyles.addBox}>
-					<TouchableOpacity style={prepareStyles.iconBox} onPress={handleAddTopic}>
-						<Icon icon={plusIcon} iconStyle={{ scale: 2, color: COLOR.TITLE }} />
+					<TouchableOpacity onPress={handleAddTopic}>
+						<Icon name="plus-circle" color={THEME.TITLE_COLOR} size={ICON_CONSTANTS.LARGE_SIZE} solid/>
 					</TouchableOpacity>
 				</View>
 			</View>

@@ -35,12 +35,9 @@ const styles = StyleSheet.create({
     containerStyle: {
         paddingTop: 0,
         paddingBottom: 0,
-        // backgroundColor: 'transparent',
-        // borderBottomColor: 'transparent',
-        // borderTopColor: 'transparent',
         backgroundColor: 'yellow',
         borderRadius: 25,
-        // width: '100%',
+        width: '100%',
     },
     inputContainerStyle: {
         // width: 350,

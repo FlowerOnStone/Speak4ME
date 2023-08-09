@@ -8,6 +8,7 @@ import THEME from '../../constants/theme';
 import STYLES from '../../constants/styles';
 import { addText, deleteText } from './Data/history-data';
 import { useNavigation } from '@react-navigation/native';
+import { ICON_CONSTANTS } from '../../constants/icon-constants';
 
 export default function HomeScreen({ route}) {
 	const { username } = route.params;
@@ -63,25 +64,25 @@ export default function HomeScreen({ route}) {
 			/>
 			<View style = {STYLES.contentContainer}>
 				<TouchableOpacity onPress={handleEditor} style={styles.button}>
-					<Icon name="edit" color="#000000" type = "solid" size={20} />
+					<Icon name="edit" color={ICON_CONSTANTS.BLACK_COLOR} size={20} solid/>
 					<Text style = {styles.textBody}>
 						{'  Soạn thảo văn bản'}
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={handleHistory} style={styles.button}>
-					<Icon name="history" color="#000000" type = "solid" size={20} />
+					<Icon name="history" color={ICON_CONSTANTS.BLACK_COLOR} size={20} solid/>
 					<Text style = {styles.textBody}>
 						{'  Lịch sử soạn thảo văn bản'}
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={handlePopularSentences} style={styles.button}>
-					<Icon name="comments" color="#000000" size={20} />
+					<Icon name="comments" color={ICON_CONSTANTS.BLACK_COLOR} size={20} solid/>
 					<Text style = {styles.textBody}>
 						{'  Các câu giao tiếp thông dụng'}
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={handleTopics} style={styles.button}>
-					<Icon name="comment-alt" color="#000000" type = "solid" size={20} />
+					<Icon name="comment-alt" color={ICON_CONSTANTS.BLACK_COLOR} size={20} solid/>
 					<Text style = {styles.textBody}>
 						{'  Chuẩn bị trước văn bản'}
 					</Text>
